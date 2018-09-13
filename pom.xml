@@ -10,4 +10,39 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    <dependencies>
+        
+        <dependency>  
+            <groupId>com.tilab.jade</groupId> 
+            <artifactId>jade</artifactId> 
+            <version>4.5.0</version>  
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>org.cogroo.lang.pt_br</groupId>
+            <artifactId>cogroo-gc-pt_br</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+      
+        
+        
+        <dependency>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
+            <artifactId>speech-to-text</artifactId>
+            <version>6.6.0</version>
+        </dependency>
+        
+    </dependencies>
+    
+    <repositories>
+        <repository> 
+            <id>tilab</id> 
+            <url>http://jade.tilab.com/maven/</url> 
+        </repository>
+        
+    </repositories>
+    
+    
 </project>
