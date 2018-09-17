@@ -47,7 +47,7 @@
                         <configuration>
                             <mainClass>jade.Boot</mainClass>
                             <arguments>
-                                <argument>-gui </argument>
+                                <argument></argument>
                             </arguments>
                         </configuration>
                     </plugin>
