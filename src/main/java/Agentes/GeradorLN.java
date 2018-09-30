@@ -28,6 +28,7 @@ public class GeradorLN extends Agent{
                 msge.addReceiver(new AID("GeradorVoz", AID.ISLOCALNAME));
                 msge.setContent(msgr.getContent());
                 System.out.print("olá motta");
+                
                 send(msge) ;}
             // interrompe este comportamento ate que chegue uma nova mensagem
             block();

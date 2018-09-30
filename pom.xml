@@ -37,7 +37,7 @@
     </build>
     <profiles>
         <profile>
-            <id>jade-fred</id>
+            <id>jade</id>
             <build>
                 <plugins>
                     <plugin>
