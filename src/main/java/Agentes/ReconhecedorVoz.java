@@ -7,7 +7,6 @@ package Agentes;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.Scanner;
 import javax.sound.sampled.AudioFormat;
@@ -21,6 +20,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.*;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import jade.core.behaviours.CyclicBehaviour;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
@@ -63,24 +63,38 @@ public class ReconhecedorVoz  extends Agent{
                 AudioInputStream audio = new AudioInputStream(line);
 
                 RecognizeOptions options = new RecognizeOptions.Builder()
-                        .interimResults(true)
-                        //.inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
+                        //.interimResults(true)
+                        .inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
                         .audio(audio)
+                        //.contentType(HttpMediaType.AUDIO_RAW)
                         .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate)
                         /*.model(RecognizeOptions.pt-BR_BroadbandModel)  PT_BR_BROADBANDMODEL*/
                         .model("pt-BR_BroadbandModel")
+                        .wordConfidence(Boolean.TRUE)
                         .build();
                 /*aqui começa a leitura*/
                 service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
                     @Override
                     public void onTranscription(SpeechRecognitionResults speechResults) {
-                        System.out.println(speechResults);
+                        //System.out.println(speechResults);
+                        //System.out.println(speechResults.toString());
+                        String msgr;
+                        msgr="";
+                        msgr=speechResults.toString();
+                        ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
+                        msge.setLanguage("Portugues");
+                        msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
+                        msge.setContent(msgr);
+                        send(msge);
+
+                        
+
                     }
                 });
 
-                System.out.println("Listening to your voice for the next 10s...");
+                System.out.println("Listening to your voice for the next 5s...");
                     try {
-                        Thread.sleep(3* 1000);
+                        Thread.sleep(5 * 1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -95,8 +109,8 @@ public class ReconhecedorVoz  extends Agent{
         System.out.println("Fin.");
                 
                 
-                
-                
+                /*
+               
                 String msgr;
                 msgr = "";
                 Scanner ler = new Scanner(System.in);
@@ -107,7 +121,8 @@ public class ReconhecedorVoz  extends Agent{
                 msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
                 msge.setContent(msgr);
                 send(msge) ;
- 
+ */
+                block();
         // interrompe este comportamento ate que chegue uma nova mensagem
             }
             });
