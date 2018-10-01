@@ -80,7 +80,7 @@ public class ReconhecedorVoz  extends Agent{
 
                 System.out.println("Listening to your voice for the next 10s...");
                     try {
-                        Thread.sleep(10 * 1000);
+                        Thread.sleep(3* 1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }

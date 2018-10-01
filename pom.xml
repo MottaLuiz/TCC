@@ -59,6 +59,12 @@
     
     <dependencies>
         
+        <dependency>
+            <artifactId>com.google</artifactId>
+            <groupId>Ab</groupId>
+            <version>0.0.4.3</version>
+        </dependency>
+       
         <dependency>  
             <groupId>com.tilab.jade</groupId> 
             <artifactId>jade</artifactId> 
@@ -106,6 +112,10 @@
             <artifactId>java-sdk</artifactId>
             <version>6.4.0</version>
         </dependency>
-        
+        <dependency>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
+            <artifactId>assistant</artifactId>
+            <version>6.5.1</version>
+        </dependency>
     </dependencies>
 </project>
