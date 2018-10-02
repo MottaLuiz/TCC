@@ -29,7 +29,7 @@ public class Semantizador extends Agent{
             System.out.println("frase:"+textoseparado[4].substring(2,textoseparado[4].length()-26));
             System.out.println("confiancafrase:"+textoseparado[5].substring(1,6));
             String[] palavras = textoseparado[4].substring(2,textoseparado[4].length()-26).split(" ");
-            for (int i=0; i<=palavras.length;i++){
+            for (int i=0; i<=palavras.length-1;i++){
                 int auxiliar = textoseparado[6].indexOf(palavras[i])+17+palavras[i].length();
                 int auxiliar2 = textoseparado[6].indexOf(palavras[i])+25+palavras[i].length();
                 System.out.println("palavra"+ i+":" + palavras[i]);
@@ -46,7 +46,7 @@ public class Semantizador extends Agent{
                 msge.setLanguage ("Portugues");
                 msge.addReceiver(new AID("Gerenciador", AID.ISLOCALNAME));
                 msge.setContent(msgr.getContent());
-                //send(msge) ;
+                send(msge) ;
                 }
         // interrompe este comportamento ate que chegue uma nova mensagem
             block();

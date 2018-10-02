@@ -1,1 +1,1 @@
-http://Luiz-PC:7778/acc
+http://10.148.4.141:7778/acc

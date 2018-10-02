@@ -21,7 +21,7 @@ import org.alicebot.ab.MagicBooleans;
  */
 public class GeradorLN extends Agent {
 
-    private static final boolean TRACE_MODE = true;
+    private static final boolean TRACE_MODE = false;
     static String botName = "conhecimentodialogo";
 
     protected void setup() {
@@ -47,7 +47,7 @@ public class GeradorLN extends Agent {
                         Chat chatSession = new Chat(bota);
 
                         String response = chatSession.multisentenceRespond(request);
-
+                        System.out.println(response);
                         ACLMessage msge = new ACLMessage(INFORM);
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("GeradorVoz", AID.ISLOCALNAME));
