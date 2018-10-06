@@ -81,7 +81,7 @@ public class ReconhecedorVoz  extends Agent{
                     public void onTranscription(SpeechRecognitionResults speechResults) {
                         //System.out.println(speechResults);
                         String msgr;
-                        msgr="";
+                        msgr="";/*
                         msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
@@ -141,8 +141,8 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";
-                        //msgr=speechResults.toString();
+"}";*/
+                        msgr=speechResults.toString();
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
@@ -154,9 +154,9 @@ public class ReconhecedorVoz  extends Agent{
                     }
                 });
 
-                System.out.println("Listening to your voice for the next 2s...");
+                System.out.println("Listening to your voice for the next 7s...");
                     try {
-                        Thread.sleep(2 * 1000);
+                        Thread.sleep(7 * 1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }

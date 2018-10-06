@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 <!-- File: update.aiml -->
-<!-- Author: Dr. Richard S. Wallace -->
+<!-- Author: unknown -->
 <!-- Last modified: Outubro 06, 2018 -->
 <!--  -->
-<!-- This AIML file is part of the CONHECIMENTODIALOGO 0.0.4 chat bot knowledge base. -->
+<!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
-<!-- The CONHECIMENTODIALOGO brain is Copyright &copy; 2018 by ALICE AI Foundation. -->
+<!-- The CONHECIMENTODIALOGO brain is Copyright &copy; 2018 by unknown. -->
 <!--  -->
 <!-- The CONHECIMENTODIALOGO brain is released under the terms of the GNU Lesser General -->
 <!-- Public License, as published by the Free Software Foundation. -->
@@ -14,12 +14,9 @@
 <!-- This file is distributed WITHOUT ANY WARRANTY; without even the  -->
 <!-- implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   -->
 <!--  -->
-<!-- For more information see http://www.alicebot.org -->
-<category><pattern>VERSION</pattern>
-<template>S.U.P.E.R. AIML Bot version 0.0.4</template>
-</category>
+<!-- For more information see unknown -->
 <category><pattern>BUILD</pattern>
-<template>Sat Oct 06 17:30:30 BRT 2018</template>
+<template>Sat Oct 06 19:16:04 BRT 2018</template>
 </category>
 <category><pattern>DELEVLOPMENT ENVIRONMENT</pattern>
 <template>Program AB 0.0.4.2 beta -- AI Foundation Reference AIML 2.0 implementation</template>

@@ -10,6 +10,7 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import static jade.lang.acl.ACLMessage.INFORM;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,17 +26,31 @@ import org.cogroo.text.Sentence;
 import org.cogroo.text.SyntacticChunk;
 import org.cogroo.text.Token;
 import org.cogroo.text.impl.DocumentImpl;
+import org.alicebot.ab.Bot;
+import org.alicebot.ab.Chat;
+import org.alicebot.ab.MagicBooleans;
 
 /**
  *
  * @author Lidera Consultoria
  */
 public class Semantizador extends Agent {
+    private static final boolean TRACE_MODE = false;
+    static String botName = "conhecimentodialogo";
 
     private Analyzer cogroo;
 
     protected void setup() {
         System.out.println("Semantizador incializado");
+        String resourcesPath = getResourcesPath();
+        //System.out.println(resourcesPath);
+        MagicBooleans.trace_mode = TRACE_MODE;
+        Bot bot = new Bot("conhecimentodialogo", resourcesPath);
+        bot.writeAIMLFiles();
+        bot.writeQuit();
+        
+        
+        
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
@@ -44,29 +59,39 @@ public class Semantizador extends Agent {
 
                     String mensagem = msgr.getContent();
                     String[] textoseparado = mensagem.split(":");
-                    System.out.println("frase:" + textoseparado[4].substring(2, textoseparado[4].length() - 26));
+                    String frase=textoseparado[4].substring(2, textoseparado[4].length() - 26);
+                    System.out.println("frase:" + frase);
                     System.out.println("confiancafrase:" + textoseparado[5].substring(1, 6));
                     String[] palavras = textoseparado[4].substring(2, textoseparado[4].length() - 26).split(" ");
                     for (int i = 0; i <= palavras.length - 1; i++) {
                         int auxiliar = textoseparado[6].indexOf(palavras[i]) + 17 + palavras[i].length();
                         int auxiliar2 = textoseparado[6].indexOf(palavras[i]) + 25 + palavras[i].length();
-                        System.out.println("palavra" + i + ":" + palavras[i]);
+                        System.out.println("palavra " + i + ":" + palavras[i]);
                         System.out.println("confiança palavra " + i + ":" + textoseparado[6].substring(auxiliar, auxiliar2));
+                        
+                        String request = palavras[i];
+                        Bot bota = new Bot("conhecimentodialogo", resourcesPath);
+                        Chat chatSession = new Chat(bota);
+                        String response = chatSession.multisentenceRespond(request);
+                        if(!"I have no answer for that.".equals(response)){
+                            frase=frase.replaceAll(request,response);
+                        }
                     }
                     Set<String> possiveislocais = new HashSet<String>(Arrays.asList(new String[]{"[quarto]", "[sala]", "[cozinha]", "[varanda]"}));
-                    Set<String> possiveisdispositivos = new HashSet<String>(Arrays.asList(new String[]{"[lâmpada]", "[televisão]", "[luz]", "[som]"}));
+                    Set<String> possiveisdispositivos = new HashSet<String>(Arrays.asList(new String[]{"[lâmpada]", "[televisão]", "[som]"}));
                     //Cogroo
                     ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
                     cogroo = factory.createPipe();
                     Document document = new DocumentImpl();
-                    document.setText(textoseparado[4].substring(2, textoseparado[4].length() - 26));
+                    document.setText(frase);
                     cogroo.analyze(document);
-                    StringBuilder output = new StringBuilder();
+                    //StringBuilder output = new StringBuilder();
 
                     // and now we navigate the document to print its data
                     for (Sentence sentence : document.getSentences()) {
                         int nacc = 0;
                         for (SyntacticChunk structure : sentence.getSyntacticChunks()) {
+
                             if ("ACC".equals(structure.getTag())) {
                                 nacc = nacc + 1;
                             }
@@ -123,7 +148,7 @@ public class Semantizador extends Agent {
                                     acao = Arrays.toString(token.getLemmas());
                                 }
 
-                                if ("n".equals(token.getPOSTag())) {
+                                if (("n".equals(token.getPOSTag()))||("adj".equals(token.getPOSTag()))) {
 
                                     if (possiveisdispositivos.contains(Arrays.toString(token.getLemmas()))) {
                                         dispositivos[contdisp] = Arrays.toString(token.getLemmas());
@@ -145,9 +170,7 @@ public class Semantizador extends Agent {
                         }
                     }
 
-                    // System.out.println(output.toString());
-                    //ver por ACC quais são nomes e verbos - verificar nas listas o que é o que de cada nome
-                    //AIML
+                    //AIML ou passar aiml antes palavra por palavra e substituir
                     //Criar os pares
                     //fim do teste
                     ACLMessage msge = new ACLMessage(INFORM);
@@ -161,4 +184,18 @@ public class Semantizador extends Agent {
             }
         });
     }
+    
+    
+    private static String getResourcesPath() {
+        File currDir = new File(".");
+        String path = currDir.getAbsolutePath();
+        path = path.substring(0, path.length() - 2);
+        //System.out.println(path);
+        String resourcesPath = path + "\\src\\main";
+        return resourcesPath;
+    }
+    
+    
+    
 }
+
