@@ -18,9 +18,12 @@ import javax.sound.sampled.TargetDataLine;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.*;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 import jade.core.behaviours.CyclicBehaviour;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
@@ -77,10 +80,69 @@ public class ReconhecedorVoz  extends Agent{
                     @Override
                     public void onTranscription(SpeechRecognitionResults speechResults) {
                         //System.out.println(speechResults);
-                        //System.out.println(speechResults.toString());
                         String msgr;
                         msgr="";
-                        msgr=speechResults.toString();
+                        msgr="{\n" +
+"  \"results\": [\n" +
+"    {\n" +
+"      \"final\": true,\n" +
+"      \"alternatives\": [\n" +
+"        {\n" +
+"          \"transcript\": \"ligue a lâmpada da sala e aumente o volume da televisão \",\n" +
+"          \"confidence\": 0.952,\n" +
+"          \"word_confidence\": [\n" +
+"            [\n" +
+"              \"ligue\",\n" +
+"              0.981\n" +
+"            ],\n" +
+"            [\n" +
+"              \"a\",\n" +
+"              0.989\n" +
+"            ],\n" +
+"            [\n" +
+"              \"lâmpada\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"da\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"sala\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"e\",\n" +
+"              0.904\n" +
+"            ],\n" +
+"            [\n" +
+"              \"aumente\",\n" +
+"              0.656\n" +
+"            ],\n" +
+"            [\n" +
+"              \"o\",\n" +
+"              0.836\n" +
+"            ],\n" +
+"            [\n" +
+"              \"volume\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"da\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"televisão\",\n" +
+"              0.995\n" +
+"            ]\n" +
+"          ]\n" +
+"        }\n" +
+"      ]\n" +
+"    }\n" +
+"  ],\n" +
+"  \"result_index\": 0\n" +
+"}";
+                        //msgr=speechResults.toString();
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
@@ -92,9 +154,9 @@ public class ReconhecedorVoz  extends Agent{
                     }
                 });
 
-                System.out.println("Listening to your voice for the next 5s...");
+                System.out.println("Listening to your voice for the next 2s...");
                     try {
-                        Thread.sleep(5 * 1000);
+                        Thread.sleep(2 * 1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -108,20 +170,7 @@ public class ReconhecedorVoz  extends Agent{
                 }
         System.out.println("Fin.");
                 
-                
-                /*
                
-                String msgr;
-                msgr = "";
-                Scanner ler = new Scanner(System.in);
-                msgr = ler.nextLine();
-                
-                ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
-                msge.setLanguage ("Portugues");
-                msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
-                msge.setContent(msgr);
-                send(msge) ;
- */
                 block();
         // interrompe este comportamento ate que chegue uma nova mensagem
             }
