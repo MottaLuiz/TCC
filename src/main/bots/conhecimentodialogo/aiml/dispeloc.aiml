@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: dispeloc.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Outubro 06, 2018 -->
+<!-- Last modified: Outubro 07, 2018 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -16,7 +16,7 @@
 <!--  -->
 <!-- For more information see unknown -->
 <category><pattern>ESCURO</pattern>
-<template>lâmpada</template>
+<template>lampada</template>
 </category>
 <category><pattern>O QUE E VOCE</pattern>
 <template>sou um robo</template>
