@@ -53,6 +53,7 @@ public class Gerenciador extends Agent{
                   ACLMessage msge = new ACLMessage(INFORM);
                 msge.setLanguage ("Portugues");
                 msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
+
                 msge.setContent(msgr.getContent());
                 send(msge) ;}
             // interrompe este comportamento ate que chegue uma nova mensagem
