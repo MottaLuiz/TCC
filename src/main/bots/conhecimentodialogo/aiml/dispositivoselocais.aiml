@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-<!-- File: respostas.aiml -->
+<!-- File: dispositivoselocais.aiml -->
 <!-- Author: unknown -->
 <!-- Last modified: Outubro 09, 2018 -->
 <!--  -->
@@ -15,14 +15,10 @@
 <!-- implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   -->
 <!--  -->
 <!-- For more information see unknown -->
-<category><pattern>RESPOSTA PADRAO</pattern>
-<template>AIML ON</template>
+<category><pattern>ESCURO</pattern>
+<template>lampada</template>
 </category>
-<category><pattern>WHAT IS CHAT BOT</pattern>
-<template>Chatbot is a computer program designed to simulate
-        conversation with human users, especially over the Internet.</template>
-</category>
-<category><pattern>WHAT IS INDIA</pattern>
-<template>wonderful country.</template>
+<category><pattern>LUZ</pattern>
+<template>lampada</template>
 </category>
 </aiml>

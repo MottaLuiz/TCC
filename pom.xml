@@ -117,5 +117,10 @@
             <artifactId>assistant</artifactId>
             <version>6.5.1</version>
         </dependency>
-    </dependencies>
+            <dependency>
+                <groupId>org.cogroo.lang.pt_br</groupId>
+                <artifactId>cogroo-gc-pt_br</artifactId>
+                <version>4.0.0</version>
+            </dependency>
+        </dependencies>
 </project>

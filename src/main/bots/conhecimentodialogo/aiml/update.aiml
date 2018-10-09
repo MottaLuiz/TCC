@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: update.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Outubro 06, 2018 -->
+<!-- Last modified: Outubro 09, 2018 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -15,8 +15,11 @@
 <!-- implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   -->
 <!--  -->
 <!-- For more information see unknown -->
+<category><pattern>VERSION</pattern>
+<template>S.U.P.E.R. AIML Bot version 0.0.4</template>
+</category>
 <category><pattern>BUILD</pattern>
-<template>Sat Oct 06 19:16:04 BRT 2018</template>
+<template>Tue Oct 09 14:29:23 BRT 2018</template>
 </category>
 <category><pattern>DELEVLOPMENT ENVIRONMENT</pattern>
 <template>Program AB 0.0.4.2 beta -- AI Foundation Reference AIML 2.0 implementation</template>
