@@ -121,7 +121,7 @@ public class Semantizador extends Agent {
                                 String palavra;
                                 for (SyntacticChunk structure : sentence.getSyntacticChunks()) {
                                     for (Token token : structure.getTokens()) {
-                                        palavra = StringUtils.removeAll(StringUtils.removeAll(Arrays.toString(token.getLemmas()), "\\["), "\\]");
+                                         palavra = StringUtils.removeAll(StringUtils.removeAll(Arrays.toString(token.getLemmas()), "\\["), "\\]");
                                         palavra = getEq(palavra, resourcesPath);
                                         System.out.println("tokenlematizado=" + Arrays.toString(token.getLemmas()));
                                         if ("P".equals(structure.getTag())) {

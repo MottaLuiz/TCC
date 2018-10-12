@@ -22,7 +22,7 @@ public class Gerenciador extends Agent {
 
     protected void setup() {
         System.out.println("Gerenciador de dialogo incializado");
-        GerenciadorCasa.consultar();
+        //GerenciadorCasa.consultar();
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr =receive() ;

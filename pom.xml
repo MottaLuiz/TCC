@@ -106,6 +106,12 @@
             <groupId>org.cogroo.lang.pt_br</groupId>
             <artifactId>cogroo-gc-pt_br</artifactId>
             <version>4.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
            
         <dependency>
@@ -148,11 +154,10 @@
             <version>3.8.0</version>
             <type>jar</type>
         </dependency>
-    
         <dependency>
-            <groupId>org.cogroo.lang.pt_br</groupId>
-            <artifactId>cogroo-gc-pt_br</artifactId>
-            <version>4.0.0</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
         </dependency>
     </dependencies>
 </project>
