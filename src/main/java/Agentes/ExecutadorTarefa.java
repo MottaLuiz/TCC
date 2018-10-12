@@ -5,37 +5,45 @@
  */
 package Agentes;
 
+/**
+ *
+ * @author Luiz
+ */
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import static jade.lang.acl.ACLMessage.INFORM;
 
-/**
- *
- * @author Lidera Consultoria
- */
-public class Gerenciador extends Agent {
 
+public class ExecutadorTarefa extends Agent {
     protected void setup() {
-        System.out.println("Gerenciador de dialogo incializado");
-        GerenciadorCasa.consultar();
+
+        System.out.println("Executador de Tarefas incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
                 if (msgr != null) {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
 
-                    ACLMessage msge = new ACLMessage(INFORM);
-                    msge.setLanguage("Portugues");
-                    msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
-                    msge.setContent(msgr.getContent());
-                    send(msge);
+                    try {
+
+                       
+                        ACLMessage msge = new ACLMessage(INFORM);
+                        msge.setLanguage("Portugues");
+                        msge.addReceiver(new AID("ExecutadorTerefas", AID.ISLOCALNAME));
+                        msge.setContent(msgr.getContent());
+
+                        send(msge);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    // interrompe este comportamento ate que chegue uma nova mensagem
                 }
-                // interrompe este comportamento ate que chegue uma nova mensagem
                 block();
+
             }
         });
     }
-
 }
