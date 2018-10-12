@@ -148,7 +148,7 @@
             <version>3.8.0</version>
             <type>jar</type>
         </dependency>
-    </dependencies>
+    
             <dependency>
                 <groupId>org.cogroo.lang.pt_br</groupId>
                 <artifactId>cogroo-gc-pt_br</artifactId>
