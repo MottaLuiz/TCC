@@ -5,6 +5,7 @@
  */
 package Agentes;
 
+import utils.GerenciadorCasa;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -62,3 +63,4 @@ public class Gerenciador extends Agent {
         });
     }
 
+}
