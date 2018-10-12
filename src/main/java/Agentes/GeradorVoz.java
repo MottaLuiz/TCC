@@ -11,15 +11,29 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Scanner;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 /**
  *
  * @author Lidera Consultoria
  */
 public class GeradorVoz extends Agent {
+    // to store current position 
+
+    Long currentFrame;
+    Clip clip;
+    AudioInputStream audioInputStream;
+    static String filePath;
 
     protected void setup() {
         System.out.println("Gerador de voz incializado");
@@ -35,10 +49,10 @@ public class GeradorVoz extends Agent {
                     try {
                         SynthesizeOptions synthesizeOptions
                                 = new SynthesizeOptions.Builder()
-                                .text(msg.getContent())
-                                .accept("audio/wav")
-                                .voice("pt-BR_IsabelaVoice")
-                                .build();
+                                        .text(msg.getContent())
+                                        .accept("audio/wav")
+                                        .voice("pt-BR_IsabelaVoice")
+                                        .build();
 
                         InputStream inputStream
                                 = textToSpeech.synthesize(synthesizeOptions).execute();
@@ -57,11 +71,33 @@ public class GeradorVoz extends Agent {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
+                    try {
+                        filePath = "D:\\faculdade\\TCC\\TCC - versão final\\TCC\\hello_world.wav";
+                        // create AudioInputStream object 
+                        audioInputStream
+                                = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
+                        // create clip reference 
+                        clip = AudioSystem.getClip();
+
+                        // open audioInputStream to the clip 
+                        clip.open(audioInputStream);
+
+                        clip.start();
+                    } catch (Exception ex) {
+                        System.out.println("Error with playing sound.");
+                        ex.printStackTrace();
+                    }
+                }
                 block();
             }
         });
+    }
+
+    public void play() {
+        //start the clip 
+        clip.start();
+
     }
 
 }

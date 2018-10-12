@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-<!-- File: dispeloc.aiml -->
+<!-- File: dispositivoselocais.aiml -->
 <!-- Author: unknown -->
 <!-- Last modified: Outubro 09, 2018 -->
 <!--  -->
@@ -18,13 +18,7 @@
 <category><pattern>ESCURO</pattern>
 <template>lampada</template>
 </category>
-<category><pattern>O QUE E VOCE</pattern>
-<template>sou um robo</template>
-</category>
-<category><pattern>O QUE VOCE SUGERE QUE EU FACA?</pattern>
-<template>durma</template>
-</category>
-<category><pattern>COMO VOCE ESTA</pattern>
-<template>bem, obrigado por perguntar</template>
+<category><pattern>LUZ</pattern>
+<template>lampada</template>
 </category>
 </aiml>

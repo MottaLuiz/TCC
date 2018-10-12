@@ -79,33 +79,31 @@ public class ReconhecedorVoz  extends Agent{
                 service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
                     @Override
                     public void onTranscription(SpeechRecognitionResults speechResults) {
-                        //System.out.println(speechResults);
+                        System.out.println(speechResults);
                         String msgr;
-                        msgr="";/*
+                        msgr="";
+                        msgr=speechResults.toString();
+                        /*
                         msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
 "      \"alternatives\": [\n" +
 "        {\n" +
-"          \"transcript\": \"ligue a lâmpada da sala e aumente o volume da televisão \",\n" +
-"          \"confidence\": 0.952,\n" +
+"          \"transcript\": \"ligue luz da sala e desligue a televisão do quarto \",\n" +
+"          \"confidence\": 0.873,\n" +
 "          \"word_confidence\": [\n" +
 "            [\n" +
 "              \"ligue\",\n" +
-"              0.981\n" +
+"              0.157\n" +
 "            ],\n" +
 "            [\n" +
-"              \"a\",\n" +
-"              0.989\n" +
-"            ],\n" +
-"            [\n" +
-"              \"lâmpada\",\n" +
-"              1.0\n" +
+"              \"luz\",\n" +
+"              0.975\n" +
 "            ],\n" +
 "            [\n" +
 "              \"da\",\n" +
-"              1.0\n" +
+"              0.998\n" +
 "            ],\n" +
 "            [\n" +
 "              \"sala\",\n" +
@@ -113,27 +111,27 @@ public class ReconhecedorVoz  extends Agent{
 "            ],\n" +
 "            [\n" +
 "              \"e\",\n" +
-"              0.904\n" +
-"            ],\n" +
-"            [\n" +
-"              \"aumente\",\n" +
-"              0.656\n" +
-"            ],\n" +
-"            [\n" +
-"              \"o\",\n" +
-"              0.836\n" +
-"            ],\n" +
-"            [\n" +
-"              \"volume\",\n" +
 "              1.0\n" +
 "            ],\n" +
 "            [\n" +
-"              \"da\",\n" +
+"              \"desligue\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"a\",\n" +
 "              1.0\n" +
 "            ],\n" +
 "            [\n" +
 "              \"televisão\",\n" +
-"              0.995\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"do\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"quarto\",\n" +
+"              0.847\n" +
 "            ]\n" +
 "          ]\n" +
 "        }\n" +
@@ -142,7 +140,7 @@ public class ReconhecedorVoz  extends Agent{
 "  ],\n" +
 "  \"result_index\": 0\n" +
 "}";*/
-                        msgr=speechResults.toString();
+                        
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
@@ -154,9 +152,9 @@ public class ReconhecedorVoz  extends Agent{
                     }
                 });
 
-                System.out.println("Listening to your voice for the next 7s...");
+                System.out.println("Listening to your voice for the next 5s...");
                     try {
-                        Thread.sleep(7 * 1000);
+                        Thread.sleep(5 * 1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }

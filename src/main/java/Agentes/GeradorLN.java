@@ -42,7 +42,8 @@ public class GeradorLN extends Agent {
 
                     try {
 
-                        String request = "RESPOSTA PADRAO";//msgr.toString();
+                        String request = "RESPOSTA PADRAO";//
+                        //String request=msgr.toString();
                         Bot bota = new Bot("conhecimentodialogo", resourcesPath);
                         Chat chatSession = new Chat(bota);
 

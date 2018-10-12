@@ -10,7 +10,9 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import static jade.lang.acl.ACLMessage.INFORM;
-
+import jade.lang.acl.UnreadableException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Lidera Consultoria
@@ -22,20 +24,41 @@ public class Gerenciador extends Agent {
         GerenciadorCasa.consultar();
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
-                ACLMessage msgr = receive();
-                if (msgr != null) {
-                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
-
-                    ACLMessage msge = new ACLMessage(INFORM);
-                    msge.setLanguage("Portugues");
-                    msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
-                    msge.setContent(msgr.getContent());
-                    send(msge);
+                ACLMessage msgr =receive() ;
+                String pares[][][];
+                
+                if (msgr!=null ){
+                    try {
+                    pares = (String[][][]) msgr.getContentObject();
+                    StringBuilder output =new StringBuilder();
+                    System.out.println("MATRIZ RECEBIDA");
+                    for (int i=0; i<pares.length ; i++){
+                            output.append("\n");
+                            for (int j=0; j<pares[i].length;j++){
+                                output.append(" ");
+                                for (int k=0; k<pares[i][j].length;k++){
+                                   output.append(pares[i][j][k]);
+                                    //System.out.println(pares[i][j][k]);
+                                    output.append(" ");
+                                }
+                            }
+                        }
+                        System.out.println(output);
+                } catch (UnreadableException ex) {
+                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                // interrompe este comportamento ate que chegue uma nova mensagem
-                block();
+                    
+            //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
+                
+                  ACLMessage msge = new ACLMessage(INFORM);
+                msge.setLanguage ("Portugues");
+                msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
+
+                msge.setContent(msgr.getContent());
+                send(msge) ;}
+            // interrompe este comportamento ate que chegue uma nova mensagem
+            block();
             }
         });
     }
 
-}
