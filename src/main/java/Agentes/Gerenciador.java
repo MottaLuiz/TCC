@@ -12,6 +12,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import static jade.lang.acl.ACLMessage.INFORM;
 import jade.lang.acl.UnreadableException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -22,7 +23,11 @@ public class Gerenciador extends Agent {
 
     protected void setup() {
         System.out.println("Gerenciador de dialogo incializado");
-        //GerenciadorCasa.consultar();
+        try {
+            GerenciadorCasa.consultar();
+        } catch (IOException ex) {
+            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+        }
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr =receive() ;

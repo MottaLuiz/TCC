@@ -106,12 +106,6 @@
             <groupId>org.cogroo.lang.pt_br</groupId>
             <artifactId>cogroo-gc-pt_br</artifactId>
             <version>4.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
            
         <dependency>

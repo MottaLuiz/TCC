@@ -77,14 +77,15 @@ public class Semantizador extends Agent {
                             
 
                         }
-                        Set<String> possiveisacoes = new HashSet<>(Arrays.asList(new String[]{"ligar", "desligar", "aumentar", "diminuir"}));
-                        Set<String> possiveislocais = new HashSet<>(Arrays.asList(new String[]{"quarto", "sala", "cozinha", "varanda"}));
-                        Set<String> possiveisdispositivos = new HashSet<>(Arrays.asList(new String[]{"lampada", "televisao", "som"}));
-                        Set<String> possiveisconfirmacoes = new HashSet<>(Arrays.asList(new String[]{"sim", "nao"}));
+                        Set<String> possiveisacoes = new HashSet<String>(Arrays.asList(new String[]{"ligar", "desligar", "aumentar", "diminuir"}));
+                        Set<String> possiveislocais = new HashSet<String>(Arrays.asList(new String[]{"quarto", "sala", "cozinha", "varanda"}));
+                        Set<String> possiveisdispositivos = new HashSet<String>(Arrays.asList(new String[]{"lampada", "televisao", "som"}));
+                        Set<String> possiveisconfirmacoes = new HashSet<String>(Arrays.asList(new String[]{"sim", "nao"}));
                         //Cogroo
                         
                         //analise sintatica
-                        ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
+                        ComponentFactory factory;
+                    factory = ComponentFactory.create(new Locale("pt", "BR"));
                         cogroo = factory.createPipe();
                         Document document = new DocumentImpl();
                         document.setText(frase);
@@ -121,7 +122,7 @@ public class Semantizador extends Agent {
                                 String palavra;
                                 for (SyntacticChunk structure : sentence.getSyntacticChunks()) {
                                     for (Token token : structure.getTokens()) {
-                                         palavra = StringUtils.removeAll(StringUtils.removeAll(Arrays.toString(token.getLemmas()), "\\["), "\\]");
+                                        palavra = StringUtils.removeAll(StringUtils.removeAll(Arrays.toString(token.getLemmas()), "\\["), "\\]");
                                         palavra = getEq(palavra, resourcesPath);
                                         System.out.println("tokenlematizado=" + Arrays.toString(token.getLemmas()));
                                         if ("P".equals(structure.getTag())) {
