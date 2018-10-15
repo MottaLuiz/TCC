@@ -5,45 +5,20 @@
  */
 package Agentes;
 
+import utils.FrameTarefa;
+import utils.Pares;
+
 /**
  *
  * @author Luiz
  */
-import jade.core.AID;
-import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.lang.acl.ACLMessage;
-import static jade.lang.acl.ACLMessage.INFORM;
 
 
-public class ExecutadorTarefa extends Agent {
-    protected void setup() {
 
-        System.out.println("Executador de Tarefas incializado");
-        addBehaviour(new CyclicBehaviour(this) {
-            public void action() {
-                ACLMessage msgr = receive();
-                if (msgr != null) {
-                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
+public class ExecutadorTarefa {
 
-                    try {
-
-                       
-                        ACLMessage msge = new ACLMessage(INFORM);
-                        msge.setLanguage("Portugues");
-                        msge.addReceiver(new AID("ExecutadorTerefas", AID.ISLOCALNAME));
-                        msge.setContent(msgr.getContent());
-
-                        send(msge);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    // interrompe este comportamento ate que chegue uma nova mensagem
-                }
-                block();
-
-            }
-        });
+    static Pares executar(FrameTarefa frame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+   
 }

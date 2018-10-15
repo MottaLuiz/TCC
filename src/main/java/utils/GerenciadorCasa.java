@@ -42,11 +42,12 @@ String queryString =
 "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
 "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
-"SELECT ?subject ?object ?class ?subclass \n"  +
-"	WHERE { ?subject  rdfs:subClassOf ?object ."
-        + "?object rdfs:label \"Locais@pt\" ."
-        + "?subject rdfs:label ?subclass . "
-        + "?object rdfs:label ?class . "
+"SELECT ?subject ?object ?sublabel ?oblabel \n"  +
+"	WHERE { ?subject  owl:someValuesFrom ?object ."
+        + " ?object rdfs:label ?oblabel . "
+        //+ "?object rdfs:subPropertyOf ?object ."
+       // + "?subject rdfs:label \"Sala_local@pt\" . "
+        + "OPTIONAL { ?subject rdfs:label ?sublabel. } "
         +  "      }";
  
 Query query = QueryFactory.create(queryString);
@@ -62,6 +63,10 @@ ResultSetFormatter.out(System.out, results, query);
 qe.close();
        
         
+    }
+
+    public static boolean consultar(FrameTarefa frame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
