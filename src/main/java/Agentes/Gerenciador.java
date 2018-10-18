@@ -70,6 +70,7 @@ public class Gerenciador extends Agent {
         compFSM.registerFirstState(new OneShotBehaviour(this) {
             public void action() {
                 resposta = null;
+                if (pares!=null){
                 if (pares.size() == 1) {
                     pilha.setIntencaoatual(pares.elementAt(0).getIntencao());
                     pilha.setArgsatual(pares.elementAt(0).getArgs());
@@ -85,6 +86,7 @@ public class Gerenciador extends Agent {
                                     pares.elementAt(i).getArgs());
                         }
                     }
+                }
                 }
             }
 
@@ -154,7 +156,6 @@ public class Gerenciador extends Agent {
                     Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 send(msge);
-                System.out.println(" Executando meu ´ultimo comportamento .");
             }
         }, "ComunicaGLN");
         // definimos as transicoes
