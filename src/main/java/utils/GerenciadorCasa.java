@@ -29,7 +29,14 @@ public class GerenciadorCasa {
     public static void consultar() throws FileNotFoundException, IOException {
     
         // Open the bloggers RDF graph from the filesystem
-InputStream in = new FileInputStream(new File("C:\\Users\\Luiz\\Documents\\NetBeansProjects\\TCC\\src\\main\\resources\\OntologiaCasa.owl"));
+        
+        File currDir = new File(".");
+        String path = currDir.getAbsolutePath();
+        path = path.substring(0, path.length() - 2);
+        //System.out.println(path);
+        String resourcesPath = path + "\\src\\main\\resources\\OntologiaCasa.owl";
+        InputStream in = new FileInputStream(new File(resourcesPath));
+//InputStream in = new FileInputStream(new File("D:\\faculdade\\TCC\\TCC - versão final\\TCC\\src\\main\\resources\\OntologiaCasa.owl"));
  
 // Create an empty in-memory model and populate it from the graph
 Model model = ModelFactory.createMemModelMaker().createDefaultModel();

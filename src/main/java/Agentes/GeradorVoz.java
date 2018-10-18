@@ -72,7 +72,12 @@ public class GeradorVoz extends Agent {
                         e.printStackTrace();
                     }
                     try {
-                        filePath = "C:\\Users\\Luiz\\Documents\\NetBeansProjects\\TCC\\hello_world.wav";
+                        File currDir = new File(".");
+        String path = currDir.getAbsolutePath();
+        path = path.substring(0, path.length() - 2);
+        //System.out.println(path);
+        String resourcesPath = path + "hello_world.owl";
+                        filePath = resourcesPath;
                         // create AudioInputStream object 
                         audioInputStream
                                 = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
