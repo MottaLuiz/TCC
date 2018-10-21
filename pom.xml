@@ -58,6 +58,17 @@
  
     
     <dependencies>
+        <dependency>
+            <groupId>org.cogroo.lang.pt_br</groupId>
+            <artifactId>cogroo-gc-pt_br</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.cogroo.lang.pt_br</groupId>
+            <artifactId>cogroo-ann-pt_br</artifactId>
+            <version>4.2.0</version>
+        </dependency>
         
         <dependency>
             <artifactId>com.google</artifactId>
@@ -102,17 +113,7 @@
             <version>1.11.0</version>  
         </dependency>
 
-        <dependency>
-            <groupId>org.cogroo.lang.pt_br</groupId>
-            <artifactId>cogroo-gc-pt_br</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.cogroo.lang.pt_br</groupId>
-            <artifactId>cogroo-ann-pt_br</artifactId>
-            <version>4.0.0</version>
-        </dependency>
+
            
         <dependency>
             <groupId>com.ibm.watson.developer_cloud</groupId>

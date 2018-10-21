@@ -67,10 +67,11 @@ public class Semantizador extends Agent {
                     //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
                     String mensagem = msgr.getContent();
                     String[] textoseparado = mensagem.split(":");
+                    System.out.println("textoseparado: "+ textoseparado[4]);
                     String frase = textoseparado[4].substring(2, textoseparado[4].length() - 26);
                     System.out.println("frase:" + frase);
                     //System.out.println("confiancafrase:" + textoseparado[5].substring(1, 6));
-                    String[] palavras = textoseparado[4].substring(2, textoseparado[4].length() - 26).split(" ");
+                    String[] palavras = frase.split(" ");
                     for (int i = 0; i <= palavras.length - 1; i++) {
                         int auxiliar = textoseparado[6].indexOf(palavras[i]) + 17 + palavras[i].length();
                         int auxiliar2 = textoseparado[6].indexOf(palavras[i]) + 25 + palavras[i].length();
@@ -177,6 +178,7 @@ public class Semantizador extends Agent {
                             }
 
                         } else {
+                            System.out.println("entrou no nac1");
 
                             String[] locais = new String[3];
                             String[] dispositivos = new String[3];
@@ -208,6 +210,12 @@ public class Semantizador extends Agent {
                                 }
 
                             }
+                            if (contdisp==0){
+                                contdisp=1;
+                            }
+                            if (contlocais==0){
+                                contlocais=1;
+                            }
                             for (int i = 0; i <= (contdisp * contlocais) - 1; i++) {
                                 Vector<Pares> pares = new Vector<>();
                                 Pares p = new Pares();
@@ -225,8 +233,11 @@ public class Semantizador extends Agent {
                                         p.setArgs(dispositivos[j]);
                                         pares.add(p);
                                         enviarmsg(pares);
+                                        System.out.println("entrou no pares");
+                                        //System.out.println(pares);
                                     }
                                 }
+                                
 
                             }
 
@@ -282,6 +293,7 @@ public class Semantizador extends Agent {
             Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
         }
         send(msge);
+        
     }
 
 }
