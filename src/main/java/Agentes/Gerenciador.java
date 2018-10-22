@@ -70,28 +70,28 @@ public class Gerenciador extends Agent {
         compFSM.registerFirstState(new OneShotBehaviour(this) {
             public void action() {
                 resposta = null;
-                if (pares!=null){
-                if (pares.size() == 1) {
-                    pilha.setIntencaoatual(pares.elementAt(0).getIntencao());
-                    pilha.setArgsatual(pares.elementAt(0).getArgs());
-                }
-                if (pares.size() > 1) {
-                    for (int i = 0; i <= pares.size(); i++) {
-                        if (pares.elementAt(i).getIntencao().equals("Confirmar")) {
-                            pilha.insere(pilha.getIntencaoatual(), pilha.getArgsatual());
-                            pilha.setIntencaoatual(pares.elementAt(i).getIntencao());
-                            pilha.setArgsatual(pares.elementAt(i).getArgs());
-                        } else {
-                            pilha.insere(pares.elementAt(i).getIntencao(),
-                                    pares.elementAt(i).getArgs());
+                if (pares != null) {
+                    if (pares.size() == 1) {
+                        pilha.setIntencaoatual(pares.elementAt(0).getIntencao());
+                        pilha.setArgsatual(pares.elementAt(0).getArgs());
+                    }
+                    if (pares.size() > 1) {
+                        for (int i = 0; i <= pares.size(); i++) {
+                            if (pares.elementAt(i).getIntencao().equals("Confirmar")) {
+                                pilha.insere(pilha.getIntencaoatual(), pilha.getArgsatual());
+                                pilha.setIntencaoatual(pares.elementAt(i).getIntencao());
+                                pilha.setArgsatual(pares.elementAt(i).getArgs());
+                            } else {
+                                pilha.insere(pares.elementAt(i).getIntencao(),
+                                        pares.elementAt(i).getArgs());
+                            }
                         }
                     }
-                }
                 }
             }
 
             public int onEnd() {
-                if (pares.size() != 0) {
+                if (pares != null) {
                     return 1;
                 }
                 return 0;
@@ -124,10 +124,10 @@ public class Gerenciador extends Agent {
 
             public void action() {
                 if (pilha.vazia()) {
-                    if (GerenciadorCasa.consultar(frame)) {
-                        resposta = ExecutadorTarefa.executar(frame);
-                        flag = 1;
-                    }
+
+                    resposta = ExecutadorTarefa.executar(frame);
+                    flag = 1;
+
                 } else {
                     pilha.remove();
                     flag = 0;
@@ -160,6 +160,7 @@ public class Gerenciador extends Agent {
         }, "ComunicaGLN");
         // definimos as transicoes
         compFSM.registerTransition("AnalisandoAtos", "ProcessandoAtoAtual", 1);
+        compFSM.registerTransition("AnalisandoAtos", "AnalisandoAtos", 0);
         compFSM.registerTransition("ProcessandoAtoAtual", "ComunicaGLN", 2);
         compFSM.registerTransition("ProcessandoAtoAtual", "PilhaVazia", 1);
         compFSM.registerTransition("PilhaVazia", "ProcessandoAtoAtual", 0);
@@ -169,7 +170,7 @@ public class Gerenciador extends Agent {
 
     }
 
-       private void tratarato(String intencaoatualaux, String argsatualaux) {
+    private void tratarato(String intencaoatualaux, String argsatualaux) {
 
         switch (intencaoatualaux) {
 
@@ -180,14 +181,17 @@ public class Gerenciador extends Agent {
                 frame.setDispositivo(argsatualaux);
 
             case "Informar_acao":
+                if (argsatualaux.equals("ligar") || argsatualaux.equals("desligar") || argsatualaux.equals("aumentar") || argsatualaux.equals("diminuir")) {
+                    frame.setTarefa("ControlarDisp");
+                }
                 frame.setAcao(argsatualaux);
-                                
+
             case "Confirmar":
-                if(argsatualaux.equals("SIM")){
+                if (argsatualaux.equals("SIM")) {
                     TratadorErro.tratarrepostaerro(pilha);
                 }
-                if(argsatualaux.equals("NAO")){
-                   TratadorErro.tratarnaoentendido(pilha);
+                if (argsatualaux.equals("NAO")) {
+                    TratadorErro.tratarnaoentendido(pilha);
                 }
         }
     }

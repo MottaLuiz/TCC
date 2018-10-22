@@ -7,18 +7,35 @@ package Agentes;
 
 import utils.FrameTarefa;
 import utils.Pares;
-
+import utils.GerenciadorCasa;
 /**
  *
  * @author Luiz
  */
-
-
-
 public class ExecutadorTarefa {
+    
+    GerenciadorCasa g = new GerenciadorCasa();
 
     static Pares executar(FrameTarefa frame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (frame.getTarefa().equals("ContralarDisp")) {
+            switch (frame.getAcao()) {
+                case "ligar":
+                    
+                    
+          
+
+                case "desligar":
+
+                case "aumentar":
+
+                case "diminuir":
+
+            }
+
+        }
+
+        return null;
     }
-   
+
 }

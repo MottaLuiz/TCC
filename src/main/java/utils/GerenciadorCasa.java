@@ -18,7 +18,7 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
-
+import org.apache.jena.rdf.model.Resource;
 
 /**
  *
@@ -27,9 +27,8 @@ import org.apache.jena.rdf.model.ModelFactory;
 public class GerenciadorCasa {
 
     public static void consultar() throws FileNotFoundException, IOException {
-    
+
         // Open the bloggers RDF graph from the filesystem
-        
         File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         path = path.substring(0, path.length() - 2);
@@ -37,43 +36,50 @@ public class GerenciadorCasa {
         String resourcesPath = path + "\\src\\main\\resources\\OntologiaCasa.owl";
         InputStream in = new FileInputStream(new File(resourcesPath));
 //InputStream in = new FileInputStream(new File("D:\\faculdade\\TCC\\TCC - versão final\\TCC\\src\\main\\resources\\OntologiaCasa.owl"));
- 
+
 // Create an empty in-memory model and populate it from the graph
-Model model = ModelFactory.createMemModelMaker().createDefaultModel();
-model.read(in,null); // null base URI, since model URIs are absolute
-in.close();
- 
+        Model model = ModelFactory.createMemModelMaker().createDefaultModel();
+        model.read(in, null); // null base URI, since model URIs are absolute
+        in.close();
+
 // Create a new query
-String queryString = 
-    "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
-"SELECT ?subject ?object ?sublabel ?oblabel \n"  +
-"	WHERE { ?subject  owl:someValuesFrom ?object ."
-        + " ?object rdfs:label ?oblabel . "
-        //+ "?object rdfs:subPropertyOf ?object ."
-       // + "?subject rdfs:label \"Sala_local@pt\" . "
-        + "OPTIONAL { ?subject rdfs:label ?sublabel. } "
-        +  "      }";
- 
-Query query = QueryFactory.create(queryString);
- 
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT *\n"
+                + "    { ?s ?p ?o } ";
+              /*  + "SELECT ?sublabel ?object ?oblabel \n"  +
+"	WHERE { ?local rdfs:label \"Locais@pt\" . "
+        + "?subject rdf:type ?local . "
+        + "?subject rdf:type owl:NamedIndividual . "
+        + "?property rdfs:label  \"tem_dispositivo@pt\" . "
+        + "?subject ?property ?object ."
+        + "OPTIONAL { ?subject rdfs:label ?sublabel . "
+        + "?object rdfs:label ?oblabel . } " 
+        +  "      }";*/
+              
+             Query query = QueryFactory.create(queryString);
+
 // Execute the query and obtain results
-QueryExecution qe = QueryExecutionFactory.create(query, model);
-ResultSet results = qe.execSelect();
- 
-// Output query results 
-ResultSetFormatter.out(System.out, results, query);
- 
-// Important - free up resources used running the query
-qe.close();
-       
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
         
+
+//while (results.hasNext()){
+//System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
+//}
+// Output query results 
+        ResultSetFormatter.out(System.out, results, query);
+
+// Important - free up resources used running the query
+        qe.close();
+
     }
 
     public static boolean consultar(FrameTarefa frame) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

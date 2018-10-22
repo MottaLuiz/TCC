@@ -84,7 +84,7 @@ public class ReconhecedorVoz  extends Agent{
                         msgr="";
                         msgr=speechResults.toString();
                         
-                        msgr="{\n" +
+                        /*msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
@@ -139,7 +139,7 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";
+"}";*/
                         
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
