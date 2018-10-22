@@ -79,12 +79,40 @@ public class ReconhecedorVoz  extends Agent{
                 service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
                     @Override
                     public void onTranscription(SpeechRecognitionResults speechResults) {
-                       // System.out.println(speechResults);
+                       System.out.println(speechResults);
                         String msgr;
                         msgr="";
-                        msgr=speechResults.toString();
-                        
-                        /*msgr="{\n" +
+                        msgr=speechResults.toString();/*
+                        msgr="{\n" +
+"  \"results\": [\n" +
+"    {\n" +
+"      \"final\": true,\n" +
+"      \"alternatives\": [\n" +
+"        {\n" +
+"          \"transcript\": \"ligue a luz \",\n" +
+"          \"confidence\": 0.771,\n" +
+"          \"word_confidence\": [\n" +
+"            [\n" +
+"              \"ligue\",\n" +
+"              0.596\n" +
+"            ],\n" +
+"            [\n" +
+"              \"a\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"luz\",\n" +
+"              0.923\n" +
+"            ]\n" +
+"          ]\n" +
+"        }\n" +
+"      ]\n" +
+"    }\n" +
+"  ],\n" +
+"  \"result_index\": 0\n" +
+"}";*/
+                        /*
+                        msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
@@ -139,8 +167,8 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";*/
-                        
+"}";
+                        */
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
