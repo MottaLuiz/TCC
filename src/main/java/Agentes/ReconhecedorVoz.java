@@ -22,16 +22,23 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 import jade.core.behaviours.CyclicBehaviour;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
+import utils.FrameControle;
 /**
  *
  * @author Lidera Consultoria
  */
 public class ReconhecedorVoz  extends Agent{
+    //teste
+    
+    //private FrameControle teste = new FrameControle();
 
     /**
      * @param args the command line arguments
@@ -82,7 +89,7 @@ public class ReconhecedorVoz  extends Agent{
                        System.out.println(speechResults);
                         String msgr;
                         msgr="";
-                        msgr=speechResults.toString();/*
+                        msgr=speechResults.toString();
                         msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
@@ -110,7 +117,7 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";*/
+"}";
                         /*
                         msgr="{\n" +
 "  \"results\": [\n" +
@@ -174,8 +181,24 @@ public class ReconhecedorVoz  extends Agent{
                         msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
                         msge.setContent(msgr);
                         send(msge);
+                        /*
+                        //TESTE 
+                        ACLMessage mensagem = new ACLMessage(ACLMessage.INFORM);
+                        teste.setEndereco("asd");
+                        teste.setProtocolo("sad");
+                        teste.setAcao("ligar");
+                        teste.setDispositivo("televisao");
 
-                        
+                        mensagem.setLanguage("Portugues");
+                        mensagem.addReceiver(new AID("SimuladorCasa", AID.ISLOCALNAME));
+        try {
+            mensagem.setContentObject((Serializable) teste);
+        } catch (IOException ex) {
+            Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                        send(mensagem);
+
+                        */
 
                     }
                 });

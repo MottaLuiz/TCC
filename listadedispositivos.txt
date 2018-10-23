@@ -1,0 +1,1 @@
+lampada sala ligado; lampada quarto ligado; televisao sala desligado

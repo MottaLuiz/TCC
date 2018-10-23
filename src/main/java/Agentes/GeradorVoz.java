@@ -73,10 +73,10 @@ public class GeradorVoz extends Agent {
                     }
                     try {
                         File currDir = new File(".");
-        String path = currDir.getAbsolutePath();
-        path = path.substring(0, path.length() - 2);
-        //System.out.println(path);
-        String resourcesPath = path + "hello_world.owl";
+                        String path = currDir.getAbsolutePath();
+                        path = path.substring(0, path.length() - 2);
+                        //System.out.println(path);
+                        String resourcesPath = path + "hello_world.owl";
                         filePath = resourcesPath;
                         // create AudioInputStream object 
                         audioInputStream

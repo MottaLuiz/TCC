@@ -14,8 +14,9 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import static jade.lang.acl.ACLMessage.INFORM;
+import jade.lang.acl.UnreadableException;
 
-import java.awt.*;
+
 import java.awt.event.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -26,66 +27,97 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import utils.FrameControle;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import utils.Dispositivo;
 
 
 public class SimuladorCasa extends Agent {
+    private FrameControle controle = new FrameControle();
+    private String disp;
+    private String estado;
+    private String local;
+    static String filePath;
+    List<Dispositivo> listadispositivos = new ArrayList<Dispositivo>();
+
     protected void setup() {
+        controle.init();
 
         System.out.println("Simulador da Casa incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
-               // if (msgr != null) {
+                if (msgr != null) {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
+                    try{//pegar a acao que sera realizada
+                        controle = (FrameControle) msgr.getContentObject();
+                        disp = controle.getDispositivo();
+                        estado = controle.getEstado();
+                        local = controle.getLocal();
+                    }
                     
-                    JFrame f = new JFrame("Teste");
-                    f.setSize(1000, 1000);
-                    f.setVisible(true);
+                    catch(UnreadableException ex){
+                                                Logger.getLogger(Gerenciador.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
                     
-                    
-                    
-                    
-/*
-                    try {
+                    try {//criar lista de dispositivos
+                        File currDir = new File(".");
+                        String path = currDir.getAbsolutePath();
+                        path = path.substring(0, path.length() - 1);
+                        String resourcesPath = path + "lsitadedispositivos.txt";
+                        filePath = resourcesPath;
+                        String nome = filePath;
+                        FileReader arq = new FileReader(nome);
+                        BufferedReader lerArq = new BufferedReader(arq);
+                        String linha = lerArq.readLine();
+                        while (linha != null) {
+                            System.out.printf("%s\n", linha);
+                            linha = lerArq.readLine(); // lê da segunda até a última linha
+                            String[] disploc = linha.split(";");
 
-                       
-                        ACLMessage msge = new ACLMessage(INFORM);
-                        msge.setLanguage("Portugues");
-                        msge.addReceiver(new AID("ExecutadorTerefas", AID.ISLOCALNAME));
-                        msge.setContent(msgr.getContent());
+                            Dispositivo dispositivo = new Dispositivo();
+                            for (int i=0; i<=disploc.length; i++){
+                                String[] disp = disploc[i].split(" ");
+                                dispositivo.setNome(disp[0]);
+                                dispositivo.setLocal(disp[1]);
+                                dispositivo.setEstado(disp[2]);
+                                listadispositivos.add(dispositivo);
+                            }
+                        }
 
-                        send(msge);
+                        arq.close();
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }*/
+                    }   catch(IOException e){
+                        System.err.printf("Erro na abertura do arquivo");
+                    }
+                    
+                    for (int i=0; i<=listadispositivos.size();i++ ){
+                        if (listadispositivos.get(i).getNome() == null ? disp == null : listadispositivos.get(i).getNome().equals(disp)){
+                            if (listadispositivos.get(i).getLocal() == null ? local == null : listadispositivos.get(i).getLocal().equals(local)){
+                                listadispositivos.get(i).setEstado(estado);
+                            }
+                        }
+                    }
+                    
+                    for (int i=0; i<=listadispositivos.size();i++){
+                        System.out.println("dispositivo : "+listadispositivos.get(i).getNome());
+                        System.out.println("local : "+listadispositivos.get(i).getLocal());
+                        System.out.println("estado: "+listadispositivos.get(i).getEstado());
+                        System.out.println(" ");
+                    }
+
                     // interrompe este comportamento ate que chegue uma nova mensagem
-               // }
-               // block();
+                }
+                block();
 
             }
         });
     }
-    
-    public void paint(Graphics g){
-        g.setColor(Color.red);
-        g.drawRect(50, 50, 200, 200);
 
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.blue);
-        g2d.drawRect(75, 75, 300, 200);
 
-        Graphics2D g1 = (Graphics2D) g2d;/*
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("televisaoligada.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        int w = img.getWidth(null);
-        int h = img.getHeight(null);
-        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-
-        g1.drawImage(img, 50, 50, null);  // TODO code application logic here*/
-    }
 }

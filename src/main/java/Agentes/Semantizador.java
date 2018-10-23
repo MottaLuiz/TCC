@@ -153,6 +153,12 @@ public class Semantizador extends Agent {
 
                             }
                             for (int a = 0; a <= cont - 1; a++) {
+                                if (contdisp[a]==0){
+                                    contdisp[a]=1;
+                                }
+                                if (contlocais[a]==0){
+                                    contlocais[a]=1;
+                                }
 
                                 for (int i = 0; i <= (contdisp[a] * contlocais[a]) - 1; i++) {
                                     Vector<Pares> pares = new Vector<>();
@@ -160,6 +166,8 @@ public class Semantizador extends Agent {
                                     if (possiveisacoes.contains(StringUtils.stripAccents(acao[a]))) {
                                         p.setIntencao("Informaracao");
                                         p.setArgs(acao[a]);
+                                        System.out.println("acao args:" + p.getArgs().toString());
+                                        System.out.println("acao intencao:" + p.getIntencao().toString());
                                         pares.add(p);
                                     }
                                     for (int j = 0; j <= contdisp[a] - 1; j++) {
@@ -169,6 +177,8 @@ public class Semantizador extends Agent {
                                             pares.add(p);
                                             p.setIntencao("Informardispositivo");
                                             p.setArgs(dispositivos[a][j]);
+                                            System.out.println("acao args:" + p.getArgs().toString());
+                                        System.out.println("acao intencao:" + p.getIntencao().toString());
                                             pares.add(p);
                                             enviarmsg(pares);
                                         }
@@ -228,13 +238,16 @@ public class Semantizador extends Agent {
                                     for (int k = 0; k <= contlocais - 1; k++) {
                                         p.setIntencao("Informarlocal");
                                         p.setArgs(locais[k]);
+                                        System.out.println("acao args:" + p.getArgs().toString());
+                                        System.out.println("acao intencao:" + p.getIntencao().toString());
                                         pares.add(p);
                                         p.setIntencao("Informardispositivo");
                                         p.setArgs(dispositivos[j]);
                                         pares.add(p);
                                         enviarmsg(pares);
-                                        System.out.println("entrou no pares");
-                                        //System.out.println(pares);
+                                        System.out.println("dispouloc args:" + p.getArgs().toString());
+                                        System.out.println("dispouloc intencao:" + p.getIntencao().toString());
+                                        
                                     }
                                 }
                                 
@@ -287,7 +300,6 @@ public class Semantizador extends Agent {
         msge.addReceiver(new AID("Gerenciador", AID.ISLOCALNAME));
 
         try {
-            //System.out.println(Arrays.toString(pares));
             msge.setContentObject(pares);
         } catch (IOException ex) {
             Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
