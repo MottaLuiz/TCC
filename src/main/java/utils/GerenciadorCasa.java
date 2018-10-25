@@ -47,7 +47,7 @@ public class GerenciadorCasa {
         in.close();
 
 // Create a new query
-        String queryString
+       /* String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
@@ -56,13 +56,13 @@ public class GerenciadorCasa {
                 + "INSERT { ?disp ?prop 'ligado' }\n"
                 + "WHERE\n"
                 + "  { ?prop rdfs:label \"Estado@pt\"  ."
-                + " ?disp rdfs:label \"som_varanda@pt\""
+                + " ?disp rdfs:label \"som_varanda@pt\" . "
                 + "  } ";
 
         UpdateRequest up = UpdateFactory.create(queryString);
 
 // Execute the query and obtain results
-        UpdateAction.execute(up, model);
+        UpdateAction.execute(up, model);*/
 
 //while (results.hasNext()){
 //System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
@@ -97,10 +97,9 @@ public class GerenciadorCasa {
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
                 + "ASK {?local ?property ?object . "
-                + "?local rdfs:label \"" + local + "@pt\" . "
-                + "?subject rdf:type ?local . "
+                + "?local rdfs:label \"varanda@pt\" . "
                 + "?property rdfs:label  \"tem_dispositivo@pt\" . "
-                + "?object rdfs:label \"" + disp + "@pt\" ."
+                + "?object rdfs:label \"lampada_varanda@pt\" ."
                 + "      }";
 
         Query query = QueryFactory.create(queryString);
@@ -108,6 +107,7 @@ public class GerenciadorCasa {
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         res = qe.execAsk();
+        System.out.println("/n " + res + "/n");
 
 //while (results.hasNext()){
 //System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
@@ -131,10 +131,10 @@ public class GerenciadorCasa {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "ASK {?local ?property ?object . "
-                + "?disp rdfs:label \"" + disp + "@pt\" . "
+                + "ASK {?disp ?prop ?estado . "
+                + "?disp rdfs:label \"cozinha@pt\" . "
                 + "?prop rdfs:label \"Estado@pt\" ."
-                + " ?estado xsd:\"" + estado + "\""
+                + "?estado <ligado>"
                 + "}";
 
         Query query = QueryFactory.create(queryString);

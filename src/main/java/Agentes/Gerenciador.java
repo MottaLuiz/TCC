@@ -39,18 +39,18 @@ public class Gerenciador extends Agent {
         try {
             if(GerenciadorCasa.consultarDispositivo("sala","lampada_sala"))
             {
-                System.out.println("consultar disp ok");
+                System.out.println("\n consultar disp ok \n ");
             }
         } catch (IOException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
+       /* try {
             
             if(GerenciadorCasa.consultar())
                 System.out.println("\n Deu bom! \n");
         } catch (IOException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         FSMBehaviour compFSM = new FSMBehaviour(this) {
 
         };
