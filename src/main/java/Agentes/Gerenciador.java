@@ -37,7 +37,17 @@ public class Gerenciador extends Agent {
         pares = null;
         pilha.init();
         try {
-            GerenciadorCasa.consultar();
+            if(GerenciadorCasa.consultarDispositivo("sala","lampada_sala"))
+            {
+                System.out.println("consultar disp ok");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            
+            if(GerenciadorCasa.consultar())
+                System.out.println("\n Deu bom! \n");
         } catch (IOException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
