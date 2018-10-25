@@ -44,6 +44,7 @@ public class Semantizador extends Agent {
 
     private static final boolean TRACE_MODE = false;
     static String botName = "conhecimentodialogo";
+    private int modocriacao = 0;
 
     private Analyzer cogroo;
 
@@ -94,7 +95,23 @@ public class Semantizador extends Agent {
                     document.setText(frase);
                     cogroo.analyze(document);
                     System.out.println(document);
+                    frase = getEq(frase, resourcesPath);
                     System.out.println("frase2=" + frase);
+
+                    if ("criar rotina".equals(frase)) {
+                        modocriacao = 1;
+                        Vector<Pares> pares = new Vector<>();
+                        Pares p = new Pares();
+                        p.setIntencao("Informarcomando");
+                        p.setArgs("Criar rotina");
+                    }
+                    if (modocriacao == 1) {
+                        Vector<Pares> pares = new Vector<>();
+                        Pares p = new Pares();
+                        p.setIntencao("Informarnome");
+                        p.setArgs(frase);
+                        modocriacao = 2;
+                    }
 
                     //StringBuilder output = new StringBuilder();
                     int nacc = 0;
@@ -163,9 +180,13 @@ public class Semantizador extends Agent {
                                 for (int i = 0; i <= (contdisp[a] * contlocais[a]) - 1; i++) {
                                     Vector<Pares> pares = new Vector<>();
                                     Pares p = new Pares();
+                                    p.setIntencao("Informarcomando");
+                                    p.setArgs("Controlardispositivos");
+                                    pares.add(p);
                                     if (possiveisacoes.contains(StringUtils.stripAccents(acao[a]))) {
                                         p.setIntencao("Informaracao");
                                         p.setArgs(acao[a]);
+                                        modocriacao = 0;
                                         System.out.println("acao: " + acao[a]);
                                         //System.out.println("acao args:" + p.getArgs().toString());
                                         //System.out.println("acao intencao:" + p.getIntencao().toString());
@@ -223,6 +244,16 @@ public class Semantizador extends Agent {
                                     confirmacao = palavra;
                                 }
 
+                                if ("num".equals(token.getPOSTag()) && (modocriacao == 2)) {
+                                    Vector<Pares> pares = new Vector<>();
+                                    Pares p = new Pares();
+                                    p.setIntencao("Informarnumeral");
+                                    p.setArgs(palavra);
+                                    pares.add(p);
+                                    enviarmsg(pares);
+                                    modocriacao=0;
+                                }
+
                             }
                             if (contdisp == 0) {
                                 contdisp = 1;
@@ -233,9 +264,13 @@ public class Semantizador extends Agent {
                             for (int i = 0; i <= (contdisp * contlocais) - 1; i++) {
                                 Vector<Pares> pares = new Vector<>();
                                 Pares p = new Pares();
+                                p.setIntencao("Informarcomando");
+                                p.setArgs("Controlardispositivos");
+                                pares.add(p);
                                 if (possiveisacoes.contains(StringUtils.stripAccents(acao))) {
                                     p.setIntencao("Informaracao");
                                     p.setArgs(acao);
+                                    modocriacao = 0;
                                     System.out.println("acao: " + acao);
                                     pares.add(p);
                                 }
