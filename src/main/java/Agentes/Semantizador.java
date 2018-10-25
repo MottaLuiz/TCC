@@ -67,7 +67,7 @@ public class Semantizador extends Agent {
                     //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
                     String mensagem = msgr.getContent();
                     String[] textoseparado = mensagem.split(":");
-                    System.out.println("textoseparado: "+ textoseparado[4]);
+                    System.out.println("textoseparado: " + textoseparado[4]);
                     String frase = textoseparado[4].substring(2, textoseparado[4].length() - 26);
                     System.out.println("frase:" + frase);
                     //System.out.println("confiancafrase:" + textoseparado[5].substring(1, 6));
@@ -87,7 +87,7 @@ public class Semantizador extends Agent {
 
                     //analise sintatica
                     //ComponentFactory factory;
-                    Locale local = new Locale ("pt", "BR");
+                    Locale local = new Locale("pt", "BR");
                     ComponentFactory factory = ComponentFactory.create(local);
                     cogroo = factory.createPipe();
                     Document document = new DocumentImpl();
@@ -153,11 +153,11 @@ public class Semantizador extends Agent {
 
                             }
                             for (int a = 0; a <= cont - 1; a++) {
-                                if (contdisp[a]==0){
-                                    contdisp[a]=1;
+                                if (contdisp[a] == 0) {
+                                    contdisp[a] = 1;
                                 }
-                                if (contlocais[a]==0){
-                                    contlocais[a]=1;
+                                if (contlocais[a] == 0) {
+                                    contlocais[a] = 1;
                                 }
 
                                 for (int i = 0; i <= (contdisp[a] * contlocais[a]) - 1; i++) {
@@ -166,19 +166,22 @@ public class Semantizador extends Agent {
                                     if (possiveisacoes.contains(StringUtils.stripAccents(acao[a]))) {
                                         p.setIntencao("Informaracao");
                                         p.setArgs(acao[a]);
-                                        System.out.println("acao args:" + p.getArgs().toString());
-                                        System.out.println("acao intencao:" + p.getIntencao().toString());
+                                        System.out.println("acao: " + acao[a]);
+                                        //System.out.println("acao args:" + p.getArgs().toString());
+                                        //System.out.println("acao intencao:" + p.getIntencao().toString());
                                         pares.add(p);
                                     }
                                     for (int j = 0; j <= contdisp[a] - 1; j++) {
                                         for (int k = 0; k <= contlocais[a] - 1; k++) {
                                             p.setIntencao("Informarlocal");
                                             p.setArgs(locais[a][k]);
+                                            System.out.println("locais " + locais[a][k]);
                                             pares.add(p);
                                             p.setIntencao("Informardispositivo");
                                             p.setArgs(dispositivos[a][j]);
-                                            System.out.println("acao args:" + p.getArgs().toString());
-                                        System.out.println("acao intencao:" + p.getIntencao().toString());
+                                            System.out.println("dispositivo: " + dispositivos[a][j]);
+                                            //System.out.println("acao args:" + p.getArgs().toString());
+                                            //System.out.println("acao intencao:" + p.getIntencao().toString());
                                             pares.add(p);
                                             enviarmsg(pares);
                                         }
@@ -202,6 +205,7 @@ public class Semantizador extends Agent {
 
                                 if ("v-fin".equals(token.getPOSTag())) {
                                     acao = palavra;
+                                    System.out.println("acao: " + acao);
                                 }
 
                                 if (("n".equals(token.getPOSTag())) || ("adj".equals(token.getPOSTag()))) {
@@ -220,11 +224,11 @@ public class Semantizador extends Agent {
                                 }
 
                             }
-                            if (contdisp==0){
-                                contdisp=1;
+                            if (contdisp == 0) {
+                                contdisp = 1;
                             }
-                            if (contlocais==0){
-                                contlocais=1;
+                            if (contlocais == 0) {
+                                contlocais = 1;
                             }
                             for (int i = 0; i <= (contdisp * contlocais) - 1; i++) {
                                 Vector<Pares> pares = new Vector<>();
@@ -232,25 +236,27 @@ public class Semantizador extends Agent {
                                 if (possiveisacoes.contains(StringUtils.stripAccents(acao))) {
                                     p.setIntencao("Informaracao");
                                     p.setArgs(acao);
+                                    System.out.println("acao: " + acao);
                                     pares.add(p);
                                 }
                                 for (int j = 0; j <= contdisp - 1; j++) {
                                     for (int k = 0; k <= contlocais - 1; k++) {
                                         p.setIntencao("Informarlocal");
                                         p.setArgs(locais[k]);
-                                        System.out.println("acao args:" + p.getArgs().toString());
-                                        System.out.println("acao intencao:" + p.getIntencao().toString());
+                                        System.out.println("local: " + locais[k]);
+                                        //System.out.println("acao args:" + p.getArgs().toString());
+                                        //System.out.println("acao intencao:" + p.getIntencao().toString());
                                         pares.add(p);
                                         p.setIntencao("Informardispositivo");
                                         p.setArgs(dispositivos[j]);
+                                        System.out.println("dispositivos: " + dispositivos[j]);
                                         pares.add(p);
                                         enviarmsg(pares);
-                                        System.out.println("dispouloc args:" + p.getArgs().toString());
-                                        System.out.println("dispouloc intencao:" + p.getIntencao().toString());
-                                        
+                                        //System.out.println("dispouloc args:" + p.getArgs().toString());
+                                        //System.out.println("dispouloc intencao:" + p.getIntencao().toString());
+
                                     }
                                 }
-                                
 
                             }
 
@@ -276,7 +282,7 @@ public class Semantizador extends Agent {
         File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         path = path.substring(0, path.length() - 2);
-        //System.out.println(path);
+        System.out.println(path);
         String resourcesPath = path + "\\src\\main";
         return resourcesPath;
     }
@@ -286,10 +292,10 @@ public class Semantizador extends Agent {
         Bot bota = new Bot("conhecimentodialogo", resourcesPath);
         Chat chatSession = new Chat(bota);
         String response = chatSession.multisentenceRespond(request);
-        if (!"I have no answer for that.".equals(response)) {
-            requisicao = requisicao.replaceAll(request, response);
+        if ("I have no answer for that.".equals(response)) {
+            response = requisicao;
         }
-        return requisicao;
+        return response;
 
     }
 
@@ -305,7 +311,7 @@ public class Semantizador extends Agent {
             Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
         }
         send(msge);
-        
+
     }
 
 }

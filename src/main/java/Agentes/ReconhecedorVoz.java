@@ -90,7 +90,7 @@ public class ReconhecedorVoz  extends Agent{
                         String msgr;
                         msgr="";
                         msgr=speechResults.toString();
-                        msgr="{\n" +
+                        /*msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
@@ -117,8 +117,8 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";
-                        /*
+"}";*/
+                        
                         msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
@@ -175,7 +175,7 @@ public class ReconhecedorVoz  extends Agent{
 "  ],\n" +
 "  \"result_index\": 0\n" +
 "}";
-                        */
+                        
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
