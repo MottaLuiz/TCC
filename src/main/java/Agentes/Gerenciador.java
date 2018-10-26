@@ -44,13 +44,13 @@ public class Gerenciador extends Agent {
         } catch (IOException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
-       /* try {
+        try {
             
             if(GerenciadorCasa.consultar())
                 System.out.println("\n Deu bom! \n");
         } catch (IOException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         FSMBehaviour compFSM = new FSMBehaviour(this) {
 
         };

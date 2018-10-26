@@ -18,8 +18,6 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.update.Update;
 import org.apache.jena.update.UpdateAction;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateRequest;
@@ -46,30 +44,29 @@ public class GerenciadorCasa {
         model.read(in, null); // null base URI, since model URIs are absolute
         in.close();
 
-// Create a new query
-       /* String queryString
+        String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "DELETE { ?disp ?prop 'desligado' }\n"
-                + "INSERT { ?disp ?prop 'ligado' }\n"
-                + "WHERE\n"
-                + "  { ?prop rdfs:label \"Estado@pt\"  ."
-                + " ?disp rdfs:label \"som_varanda@pt\" . "
-                + "  } ";
-
-        UpdateRequest up = UpdateFactory.create(queryString);
-
+                + "SELECT ?labeldisp ?prop ?estado \n"
+                + " WHERE {"
+                + " ?disp ?prop ?estado  . "
+                + " ?disp rdfs:label ?labeldisp . "
+                + " ?disp rdfs:label \"televisao_sala@pt\" . "
+                // + " ?prop rdfs:label \"Estado@pt\" . "
+                + " } ";
+        Query query = QueryFactory.create(queryString);
 // Execute the query and obtain results
-        UpdateAction.execute(up, model);*/
-
-//while (results.hasNext()){
-//System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
-//}
-// Output query results 
-// Important - free up resources used running the query
-        return ConsultarUP("som_varanda", "ligado", model);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+        ResultSetFormatter.out(System.out, res, query);
+        while (res.hasNext()){
+            System.out.println(res.next().get("estado"));
+        }
+// Create a new query
+        
+        return true;
 
     }
 
@@ -97,17 +94,16 @@ public class GerenciadorCasa {
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
                 + "ASK {?local ?property ?object . "
-                + "?local rdfs:label \"varanda@pt\" . "
-                + "?property rdfs:label  \"tem_dispositivo@pt\" . "
-                + "?object rdfs:label \"lampada_varanda@pt\" ."
-                + "      }";
+                + "?local rdfs:label \"" + local + "@pt\" . "
+                /*+ "?property rdfs:label  \"tem_dispositivo@pt\" . "*/
+                + "?object rdfs:label \"" + disp + "@pt\" }";
 
         Query query = QueryFactory.create(queryString);
 
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         res = qe.execAsk();
-        System.out.println("/n " + res + "/n");
+        System.out.println("\n " + res + "\n");
 
 //while (results.hasNext()){
 //System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
@@ -120,10 +116,9 @@ public class GerenciadorCasa {
 
     }
 
-    private static boolean ConsultarUP(String disp, String estado, Model model) throws FileNotFoundException, IOException {
+    private static boolean ConsultarUP(String disp, String estado, Model model) {
 
         boolean res;
-
 
 // Create a new query
         String queryString
@@ -131,10 +126,10 @@ public class GerenciadorCasa {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "ASK {?disp ?prop ?estado . "
-                + "?disp rdfs:label \"cozinha@pt\" . "
-                + "?prop rdfs:label \"Estado@pt\" ."
-                + "?estado <ligado>"
+                + "ASK {?disp ?prop \"" + estado + "\" . "
+                + "?disp rdfs:label \"" + disp + "@pt\" . "
+                /*+ "?property rdfs:label  \"tem_dispositivo@pt\" . "*/
+                //+ "?prop rdfs:label \"Estado@pt\" . "
                 + "}";
 
         Query query = QueryFactory.create(queryString);
@@ -152,6 +147,32 @@ public class GerenciadorCasa {
 
         return res;
 
+    }
+
+    private static boolean Alterarestado(String disp, String antigoestado, String estadonovo, Model model) {
+
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "DELETE { ?disp ?prop \"" + antigoestado + "\" }\n"
+                + "INSERT { ?disp ?prop \"" + estadonovo + "\" }\n"
+                + "WHERE {\n"
+                + " ?prop rdfs:label \"Estado@pt\" . "
+                + " ?disp rdfs:label \"" + disp + "@pt\" . "
+                + "  } ";
+
+        UpdateRequest up = UpdateFactory.create(queryString);
+
+// Execute the query and obtain results
+        UpdateAction.execute(up, model);
+//while (results.hasNext()){
+//System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
+//}
+// Output query results 
+// Important - free up resources used running the query
+        return ConsultarUP(disp, estadonovo, model);
     }
 
 }
