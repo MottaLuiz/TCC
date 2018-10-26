@@ -14,7 +14,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
-
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.*;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
@@ -90,7 +89,39 @@ public class ReconhecedorVoz  extends Agent{
                         String msgr;
                         msgr="";
                         msgr=speechResults.toString();
-                        /*msgr="{\n" +
+                       /* msgr="{\n" +
+"  \"results\": [\n" +
+"    {\n" +
+"      \"final\": true,\n" +
+"      \"alternatives\": [\n" +
+"        {\n" +
+"          \"transcript\": \"quero criar uma rotina \",\n" +
+"          \"confidence\": 1.0,\n" +
+"          \"word_confidence\": [\n" +
+"            [\n" +
+"              \"quero\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"criar\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"uma\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            [\n" +
+"              \"rotina\",\n" +
+"              1.0\n" +
+"            ]\n" +
+"          ]\n" +
+"        }\n" +
+"      ]\n" +
+"    }\n" +
+"  ],\n" +
+"  \"result_index\": 0\n" +
+"}";
+                        msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
@@ -119,7 +150,7 @@ public class ReconhecedorVoz  extends Agent{
 "  \"result_index\": 0\n" +
 "}";*/
                         
-                        msgr="{\n" +
+                      /*  msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
@@ -174,7 +205,7 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";
+"}";*/
                         
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");

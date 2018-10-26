@@ -21,4 +21,28 @@
 <category><pattern>LUZ</pattern>
 <template>lampada</template>
 </category>
+<category><pattern>* CRIAR * ROTINA *</pattern>
+<template>criar rotina</template>
+</category>
+<category><pattern>* CRIAR ROTINA</pattern>
+<template>criar rotina</template>
+</category>
+</category>
+<category><pattern>CRIAR * ROTINA</pattern>
+<template>criar rotina</template>
+</category>
+</category>
+<category><pattern>CRIAR ROTINA *</pattern>
+<template>criar rotina</template>
+</category>
+</category>
+<category><pattern>* CRIAR * ROTINA</pattern>
+<template>criar rotina</template>
+</category>
+<category><pattern>CRIAR * ROTINA *</pattern>
+<template>criar rotina</template>
+</category>
+<category><pattern>* CRIAR ROTINA *</pattern>
+<template>criar rotina</template>
+</category>
 </aiml>
