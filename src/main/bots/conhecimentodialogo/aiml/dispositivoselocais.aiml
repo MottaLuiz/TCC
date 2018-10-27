@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: dispositivoselocais.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Outubro 25, 2018 -->
+<!-- Last modified: Outubro 27, 2018 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -27,14 +27,11 @@
 <category><pattern>* CRIAR ROTINA</pattern>
 <template>criar rotina</template>
 </category>
-</category>
 <category><pattern>CRIAR * ROTINA</pattern>
 <template>criar rotina</template>
 </category>
-</category>
 <category><pattern>CRIAR ROTINA *</pattern>
 <template>criar rotina</template>
-</category>
 </category>
 <category><pattern>* CRIAR * ROTINA</pattern>
 <template>criar rotina</template>

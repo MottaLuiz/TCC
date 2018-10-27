@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-<!-- File: update.aiml -->
+<!-- File: rotinascriadas.aiml -->
 <!-- Author: unknown -->
 <!-- Last modified: Outubro 27, 2018 -->
 <!--  -->
@@ -15,10 +15,7 @@
 <!-- implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   -->
 <!--  -->
 <!-- For more information see unknown -->
-<category><pattern>BUILD</pattern>
-<template>Sat Oct 27 11:50:09 BRT 2018</template>
-</category>
-<category><pattern>DELEVLOPMENT ENVIRONMENT</pattern>
-<template>Program AB 0.0.4.2 beta -- AI Foundation Reference AIML 2.0 implementation</template>
+<category><pattern>TESTREQUEST</pattern>
+<template>testresponse</template>
 </category>
 </aiml>

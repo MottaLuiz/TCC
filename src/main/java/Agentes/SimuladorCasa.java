@@ -69,7 +69,7 @@ public class SimuladorCasa extends Agent {
                         File currDir = new File(".");
                         String path = currDir.getAbsolutePath();
                         path = path.substring(0, path.length() - 1);
-                        String resourcesPath = path + "lsitadedispositivos.txt";
+                        String resourcesPath = path + "listadedispositivos.txt";
                         filePath = resourcesPath;
                         String nome = filePath;
                         FileReader arq = new FileReader(nome);

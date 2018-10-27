@@ -21,6 +21,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 import jade.core.behaviours.CyclicBehaviour;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class ReconhecedorVoz  extends Agent{
      * @param args the command line arguments
      */
     protected void setup() {
+
         System.out.println("Reconhecedor de voz incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
@@ -120,18 +123,18 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";
-                        msgr="{\n" +
+"}";*/
+                     /*   msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
 "      \"alternatives\": [\n" +
 "        {\n" +
-"          \"transcript\": \"ligue a luz \",\n" +
+"          \"transcript\": \"desligue a luz \",\n" +
 "          \"confidence\": 0.771,\n" +
 "          \"word_confidence\": [\n" +
 "            [\n" +
-"              \"ligue\",\n" +
+"              \"desligue\",\n" +
 "              0.596\n" +
 "            ],\n" +
 "            [\n" +
@@ -150,7 +153,7 @@ public class ReconhecedorVoz  extends Agent{
 "  \"result_index\": 0\n" +
 "}";*/
                         
-                      /*  msgr="{\n" +
+                        msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
@@ -205,7 +208,7 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";*/
+"}";
                         
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
