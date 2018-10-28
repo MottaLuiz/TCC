@@ -52,8 +52,14 @@ public class PilhaDialogo {
     }
 
     public void remove() {
-        this.intencaoatual = this.intencoes.pop();
-        this.argsatual = this.args.pop();
+        if (this.args.empty() && this.intencoes.empty()) {
+            this.intencaoatual = null;
+            this.argsatual = null;
+        } else {
+            this.intencaoatual = this.intencoes.pop();
+            this.argsatual = this.args.pop();
+
+        }
     }
 
     public boolean vazia() {

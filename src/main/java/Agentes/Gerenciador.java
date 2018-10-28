@@ -27,7 +27,7 @@ public class Gerenciador extends Agent {
 
     private Vector<Pares> pares = new Vector<>();
     private PilhaDialogo pilha = new PilhaDialogo();
-    private Pares resposta = new Pares();
+    private Vector <Pares> resposta = new Vector<>();
     private FrameTarefa frame = new FrameTarefa();
 
     protected void setup() {
@@ -36,21 +36,13 @@ public class Gerenciador extends Agent {
         resposta = null;
         pares = null;
         pilha.init();
+        GerenciadorCasa gc = new GerenciadorCasa();
         try {
-            if(GerenciadorCasa.consultarDispositivo("sala","lampada_sala"))
-            {
-                System.out.println("\n consultar disp ok \n ");
-            }
+            gc.init();
         } catch (IOException ex) {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-            
-            if(GerenciadorCasa.consultar())
-                System.out.println("\n Deu bom! \n");
-        } catch (IOException ex) {
-            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         FSMBehaviour compFSM = new FSMBehaviour(this) {
 
         };
@@ -80,33 +72,40 @@ public class Gerenciador extends Agent {
         compFSM.registerFirstState(new OneShotBehaviour(this) {
             public void action() {
                 resposta = null;
-                if (pares != null) {
-                    if (pares.size() == 1) {
-                        pilha.setIntencaoatual(pares.elementAt(0).getIntencao());
-                        pilha.setArgsatual(pares.elementAt(0).getArgs());
-                    }
-                    if (pares.size() > 1) {
-                        for (int i = 0; i <= pares.size(); i++) {
-                            if (pares.elementAt(i).getIntencao().equals("Confirmar")) {
-                                pilha.insere(pilha.getIntencaoatual(), pilha.getArgsatual());
-                                pilha.setIntencaoatual(pares.elementAt(i).getIntencao());
-                                pilha.setArgsatual(pares.elementAt(i).getArgs());
-                            } else {
-                                pilha.insere(pares.elementAt(i).getIntencao(),
-                                        pares.elementAt(i).getArgs());
+                if (pilha.vazia()) {
+                    if (pares != null) {
+                        if (pares.size() == 1) {
+                            pilha.setIntencaoatual(pares.elementAt(0).getIntencao());
+                            pilha.setArgsatual(pares.elementAt(0).getArgs());
+                        }
+                        if (pares.size() > 1) {
+                            for (int i = 0; i <= pares.size(); i++) {
+                                if (pares.elementAt(i).getIntencao().equals("Confirmar")) {
+                                    pilha.insere(pilha.getIntencaoatual(), pilha.getArgsatual());
+                                    pilha.setIntencaoatual(pares.elementAt(i).getIntencao());
+                                    pilha.setArgsatual(pares.elementAt(i).getArgs());
+                                } else {
+                                    pilha.insere(pares.elementAt(i).getIntencao(),
+                                            pares.elementAt(i).getArgs());
+                                }
                             }
                         }
                     }
+                } else {
+
                 }
             }
 
-            public int onEnd() {
-                if (pares != null) {
-                    return 1;
-                }
-                return 0;
-            }
-        }, "AnalisandoAtos");
+        
+
+    public int onEnd() {
+        if (pares != null) {
+            return 1;
+        }
+        return 0;
+    }
+}
+, "AnalisandoAtos");
 // registramos outro estado − ProcessandoAtoAtual
         compFSM.registerState(new OneShotBehaviour(this) {
             int flag = 0;
@@ -135,7 +134,7 @@ public class Gerenciador extends Agent {
             public void action() {
                 if (pilha.vazia()) {
 
-                    resposta = ExecutadorTarefa.executar(frame);
+                    resposta = ExecutadorTarefa.executar(frame, gc);
                     flag = 1;
 
                 } else {
@@ -162,8 +161,11 @@ public class Gerenciador extends Agent {
 
                 try {
                     msge.setContentObject(resposta);
-                } catch (IOException ex) {
-                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                
+
+} catch (IOException ex) {
+                    Logger.getLogger(Gerenciador.class
+.getName()).log(Level.SEVERE, null, ex);
                 }
                 send(msge);
             }
