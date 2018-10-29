@@ -10,10 +10,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Vector;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
@@ -27,13 +29,44 @@ import org.apache.jena.update.UpdateRequest;
  * @author Luiz
  */
 public class GerenciadorCasa {
-    
-   Model model = ModelFactory.createMemModelMaker().createDefaultModel();
 
-    public static boolean consultar(Model modelaux) throws FileNotFoundException, IOException {
+    static Model model = ModelFactory.createMemModelMaker().createDefaultModel();
+
+    public static Vector<String> obterComm(String dispositivo, String local) {
+        Vector<String> conn = new Vector<>();
+
+// Open the bloggers RDF graph from the filesystem
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT ?labeldisp ?prop ?endereco ?protocolo \n"
+                + " WHERE {"
+                + " ?disp ?prop ?endereco  ."
+                + " ?disp ?props ?protocolo ."
+                + " ?disp ?esta ?local . "
+                + " ?disp rdfs:label \"" + dispositivo + "@pt\" ."
+                + " ?local rdfs:label \"" + local + "@pt\" . "
+                + " ?prop rdfs:label \"EnderecoComunicao@pt\" . "
+                + " ?prop rdfs:label \"ProtocoloComunicao@pt\" ."
+                + " } ";
+
+        Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+        ResultSetFormatter.out(System.out, res, query);
+        QuerySolution qs = res.next();
+        conn.add(qs.getResource("endereco").toString());
+        conn.add(qs.getResource("protocolo").toString());
+        return conn;
+
+    }
+
+    public static boolean consultar() throws FileNotFoundException, IOException {
 
         // Open the bloggers RDF graph from the filesystem
-       
         String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
@@ -48,23 +81,19 @@ public class GerenciadorCasa {
                 + " } ";
         Query query = QueryFactory.create(queryString);
 // Execute the query and obtain results
-        QueryExecution qe = QueryExecutionFactory.create(query, modelaux);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
         ResultSetFormatter.out(System.out, res, query);
-        while (res.hasNext()){
+        while (res.hasNext()) {
             System.out.println(res.next().get("estado"));
         }
 // Create a new query
-        
+
         return true;
 
     }
 
-    public Model getModel() {
-        return model;
-    }
-
-    public static boolean consultarDispositivo(String local, String disp, Model modelaux) {
+    public static boolean consultarDispositivo(String local, String disp) {
 
         boolean res;
 
@@ -82,7 +111,7 @@ public class GerenciadorCasa {
         Query query = QueryFactory.create(queryString);
 
 // Execute the query and obtain results
-        QueryExecution qe = QueryExecutionFactory.create(query, modelaux);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
         res = qe.execAsk();
         System.out.println("\n " + res + "\n");
 
@@ -96,7 +125,8 @@ public class GerenciadorCasa {
         return res;
 
     }
-    public static boolean consultarLocal(String local, Model modelaux) {
+
+    public static boolean consultarLocal(String local) {
 
         boolean res;
 
@@ -114,7 +144,7 @@ public class GerenciadorCasa {
         Query query = QueryFactory.create(queryString);
 
 // Execute the query and obtain results
-        QueryExecution qe = QueryExecutionFactory.create(query, modelaux);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
         res = qe.execAsk();
         System.out.println("\n " + res + "\n");
 
@@ -129,7 +159,7 @@ public class GerenciadorCasa {
 
     }
 
-   public static boolean verificaValorPropDisp(String disp, String propvalue, Model modelaux) {
+    public static boolean verificaValorPropDisp(String disp, String propvalue) {
 
         boolean res;
 
@@ -148,7 +178,7 @@ public class GerenciadorCasa {
         Query query = QueryFactory.create(queryString);
 
 // Execute the query and obtain results
-        QueryExecution qe = QueryExecutionFactory.create(query, modelaux);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
         res = qe.execAsk();
 
 //while (results.hasNext()){
@@ -162,7 +192,7 @@ public class GerenciadorCasa {
 
     }
 
-    private static boolean AlterarProp(String disp,String prop, String antigoestado, String estadonovo, Model model) {
+    public static boolean AlterarProp(String disp, String prop, String antigoestado, String estadonovo) {
 
         String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
@@ -172,7 +202,7 @@ public class GerenciadorCasa {
                 + "DELETE { ?disp ?prop \"" + antigoestado + "\" }\n"
                 + "INSERT { ?disp ?prop \"" + estadonovo + "\" }\n"
                 + "WHERE {\n"
-                + " ?prop rdfs:label \""+prop+"@pt\" . "
+                + " ?prop rdfs:label \"" + prop + "@pt\" . "
                 + " ?disp rdfs:label \"" + disp + "@pt\" . "
                 + "  } ";
 
@@ -185,11 +215,11 @@ public class GerenciadorCasa {
 //}
 // Output query results 
 // Important - free up resources used running the query
-        return verificaValorPropDisp(disp, estadonovo, model);
+        return verificaValorPropDisp(disp, estadonovo);
     }
 
     public void init() throws FileNotFoundException, IOException {
-         File currDir = new File(".");
+        File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         path = path.substring(0, path.length() - 2);
         //System.out.println(path);

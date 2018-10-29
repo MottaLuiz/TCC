@@ -9,62 +9,84 @@ import java.util.Vector;
 import utils.FrameTarefa;
 import utils.Pares;
 import utils.GerenciadorCasa;
+import utils.HistoricoTarefas;
+
 /**
  *
  * @author Luiz
  */
 public class ExecutadorTarefa {
     
+    static HistoricoTarefas historico = new HistoricoTarefas();
 
-    static Vector <Pares> executar(FrameTarefa frame, GerenciadorCasa gc) {
-        Vector<Pares> p = new Vector<>();
+    static String executar(FrameTarefa frame, GerenciadorCasa gc) {
+        String resp = new String();
         Pares paux = new Pares();
-        if (!GerenciadorCasa.consultarLocal(frame.getLocal(), gc.getModel()))
-        {
-          paux.setIntencao("Confirmar Local");
-          paux.setArgs(frame.getLocal());
-          p.add(paux);
-          return p;
+        Vector<String> comm = new Vector<>();
+
+        if (!GerenciadorCasa.consultarLocal(frame.getLocal())) {
+            resp = "Informar Local "+frame.getLocal();
+            
+            return resp;
         }
-        if ( GerenciadorCasa.consultarDispositivo(frame.getLocal(), frame.getDispositivo(), gc.getModel())){
-                        
-                    }else{
-                        paux.setIntencao("Local");
-                        paux.setArgs(frame.getLocal());
-                        p.add(paux);
-                        paux.setIntencao("Confirmar dispoditivo");
-                        paux.setArgs(frame.getDispositivo());
-                        p.add(paux);
-                        return p;
-                    }
+        if (GerenciadorCasa.consultarDispositivo(frame.getLocal(), frame.getDispositivo())) {
+
+        } else {
+            resp = "informar Dispositivo "+frame.getLocal()+" "+frame.getDispositivo();
+            
+            return resp;
+        }
 
         if (frame.getTarefa().equals("ContralarDisp")) {
             switch (frame.getAcao()) {
-                
-                
-                case "ligar":
-                {
-                    if ( GerenciadorCasa.verificaValorPropDisp(frame.getDispositivo(), "desligado" , gc.getModel())){
+
+                case "ligar": {
+                    if (GerenciadorCasa.verificaValorPropDisp(frame.getDispositivo(), "desligado")) {
+                        comm = GerenciadorCasa.obterComm(frame.getDispositivo(), frame.getLocal());
+                        if (ControladorDispositivos.executa(comm, "ligar")
+                                && GerenciadorCasa.AlterarProp(frame.getDispositivo(), "Estado", "desligado", "ligado")) {
+                            
+                            historico.insere(frame);
+                           resp = "InformarExecucao Sucesso";
+                            return resp;
+                        } else {
+                            resp = "InformarExecucao Falha";
+                            
+                            return resp;
+                        }
+
+                    } else {
+                        resp = "InformarValorProp "+frame.getLocal()+" "
+                                +frame.getDispositivo()+" ligado";
+                            
+                            return resp;
                         
-                        
-                        
-                    }else{
-                        paux.setIntencao("InformarValorProp");
-                        paux.setArgs("ligado");
-                        p.add(paux);
-                        paux.setIntencao("Confirmar dispoditivo");
-                        paux.setArgs(frame.getDispositivo());
-                        p.add(paux);
-                        paux.setIntencao("Local");
-                        paux.setArgs(frame.getLocal());
-                        p.add(paux);
-                        return p;
+                       
                     }
                 }
-                    
-          
 
-                case "desligar":
+                case "desligar":{
+                    if (GerenciadorCasa.verificaValorPropDisp(frame.getDispositivo(), "ligado")) {
+                        comm = GerenciadorCasa.obterComm(frame.getDispositivo(), frame.getLocal());
+                        if (ControladorDispositivos.executa(comm, "desligar")
+                                && GerenciadorCasa.AlterarProp(frame.getDispositivo(), "Estado", "ligado", "ligado")) {
+                            
+                            historico.insere(frame);
+                            resp = "InformarExecucao Sucesso";
+                            return resp;
+                        } else {
+                            resp = "InformarExecucao Falha";
+                            
+                            return resp;
+                        }
+
+                    } else {
+                       resp = "InformarValorProp "+frame.getLocal()+" "
+                                +frame.getDispositivo()+" desligado";
+                            
+                            return resp;
+                    }
+                }
 
                 case "aumentar":
 

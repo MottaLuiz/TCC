@@ -13,21 +13,25 @@ import java.util.*;
  */
 public class HistoricoTarefas {
 
-    private List<FrameTarefa> historico = new LinkedList<FrameTarefa>();
+    private List<FrameTarefa> historico = new LinkedList<>();
 
     public void init() {
         historico = null;
     }
 
     public void insere(FrameTarefa objeto) {
-        this.historico.add(objeto);
+
+        this.historico.add(0, objeto);
+        if (this.historico.size() > 20) {
+            this.historico.remove(20);
+        }
     }
 
-    public FrameTarefa remove() {
-        return this.historico.remove(0);
+    public FrameTarefa get(int i) {
+        return this.historico.get(i);
     }
 
     public boolean vazia() {
-        return this.historico.size() == 0;
+        return this.historico.isEmpty();
     }
 }

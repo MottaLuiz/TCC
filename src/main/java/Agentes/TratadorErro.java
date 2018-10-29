@@ -15,10 +15,10 @@ import utils.PilhaDialogo;
  */
 public class TratadorErro {
 
-    public static Vector<Pares> tratarerro(String intencaoatualaux, String argsatualaux) {
-        Vector <Pares> resposta1 = new Vector<>();
-        resposta1 = null;
-        return resposta1;
+    public static String tratarerro(String intencaoatualaux, String argsatualaux) {
+        String resposta = new String();
+        resposta = null;
+        return resposta;
     }
 
     public static void tratarnaoentendido(PilhaDialogo pilha) {

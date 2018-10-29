@@ -26,8 +26,9 @@ import utils.PilhaDialogo;
 public class Gerenciador extends Agent {
 
     private Vector<Pares> pares = new Vector<>();
+    private Pares paux = new Pares();
     private PilhaDialogo pilha = new PilhaDialogo();
-    private Vector <Pares> resposta = new Vector<>();
+    private String resposta = new String();
     private FrameTarefa frame = new FrameTarefa();
 
     protected void setup() {
@@ -96,16 +97,14 @@ public class Gerenciador extends Agent {
                 }
             }
 
-        
-
-    public int onEnd() {
-        if (pares != null) {
-            return 1;
-        }
-        return 0;
-    }
-}
-, "AnalisandoAtos");
+            public int onEnd() {
+                if (pares != null) {
+                    return 1;
+                }
+                return 0;
+            }
+        },
+                 "AnalisandoAtos");
 // registramos outro estado − ProcessandoAtoAtual
         compFSM.registerState(new OneShotBehaviour(this) {
             int flag = 0;
@@ -132,11 +131,11 @@ public class Gerenciador extends Agent {
             int flag = 0;
 
             public void action() {
-                if (pilha.vazia()) {
-
-                    resposta = ExecutadorTarefa.executar(frame, gc);
-                    flag = 1;
-
+                if (pilha.vazia() && frame.getAcao() != null && frame.getDispositivo() != null && frame.getLocal() != null) {
+                    if (frame.getTarefa().equalsIgnoreCase("controlardispositivos")) {
+                        resposta = ExecutadorTarefa.executar(frame, gc);
+                        flag = 1;
+                    }
                 } else {
                     pilha.remove();
                     flag = 0;
@@ -161,11 +160,10 @@ public class Gerenciador extends Agent {
 
                 try {
                     msge.setContentObject(resposta);
-                
 
-} catch (IOException ex) {
+                } catch (IOException ex) {
                     Logger.getLogger(Gerenciador.class
-.getName()).log(Level.SEVERE, null, ex);
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 send(msge);
             }
@@ -186,25 +184,31 @@ public class Gerenciador extends Agent {
 
         switch (intencaoatualaux) {
 
-            case "Informar_local":
+            case "Informarlocal":
                 frame.setLocal(argsatualaux);
 
-            case "Informar_dispositivo":
+            case "Informardispositivo":
                 frame.setDispositivo(argsatualaux);
 
-            case "Informar_acao":
+            case "Informaracao":
                 if (argsatualaux.equals("ligar") || argsatualaux.equals("desligar") || argsatualaux.equals("aumentar") || argsatualaux.equals("diminuir")) {
                     frame.setTarefa("ControlarDisp");
                 }
                 frame.setAcao(argsatualaux);
 
-            case "Confirmar":
-                if (argsatualaux.equals("SIM")) {
+            case "Informarconfirmacao":
+                if (argsatualaux.equalsIgnoreCase("SIM")) {
                     TratadorErro.tratarrepostaerro(pilha);
                 }
-                if (argsatualaux.equals("NAO")) {
+                if (argsatualaux.equalsIgnoreCase("NAO")) {
                     TratadorErro.tratarnaoentendido(pilha);
                 }
+            case "Informarnumeral":
+
+            case "Informarnome":
+
+            case "Informarcomando":
+                frame.setTarefa(argsatualaux);
         }
     }
 }

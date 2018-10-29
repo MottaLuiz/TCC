@@ -14,33 +14,33 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import static jade.lang.acl.ACLMessage.INFORM;
+import java.util.Vector;
 
 public class ControladorDispositivos extends Agent {
+
+    static boolean executa(Vector<String> comm, String acao) {
+       switch (comm.get(1)){
+           
+       
+               case "Protocolo1":{
+                 return SimuladorCasa.simulaComm(comm.get(0), acao); 
+               }
+               case "Protocolo2":{
+                   return SimuladorCasa.simulaComm(comm.get(0), acao);
+               }
+                case "Protocolo3":{
+                   return SimuladorCasa.simulaComm(comm.get(0), acao);
+               }
+    }
+       return false;
+    }
     protected void setup() {
 
         System.out.println("Controlador de Dispositivos incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
-                ACLMessage msgr = receive();
-                if (msgr != null) {
-                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
-
-                    try {
-
-                       
-                        ACLMessage msge = new ACLMessage(INFORM);
-                        msge.setLanguage("Portugues");
-                        msge.addReceiver(new AID("ControladorDispositivos", AID.ISLOCALNAME));
-                        msge.setContent(msgr.getContent());
-
-                        send(msge);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    // interrompe este comportamento ate que chegue uma nova mensagem
-                }
-                block();
+                
+                //adicionar rotina de monitoramento de dispisitivos
 
             }
         });

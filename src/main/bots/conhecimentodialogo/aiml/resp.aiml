@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<aiml>
+    <category>
+        <pattern>Informar Local *</pattern>
+        <template>Não tenho registro do ambiente <star index = "1"/></template>
+    </category>
+    <category>
+        <pattern>informar Dispositivo * *</pattern>
+        <template>Não tenho registro do dispositivo <star index = "2"/> no ambiente <star index = "2"/></template>
+    </category>
+    <category>
+        <pattern>InformarExecucao *</pattern>
+        <template><star index = "1"/> na execução da tarefa</template>
+    </category>
+    
+</aiml>
