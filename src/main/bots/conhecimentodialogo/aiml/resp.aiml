@@ -12,11 +12,15 @@ and open the template in the editor.
     </category>
     <category>
         <pattern>informar Dispositivo * *</pattern>
-        <template>Não tenho registro do dispositivo <star index = "2"/> no ambiente <star index = "2"/></template>
+        <template>Não tenho registro do dispositivo <star index = "2"/> no ambiente <star index = "1"/></template>
     </category>
     <category>
         <pattern>InformarExecucao *</pattern>
         <template><star index = "1"/> na execução da tarefa</template>
+    </category>
+    <category>
+        <pattern>nao entendimento</pattern>
+        <template>desculpe não entendi a sua última frase</template>
     </category>
     
 </aiml>
