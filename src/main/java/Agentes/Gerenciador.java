@@ -72,7 +72,9 @@ public class Gerenciador extends Agent {
 // registramos estado inicial − AnalisandoAtos
         compFSM.registerFirstState(new OneShotBehaviour(this) {
             public void action() {
+                boolean flag = false;
                 resposta = null;
+                System.out.println("estado processando analisando atos");
                 if (pilha.vazia()) {
                     if (pares != null) {
                         if (pares.size() == 1) {
@@ -80,19 +82,28 @@ public class Gerenciador extends Agent {
                             pilha.setArgsatual(pares.elementAt(0).getArgs());
                         }
                         if (pares.size() > 1) {
-                            for (int i = 0; i <= pares.size(); i++) {
+                            for (int i = 0; i < pares.size(); i++) {
                                 if (pares.elementAt(i).getIntencao().equals("Confirmar")) {
                                     pilha.insere(pilha.getIntencaoatual(), pilha.getArgsatual());
                                     pilha.setIntencaoatual(pares.elementAt(i).getIntencao());
                                     pilha.setArgsatual(pares.elementAt(i).getArgs());
+                                    flag = true;
                                 } else {
-                                    pilha.insere(pares.elementAt(i).getIntencao(),
-                                            pares.elementAt(i).getArgs());
+                                    pilha.insere(pares.elementAt(i).getIntencao(), pares.elementAt(i).getArgs());
+                                    System.out.println("inseriu "+ i+ " ");
                                 }
                             }
                         }
+                        if (flag) {
+                            flag = false;
+                        } else {
+                            pilha.remove();
+                            System.out.println(pilha.getArgsatual() + "  " + pilha.getIntencaoatual());
+                        }
                     }
                 } else {
+                    System.out.println("atualiza a pilha");
+                    pilha.remove();
 
                 }
             }
@@ -104,12 +115,14 @@ public class Gerenciador extends Agent {
                 return 0;
             }
         },
-                 "AnalisandoAtos");
+                "AnalisandoAtos");
 // registramos outro estado − ProcessandoAtoAtual
         compFSM.registerState(new OneShotBehaviour(this) {
             int flag = 0;
 
             public void action() {
+                System.out.println("estado processando atos");
+                System.out.println(pilha.getArgsatual() + "  " + pilha.getIntencaoatual());
                 if (pilha.getIntencaoatual().equals("") || pilha.getArgsatual().equals("")) {
                     resposta = TratadorErro.tratarerro(pilha.getIntencaoatual(), pilha.getArgsatual());
                     flag = 2;
@@ -126,18 +139,18 @@ public class Gerenciador extends Agent {
 
         }, "ProcessandoAtoAtual");
 
-        // registramos outro estado − RespostaNula
+        // registramos outro estado − PilhaVazia
         compFSM.registerState(new OneShotBehaviour(this) {
             int flag = 0;
 
             public void action() {
+                System.out.println("estado resposta nula");
                 if (pilha.vazia() && frame.getAcao() != null && frame.getDispositivo() != null && frame.getLocal() != null) {
-                    if (frame.getTarefa().equalsIgnoreCase("controlardispositivos")) {
+                    if (frame.getTarefa().equalsIgnoreCase("Controlardispositivos")) {
                         resposta = ExecutadorTarefa.executar(frame, gc);
                         flag = 1;
                     }
                 } else {
-                    pilha.remove();
                     flag = 0;
                 }
             }
@@ -173,7 +186,7 @@ public class Gerenciador extends Agent {
         compFSM.registerTransition("AnalisandoAtos", "AnalisandoAtos", 0);
         compFSM.registerTransition("ProcessandoAtoAtual", "ComunicaGLN", 2);
         compFSM.registerTransition("ProcessandoAtoAtual", "PilhaVazia", 1);
-        compFSM.registerTransition("PilhaVazia", "ProcessandoAtoAtual", 0);
+        compFSM.registerTransition("PilhaVazia", "AnalisandoAtos", 0);
         compFSM.registerTransition("PilhaVazia", "ComunicaGLN", 1);
         // acionamos o comportamento
         addBehaviour(compFSM);
@@ -184,25 +197,26 @@ public class Gerenciador extends Agent {
 
         switch (intencaoatualaux) {
 
-            case "Informarlocal":
+            case "Informarlocal":{
                 frame.setLocal(argsatualaux);
-
-            case "Informardispositivo":
+                System.out.println(frame.getLocal());}
+            case "Informardispositivo":{
                 frame.setDispositivo(argsatualaux);
-
-            case "Informaracao":
+                System.out.println(frame.getDispositivo());}
+            case "Informaracao":{
                 if (argsatualaux.equals("ligar") || argsatualaux.equals("desligar") || argsatualaux.equals("aumentar") || argsatualaux.equals("diminuir")) {
-                    frame.setTarefa("ControlarDisp");
+                    frame.setTarefa("Controlardispositivos");
+                    System.out.println(frame.getTarefa());
                 }
                 frame.setAcao(argsatualaux);
-
-            case "Informarconfirmacao":
+                System.out.println(frame.getAcao());}
+            case "Informarconfirmacao":{
                 if (argsatualaux.equalsIgnoreCase("SIM")) {
                     TratadorErro.tratarrepostaerro(pilha);
                 }
                 if (argsatualaux.equalsIgnoreCase("NAO")) {
                     TratadorErro.tratarnaoentendido(pilha);
-                }
+                }}
             case "Informarnumeral":
 
             case "Informarnome":
