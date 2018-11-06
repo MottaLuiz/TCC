@@ -17,7 +17,7 @@ public class TratadorErro {
 
     public static String tratarerro(String intencaoatualaux, String argsatualaux) {
         String resposta = new String();
-        resposta = null;
+        resposta = "nao entendimento";
         return resposta;
     }
 

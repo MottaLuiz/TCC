@@ -30,6 +30,7 @@ public class Gerenciador extends Agent {
     private PilhaDialogo pilha = new PilhaDialogo();
     private String resposta = new String();
     private FrameTarefa frame = new FrameTarefa();
+    String estado = new String();
 
     protected void setup() {
         System.out.println("Gerenciador de dialogo incializado");
@@ -37,6 +38,8 @@ public class Gerenciador extends Agent {
         resposta = null;
         pares = null;
         pilha.init();
+        estado = "EsperandoMSG";
+
         GerenciadorCasa gc = new GerenciadorCasa();
         try {
             gc.init();
@@ -44,179 +47,149 @@ public class Gerenciador extends Agent {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        FSMBehaviour compFSM = new FSMBehaviour(this) {
-
-        };
-// r e g i s t r am o s o p r im e i r o comportamento − X
         addBehaviour(new CyclicBehaviour(this) {
-            public void action() {
-                ACLMessage msgr = receive();
-                pares = null;
-                if (msgr != null) {
-                    try {
-                        pares = (Vector<Pares>) msgr.getContentObject();
-                        StringBuilder output = new StringBuilder();
-                        System.out.println("PARES RECEBIDOS");
 
-                    } catch (UnreadableException ex) {
-                        Logger.getLogger(Gerenciador.class
-                                .getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
-                }
-                // interrompe este comportamento ate que chegue uma nova mensagem
-                block();
-            }
-        });
-// registramos estado inicial − AnalisandoAtos
-        compFSM.registerFirstState(new OneShotBehaviour(this) {
             public void action() {
-                boolean flag = false;
-                resposta = null;
-                System.out.println("estado processando analisando atos");
-                if (pilha.vazia()) {
-                    if (pares != null) {
-                        if (pares.size() == 1) {
-                            pilha.setIntencaoatual(pares.elementAt(0).getIntencao());
-                            pilha.setArgsatual(pares.elementAt(0).getArgs());
+
+                switch (estado) {
+
+                    case "EsperandoMSG": {
+                        ACLMessage msgr = receive();
+                        pares = null;
+                        if (msgr != null) {
+                            try {
+                                pares = (Vector<Pares>) msgr.getContentObject();
+                                StringBuilder output = new StringBuilder();
+                                System.out.println("PARES RECEBIDOS");
+                                estado = "AtualizandoPilha";
+
+                            } catch (UnreadableException ex) {
+                                Logger.getLogger(Gerenciador.class
+                                        .getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                            //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
+                        } else {
+                            estado = "EsperandoMSG";
                         }
-                        if (pares.size() > 1) {
-                            for (int i = 0; i < pares.size(); i++) {
-                                if (pares.elementAt(i).getIntencao().equals("Confirmar")) {
-                                    pilha.insere(pilha.getIntencaoatual(), pilha.getArgsatual());
-                                    pilha.setIntencaoatual(pares.elementAt(i).getIntencao());
-                                    pilha.setArgsatual(pares.elementAt(i).getArgs());
-                                    flag = true;
+                     
+                    }
+                    case "AtualizandoPilha": {
+                        boolean flag = false;
+                        resposta = null;
+                        System.out.println("estado processando analisando atos");
+                        if (pilha.vazia()) {
+                            if (pares != null) {
+                                if (pares.size() == 1) {
+                                    pilha.setIntencaoatual(pares.elementAt(0).getIntencao());
+                                    pilha.setArgsatual(pares.elementAt(0).getArgs());
+                                }
+                                if (pares.size() > 1) {
+                                    for (int i = 0; i < pares.size(); i++) {
+                                        if (pares.elementAt(i).getIntencao().equals("Informarconfirmacao")) {
+                                            pilha.insere(pilha.getIntencaoatual(), pilha.getArgsatual());
+                                            pilha.setIntencaoatual(pares.elementAt(i).getIntencao());
+                                            pilha.setArgsatual(pares.elementAt(i).getArgs());
+                                            flag = true;
+                                        } else {
+                                            pilha.insere(pares.elementAt(i).getIntencao(), pares.elementAt(i).getArgs());
+                                            System.out.println("inseriu " + i + " ");
+                                        }
+                                    }
+                                }
+                                if (flag) {
+                                    flag = false;
                                 } else {
-                                    pilha.insere(pares.elementAt(i).getIntencao(), pares.elementAt(i).getArgs());
-                                    System.out.println("inseriu "+ i+ " ");
+                                    pilha.remove();
+                                    System.out.println(pilha.getArgsatual() + "  " + pilha.getIntencaoatual());
+                                    pares = null;
                                 }
                             }
+                        } else {
+                            System.out.println("atualiza a pilha");
+                            pilha.remove();
+
                         }
-                        if (flag) {
-                            flag = false;
+
+                        estado = "ProcessandoAtoAtual";
+                    }
+                    case "ProcessandoAtoAtual": {
+                        System.out.println("estado processando atos");
+                        System.out.println(pilha.getArgsatual() + "  " + pilha.getIntencaoatual());
+                        if (pilha.getIntencaoatual().equals("") || pilha.getArgsatual().equals("")) {
+                            resposta = TratadorErro.tratarerro(pilha.getIntencaoatual(), pilha.getArgsatual());
+                            estado = "ComunicaGLN";
+                        } else {
+                            tratarato(pilha.getIntencaoatual(), pilha.getArgsatual());
+                            estado = "PilhaVazia";
+                        }
+
+                    }
+                    case "PilhaVazia": {
+                        System.out.println("estado Pilha vazia");
+                        if (pilha.vazia() && frame.getAcao() != null && frame.getDispositivo() != null && frame.getLocal() != null) {
+                            if (frame.getTarefa().equalsIgnoreCase("controlardispositivos")) {
+                                resposta = ExecutadorTarefa.executar(frame, gc);
+                                estado = "ComunicaGLN";
+                            }
                         } else {
                             pilha.remove();
-                            System.out.println(pilha.getArgsatual() + "  " + pilha.getIntencaoatual());
+                            estado = "AtualizaPilha";
                         }
+
                     }
-                } else {
-                    System.out.println("atualiza a pilha");
-                    pilha.remove();
 
-                }
-            }
+                    case "ComunicaGLN": {
 
-            public int onEnd() {
-                if (pares != null) {
-                    return 1;
-                }
-                return 0;
-            }
-        },
-                "AnalisandoAtos");
-// registramos outro estado − ProcessandoAtoAtual
-        compFSM.registerState(new OneShotBehaviour(this) {
-            int flag = 0;
+                        ACLMessage msge = new ACLMessage(INFORM);
+                        msge.setLanguage("Portugues");
+                        msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
 
-            public void action() {
-                System.out.println("estado processando atos");
-                System.out.println(pilha.getArgsatual() + "  " + pilha.getIntencaoatual());
-                if (pilha.getIntencaoatual().equals("") || pilha.getArgsatual().equals("")) {
-                    resposta = TratadorErro.tratarerro(pilha.getIntencaoatual(), pilha.getArgsatual());
-                    flag = 2;
-                } else {
-                    tratarato(pilha.getIntencaoatual(), pilha.getArgsatual());
-                    flag = 1;
-                }
-            }
+                        try {
+                            msge.setContentObject(resposta);
 
-            public int onEnd() {
-
-                return flag;
-            }
-
-        }, "ProcessandoAtoAtual");
-
-        // registramos outro estado − PilhaVazia
-        compFSM.registerState(new OneShotBehaviour(this) {
-            int flag = 0;
-
-            public void action() {
-                System.out.println("estado resposta nula");
-                if (pilha.vazia() && frame.getAcao() != null && frame.getDispositivo() != null && frame.getLocal() != null) {
-                    if (frame.getTarefa().equalsIgnoreCase("Controlardispositivos")) {
-                        resposta = ExecutadorTarefa.executar(frame, gc);
-                        flag = 1;
+                        } catch (IOException ex) {
+                            Logger.getLogger(Gerenciador.class
+                                    .getName()).log(Level.SEVERE, null, ex);
+                        }
+                        send(msge);
+                        estado = "EsperandoMSG";
                     }
-                } else {
-                    flag = 0;
+
                 }
+
             }
-
-            public int onEnd() {
-
-                return flag;
-            }
-
-        }, "PilhaVazia");
-
-// registramos o ultimo estado − ComunicaGLN
-        compFSM.registerLastState(new OneShotBehaviour(this) {
-
-            public void action() {
-
-                ACLMessage msge = new ACLMessage(INFORM);
-                msge.setLanguage("Portugues");
-                msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
-
-                try {
-                    msge.setContentObject(resposta);
-
-                } catch (IOException ex) {
-                    Logger.getLogger(Gerenciador.class
-                            .getName()).log(Level.SEVERE, null, ex);
-                }
-                send(msge);
-            }
-        }, "ComunicaGLN");
-        // definimos as transicoes
-        compFSM.registerTransition("AnalisandoAtos", "ProcessandoAtoAtual", 1);
-        compFSM.registerTransition("AnalisandoAtos", "AnalisandoAtos", 0);
-        compFSM.registerTransition("ProcessandoAtoAtual", "ComunicaGLN", 2);
-        compFSM.registerTransition("ProcessandoAtoAtual", "PilhaVazia", 1);
-        compFSM.registerTransition("PilhaVazia", "AnalisandoAtos", 0);
-        compFSM.registerTransition("PilhaVazia", "ComunicaGLN", 1);
-        // acionamos o comportamento
-        addBehaviour(compFSM);
-
+        });
     }
 
     private void tratarato(String intencaoatualaux, String argsatualaux) {
 
         switch (intencaoatualaux) {
 
-            case "Informarlocal":{
+            case "Informarlocal": {
                 frame.setLocal(argsatualaux);
-                System.out.println(frame.getLocal());}
-            case "Informardispositivo":{
+                System.out.println(frame.getLocal());
+            }
+            case "Informardispositivo": {
                 frame.setDispositivo(argsatualaux);
-                System.out.println(frame.getDispositivo());}
-            case "Informaracao":{
+                System.out.println(frame.getDispositivo());
+            }
+            case "Informaracao": {
                 if (argsatualaux.equals("ligar") || argsatualaux.equals("desligar") || argsatualaux.equals("aumentar") || argsatualaux.equals("diminuir")) {
                     frame.setTarefa("Controlardispositivos");
                     System.out.println(frame.getTarefa());
                 }
                 frame.setAcao(argsatualaux);
-                System.out.println(frame.getAcao());}
-            case "Informarconfirmacao":{
+                System.out.println(frame.getAcao());
+            }
+            case "Informarconfirmacao": {
                 if (argsatualaux.equalsIgnoreCase("SIM")) {
                     TratadorErro.tratarrepostaerro(pilha);
                 }
                 if (argsatualaux.equalsIgnoreCase("NAO")) {
                     TratadorErro.tratarnaoentendido(pilha);
-                }}
+                }
+            }
             case "Informarnumeral":
 
             case "Informarnome":
