@@ -42,13 +42,11 @@ public class PilhaDialogo {
     }
 
     public void insere(String atosaux, String argsaux) {
-        int i;
-        i = 0;
-        while (atosaux != null && argsaux != null) {
+        
+        
             this.intencoes.push(atosaux);
             this.args.push(argsaux);
-        }
-
+        
     }
 
     public void remove() {
@@ -58,15 +56,17 @@ public class PilhaDialogo {
         } else {
             this.intencaoatual = this.intencoes.pop();
             this.argsatual = this.args.pop();
+            System.out.println(argsatual);
+            System.out.println(intencaoatual);
+            System.out.println("pop");
 
         }
     }
 
     public boolean vazia() {
-        if (this.intencoes.isEmpty() && this.args.isEmpty()) {
-            return true;
-        }
-        return false;
+        System.out.println(this.intencoes.empty());
+        return this.intencoes.empty()&& this.args.empty();
+        
     }
 
 }

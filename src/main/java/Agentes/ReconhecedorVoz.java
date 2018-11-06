@@ -153,7 +153,7 @@ public class ReconhecedorVoz  extends Agent{
 "  \"result_index\": 0\n" +
 "}";*/
                         
-                        msgr="{\n" +
+                      /*  msgr="{\n" +
 "  \"results\": [\n" +
 "    {\n" +
 "      \"final\": true,\n" +
@@ -203,6 +203,38 @@ public class ReconhecedorVoz  extends Agent{
 "              0.847\n" +
 "            ]\n" +
 "          ]\n" +
+"        }\n" +
+"      ]\n" +
+"    }\n" +
+"  ],\n" +
+"  \"result_index\": 0\n" +
+"}";*/
+                      msgr="{\n" +
+"  \"results\": [\n" +
+"    {\n" +
+"      \"final\": true,\n" +
+"      \"alternatives\": [\n" +
+"        {\n" +
+"          \"transcript\": \"ligue luz da sala \",\n" +
+"          \"confidence\": 0.873,\n" +
+"          \"word_confidence\": [\n" +
+"            [\n" +
+"              \"ligue\",\n" +
+"              0.157\n" +
+"            ],\n" +
+"            [\n" +
+"              \"luz\",\n" +
+"              0.975\n" +
+"            ],\n" +
+"            [\n" +
+"              \"da\",\n" +
+"              0.998\n" +
+"            ],\n" +
+"            [\n" +
+"              \"sala\",\n" +
+"              1.0\n" +
+"            ],\n" +
+"            ]\n" +
 "        }\n" +
 "      ]\n" +
 "    }\n" +
