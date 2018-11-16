@@ -8,7 +8,6 @@ package Agentes;
 import java.util.Vector;
 import utils.FrameTarefa;
 import utils.Pares;
-import utils.GerenciadorCasa;
 import utils.HistoricoTarefas;
 
 /**

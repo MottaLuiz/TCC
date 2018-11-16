@@ -1,3 +1,3 @@
-0,INFORMAR LOCAL *,*,*,Não tenho registro do ambiente <star index="1"/>,resp.aiml
-0,INFORMAR DISPOSITIVO * *,*,*,Não tenho registro do dispositivo <star index="2"/> no ambiente <star index="2"/>,resp.aiml
-0,INFORMAREXECUCAO *,*,*,<star index="1"/> na execução da tarefa,resp.aiml
+0,INFORMAR LOCAL *,*,*,Nao tenho registro do ambiente <star index="1"/>,resp.aiml
+0,INFORMAR DISPOSITIVO * *,*,*,Nao tenho registro do dispositivo <star index="2"/> no ambiente <star index="2"/>,resp.aiml
+0,INFORMAREXECUCAO *,*,*,<star index="1"/> na execucao da tarefa,resp.aiml

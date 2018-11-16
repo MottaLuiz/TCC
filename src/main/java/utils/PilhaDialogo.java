@@ -35,10 +35,7 @@ public class PilhaDialogo {
     }
 
     public void init() {
-        intencaoatual = null;
-        intencoes = null;
-        argsatual = null;
-        args = null;
+    
     }
 
     public void insere(String atosaux, String argsaux) {
