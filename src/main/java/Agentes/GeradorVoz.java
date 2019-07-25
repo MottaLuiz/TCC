@@ -1,3 +1,5 @@
+//FALTA CONSEGUIR TOCAR DIRETO O ROLE
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -47,6 +51,7 @@ public class GeradorVoz extends Agent {
                     TextToSpeech textToSpeech = new TextToSpeech();
                     textToSpeech.setUsernameAndPassword("474a2e01-7aef-47b3-8dc7-7e6c3be4ee45", "idIWedWDbmfW");
                     try {
+                        System.out.println("----------------------------------------------------------------------------ESTOU CANSADO FUNCIONA GERADOR DE VOZ FDP " + msg.getContent());
                         SynthesizeOptions synthesizeOptions
                                 = new SynthesizeOptions.Builder()
                                         .text(msg.getContent())
@@ -94,6 +99,12 @@ public class GeradorVoz extends Agent {
                         ex.printStackTrace();
                     }
                 }
+                try {
+                    Thread.sleep(5 * 1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 block();
             }
         });

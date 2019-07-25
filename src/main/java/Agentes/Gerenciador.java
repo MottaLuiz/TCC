@@ -1,3 +1,5 @@
+//MUDAR A LOGICA
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -54,6 +56,7 @@ public class Gerenciador extends Agent {
 
                     case "EsperandoMSG": {
                         ACLMessage msgr = receive();
+                        /*
                         pares = null;
                         if (msgr != null) {
                             try {
@@ -68,12 +71,13 @@ public class Gerenciador extends Agent {
                             }
 
                             //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
-                        } else {
+                        } else { */
                             estado = "EsperandoMSG";
                         }
                      
-                    }
+                    //}
                     case "AtualizandoPilha": {
+                        /*
                         boolean flag = false;
                         resposta = null;
                         System.out.println("estado processando analisando atos");
@@ -109,10 +113,11 @@ public class Gerenciador extends Agent {
                             pilha.remove();
 
                         }
-
+*/
                         estado = "ProcessandoAtoAtual";
                     }
                     case "ProcessandoAtoAtual": {
+                    /*
                         System.out.println("estado processando atos");
                         System.out.println(pilha.getArgsatual() + "  " + pilha.getIntencaoatual());
                         if (pilha.getIntencaoatual().equals("") || pilha.getArgsatual().equals("")) {
@@ -136,7 +141,9 @@ public class Gerenciador extends Agent {
                             estado = "AtualizaPilha";
                         }
 
-                    }
+                    } */
+                    estado = "AtualizaPilha";}
+
 
                     case "ComunicaGLN": {
 
@@ -144,13 +151,9 @@ public class Gerenciador extends Agent {
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
 
-                        try {
-                            msge.setContentObject(resposta);
-
-                        } catch (IOException ex) {
-                            Logger.getLogger(Gerenciador.class
-                                    .getName()).log(Level.SEVERE, null, ex);
-                        }
+                        resposta=null;
+                        resposta = "RESPOSTA PADRAO";
+                        msge.setContent(resposta);
                         send(msge);
                         estado = "EsperandoMSG";
                     }
@@ -160,7 +163,7 @@ public class Gerenciador extends Agent {
             }
         });
     }
-
+/*
     private void tratarato(String intencaoatualaux, String argsatualaux) {
 
         switch (intencaoatualaux) {
@@ -196,5 +199,7 @@ public class Gerenciador extends Agent {
             case "Informarcomando":
                 frame.setTarefa(argsatualaux);
         }
-    }
+    } 
+*/
 }
+

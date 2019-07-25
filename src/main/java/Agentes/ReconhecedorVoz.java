@@ -1,3 +1,5 @@
+//FUNCIONANDO + TIRAR OS TESTES 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -240,7 +242,7 @@ public class ReconhecedorVoz  extends Agent{
 "    }\n" +
 "  ],\n" +
 "  \"result_index\": 0\n" +
-"}";
+"}"; 
                         
                         ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                         msge.setLanguage("Portugues");
@@ -283,7 +285,7 @@ public class ReconhecedorVoz  extends Agent{
 } catch (LineUnavailableException ex) {
                     Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        System.out.println("Fin.");
+        System.out.println("Reconhecedor Finalizado");
                 
                
                 block();

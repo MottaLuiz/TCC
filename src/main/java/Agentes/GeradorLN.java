@@ -1,3 +1,6 @@
+// PRONTO - POVOAR AIML
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -38,7 +41,7 @@ public class GeradorLN extends Agent {
             public void action() {
                 ACLMessage msgr = receive();
                 if (msgr != null) {
-                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
+                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent().toString());
 
                     try {
 
