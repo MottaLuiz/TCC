@@ -46,14 +46,17 @@ public class GeradorVoz extends Agent {
                 ACLMessage msg = receive();
                 if (msg != null) {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msg.getContent());
+                    
+                    
                     // interrompe este comportamento ate que chegue uma nova mensagem
 
                     TextToSpeech textToSpeech = new TextToSpeech();
                     textToSpeech.setUsernameAndPassword("474a2e01-7aef-47b3-8dc7-7e6c3be4ee45", "idIWedWDbmfW");
                     try {
-                        System.out.println("----------------------------------------------------------------------------ESTOU CANSADO FUNCIONA GERADOR DE VOZ FDP " + msg.getContent());
+                        //System.out.println("----------------------------------------------------------------------------ESTOU CANSADO FUNCIONA GERADOR DE VOZ FDP " + msg.getContent());
                         SynthesizeOptions synthesizeOptions
                                 = new SynthesizeOptions.Builder()
+                                        //.text("Teste, por favor funcione")
                                         .text(msg.getContent())
                                         .accept("audio/wav")
                                         .voice("pt-BR_IsabelaVoice")
@@ -81,7 +84,7 @@ public class GeradorVoz extends Agent {
                         String path = currDir.getAbsolutePath();
                         path = path.substring(0, path.length() - 2);
                         //System.out.println(path);
-                        String resourcesPath = path + "hello_world.owl";
+                        String resourcesPath = path + "\\hello_world.wav";
                         filePath = resourcesPath;
                         // create AudioInputStream object 
                         audioInputStream

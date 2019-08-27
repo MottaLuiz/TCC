@@ -1,3 +1,2 @@
-0,RESPOSTA PADRAO,*,*,AIML ON,respostas.aiml
-0,WHAT IS CHAT BOT,*,*,Chatbot is a computer program designed to simulate#Newline        conversation with human users#Comma especially over the Internet.,respostas.aiml
-0,WHAT IS INDIA,*,*,wonderful country.,respostas.aiml
+0,DISPOSITIVO * LOCAL * ACAO *,*,*,o dispositivo <star index = "1"/> do local <star index = "2"/> foi <star index = "3"/>,respostas.aiml
+0,PERGUNTAR DISPOSITIVO,*,*,qual dispositivo gostaria de ligar?,respostas.aiml

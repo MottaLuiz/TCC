@@ -15,14 +15,10 @@
 <!-- implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   -->
 <!--  -->
 <!-- For more information see unknown -->
-<category><pattern>RESPOSTA PADRAO</pattern>
-<template>AIML ON</template>
+<category><pattern>DISPOSITIVO * LOCAL * ACAO *</pattern>
+<template>o dispositivo <star index = "1"/> do local <star index = "2"/> foi <star index = "3"/></template>
 </category>
-<category><pattern>WHAT IS CHAT BOT</pattern>
-<template>Chatbot is a computer program designed to simulate
-        conversation with human users, especially over the Internet.</template>
-</category>
-<category><pattern>WHAT IS INDIA</pattern>
-<template>wonderful country.</template>
+<category><pattern>PERGUNTAR DISPOSITIVO</pattern>
+<template>qual dispositivo gostaria de ligar?</template>
 </category>
 </aiml>
