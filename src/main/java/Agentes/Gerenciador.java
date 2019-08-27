@@ -42,17 +42,18 @@ public class Gerenciador extends Agent {
                        Vector<Pares>  pares = (Vector<Pares>) msgr.getContentObject();
                     for (int i = 0; i < pares.size(); i++){
             System.out.println("teste gerenciador argumento: " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
-            if (pares.get(i).getIntencao() == "Informarcomando") {
+            System.out.println(pares.get(i).getIntencao());
+            if ("Informarcomando".equals(pares.get(i).getIntencao())) {
                 System.out.println("entrou comando");
                 frametarefa.setTarefa(pares.get(i).getArgs()); 
             }
-            else if (pares.get(i).getIntencao() == "InformarAcao") {
+            else if ("Informaracao".equals(pares.get(i).getIntencao())) {
                 frametarefa.setAcao(pares.get(i).getArgs()); 
             }
-            else if (pares.get(i).getIntencao() == "Informardispositivo") {
+            else if ("Informardispositivo".equals(pares.get(i).getIntencao())) {
                 frametarefa.setDispositivo(pares.get(i).getArgs()); 
             }
-            else if (pares.get(i).getIntencao() == "Informarlocal") {
+            else if ("Informarlocal".equals(pares.get(i).getIntencao())) {
                 frametarefa.setLocal(pares.get(i).getArgs());
             }
         }
