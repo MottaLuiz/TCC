@@ -189,13 +189,16 @@ public class Semantizador extends Agent {
                                 for (int j = 0; j <= contdisp[a] - 1; j++) {
                                     for (int k = 0; k <= contlocais[a] - 1; k++) {
                                         Vector<Pares> pares = new Vector<>();
-                                        Pares p = new Pares();
-                                        p.setIntencao("Informarcomando");
-                                        p.setArgs("Controlardispositivos");
-                                        pares.add(p);
+                                        Pares pcomando = new Pares();
+                                        Pares pacao = new Pares();
+                                        Pares plocal = new Pares();
+                                        Pares pdispositivo = new Pares();
+                                        pcomando.setIntencao("Informarcomando");
+                                        pcomando.setArgs("Controlardispositivos");
+                                        pares.add(pcomando);
                                         if (possiveisacoes.contains(StringUtils.stripAccents(acao[a]))) {
-                                            p.setIntencao("Informaracao");
-                                            p.setArgs(acao[a]);
+                                            pacao.setIntencao("Informaracao");
+                                            pacao.setArgs(acao[a]);
                                             if (modocriacao == 2) {
                                                 modocriacao = 0;
                                             }
@@ -203,18 +206,18 @@ public class Semantizador extends Agent {
                                             System.out.println("acao: " + acao[a]);
                                             //System.out.println("acao args:" + p.getArgs().toString());
                                             //System.out.println("acao intencao:" + p.getIntencao().toString());
-                                            pares.add(p);
+                                            pares.add(pacao);
                                         }
-                                        p.setIntencao("Informarlocal");
-                                        p.setArgs(locais[a][k]);
+                                        plocal.setIntencao("Informarlocal");
+                                        plocal.setArgs(locais[a][k]);
                                         System.out.println("locais " + locais[a][k]);
-                                        pares.add(p);
-                                        p.setIntencao("Informardispositivo");
-                                        p.setArgs(dispositivos[a][j]);
+                                        pares.add(plocal);
+                                        pdispositivo.setIntencao("Informardispositivo");
+                                        pdispositivo.setArgs(dispositivos[a][j]);
                                         System.out.println("dispositivo: " + dispositivos[a][j]);
                                         //System.out.println("acao args:" + p.getArgs().toString());
                                         //System.out.println("acao intencao:" + p.getIntencao().toString());
-                                        pares.add(p);
+                                        pares.add(pdispositivo);
                                         enviarmsg(pares);
                                     }
                                 }
@@ -277,36 +280,40 @@ public class Semantizador extends Agent {
                             for (int j = 0; j <= contdisp - 1; j++) {
                                 for (int k = 0; k <= contlocais - 1; k++) {
                                     Vector<Pares> pares = new Vector<>();
-                                    Pares p = new Pares();
-                                    p.setIntencao("Informarcomando");
-                                    p.setArgs("Controlardispositivos");
-                                    pares.add(p);
+                                    Pares pcomando = new Pares();
+                                    Pares pdisp = new Pares();
+                                    Pares pacao = new Pares();
+                                    Pares plocal = new Pares();
+                                    
+                                    pcomando.setIntencao("Informarcomando");
+                                    pcomando.setArgs("Controlardispositivos");
+                                    pares.add(pcomando);
+                                    
+                                    
+                                    System.out.println("imprimir v1 vetor de dispositivos " + pares.toString()); 
+                                    
                                     if (possiveisacoes.contains(StringUtils.stripAccents(acao))) {
-                                        p.setIntencao("Informaracao");
-                                        p.setArgs(acao);
+                                        pacao.setIntencao("Informaracao");
+                                        pacao.setArgs(acao);
 
                                         System.out.println("acao: " + acao);
-                                        pares.add(p);
+                                        pares.add(pacao);
                                         if (modocriacao == 2) {
                                             modocriacao = 0;
                                         }
                                     }
 
-                                    p.setIntencao("Informardispositivo");
-                                    p.setArgs(dispositivos[j]);
+                                    pdisp.setIntencao("Informardispositivo");
+                                    pdisp.setArgs(dispositivos[j]);
                                     System.out.println("dispositivos: " + dispositivos[j]);
-                                    pares.add(p);
+                                    pares.add(pdisp);
 
-                                    p.setIntencao("Informarlocal");
-                                    p.setArgs(locais[k]);
+                                    plocal.setIntencao("Informarlocal");
+                                    plocal.setArgs(locais[k]);
                                     System.out.println("local: " + locais[k]);
-                                    //System.out.println("acao args:" + p.getArgs().toString());
-                                    //System.out.println("acao intencao:" + p.getIntencao().toString());
-                                    pares.add(p);
+                                    pares.add(plocal);
 
                                     enviarmsg(pares);
-                                    //System.out.println("dispouloc args:" + p.getArgs().toString());
-                                    //System.out.println("dispouloc intencao:" + p.getIntencao().toString());
                                 }
                             }
                         }
@@ -349,7 +356,11 @@ public class Semantizador extends Agent {
 
     }
 
-    public void enviarmsg(Vector pares) {
+    public void enviarmsg(Vector<Pares> pares) {
+         for (int i = 0; i < pares.size(); i++){
+            System.out.println("teste argumento: " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
+        }
+        
 
         ACLMessage msge = new ACLMessage(INFORM);
         msge.setLanguage("Portugues");
@@ -361,6 +372,8 @@ public class Semantizador extends Agent {
             Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
         }
         send(msge);
+        
+     
 
     }
 
