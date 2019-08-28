@@ -31,7 +31,12 @@ public class Gerenciador extends Agent {
     protected void setup() {
         FrameTarefa frametarefa = new FrameTarefa();
         Vector<FrameTarefa> vetorframestarefa = new Vector<>();
-
+        GerenciadorCasa gc = new GerenciadorCasa();
+        try {
+            gc.init();
+        } catch (IOException ex) {
+            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Gerenciador incializado");
 
         addBehaviour(new CyclicBehaviour(this) {
@@ -65,7 +70,7 @@ public class Gerenciador extends Agent {
                     System.out.println("teste frame tarefa" + frametarefa.getTarefa());
                     System.out.println("teste frame Acao" + frametarefa.getAcao());
                     System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
-                    System.out.println("teste frame local" + frametarefa.getLocal());
+                    System.out.println("teste frame local " + frametarefa.getLocal());
                     //adiciona frame ao vetor de frames
                     vetorframestarefa.add(frametarefa);
                     ACLMessage msge = new ACLMessage(INFORM);
@@ -103,8 +108,12 @@ public class Gerenciador extends Agent {
                                 System.out.println("erro Acao");
                             } else {
                                 //se possui todos os dados -- ok
+                                
                                 System.out.println("deu certo");
-
+                                //para executar tarefa precisa chamar essa função abaixo enviando o frame. a função retorna uma resposta que precisamos definir
+                                //nessa função já chamo as outras funções que alteram o Owl e que cominicam com os dispositivos, mas parece não estar funcionando pois a resposta está voltando como null
+                                resposta = ExecutadorTarefa.executar(vetorframestarefa.get(vetorframestarefa.size()-1), gc);
+                                  System.out.println("Resposta é " + resposta);
                                 resposta = "DISPOSITIVO " + vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo() + " LOCAL " + vetorframestarefa.get(vetorframestarefa.size() - 1).getLocal() + " ACAO " + vetorframestarefa.get(vetorframestarefa.size() - 1).getAcao();
 
                                 System.out.println("Resposta é " + resposta);

@@ -25,19 +25,6 @@ public class ExecutadorTarefa {
         Pares paux = new Pares();
         Vector<String> comm = new Vector<>();
 
-        if (!GerenciadorCasa.consultarLocal(frame.getLocal())) {
-            resp = "Informar Local "+frame.getLocal();
-            
-            return resp;
-        }
-        if (GerenciadorCasa.consultarDispositivo(frame.getLocal(), frame.getDispositivo())) {
-
-        } else {
-            resp = "informar Dispositivo "+frame.getLocal()+" "+frame.getDispositivo();
-            
-            return resp;
-        }
-
         if (frame.getTarefa().equals("ContralarDisp")) {
             switch (frame.getAcao()) {
 
