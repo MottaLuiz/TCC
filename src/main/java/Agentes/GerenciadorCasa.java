@@ -36,7 +36,8 @@ import org.apache.jena.update.UpdateRequest;
 public class GerenciadorCasa {
 
     static Model model = ModelFactory.createMemModelMaker().createDefaultModel();
-
+    
+    
     public static String EstadoDispositivo(String dispositivo) throws FileNotFoundException, IOException {
         String resultado = null;
 
@@ -49,10 +50,12 @@ public class GerenciadorCasa {
                 + " WHERE {"
                 + " ?disp ?prop ?estado  . "
                 + " ?disp rdfs:label ?labeldisp . "
-                + " ?disp rdfs:label \"" + dispositivo + "@pt\" ."
+                 + " ?disp rdfs:label \"" + dispositivo + "@pt\" ."
                 + " ?prop rdfs:label \"Estado@pt\" . "
                 + " } ";
-
+        
+        
+        
         Query query = QueryFactory.create(queryString);
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);

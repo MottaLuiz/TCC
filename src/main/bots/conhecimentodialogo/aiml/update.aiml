@@ -16,9 +16,9 @@
 <!--  -->
 <!-- For more information see unknown -->
 <category><pattern>BUILD</pattern>
-<template>Fri Aug 30 20:48:09 BRT 2019</template>
+<template>Fri Aug 30 18:37:51 BRT 2019</template>
 </category>
 <category><pattern>DELEVLOPMENT ENVIRONMENT</pattern>
-<template>Program AB 0.0.4.3 beta -- AI Foundation Reference AIML 2.0 implementation</template>
+<template>Program AB 0.0.4.2 beta -- AI Foundation Reference AIML 2.0 implementation</template>
 </category>
 </aiml>
