@@ -37,6 +37,34 @@ public class GerenciadorCasa {
 
     static Model model = ModelFactory.createMemModelMaker().createDefaultModel();
 
+    public static String EstadoDispositivo(String dispositivo) throws FileNotFoundException, IOException {
+        String resultado = null;
+
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT ?estado \n"
+                + " WHERE {"
+                + " ?disp ?prop ?estado  . "
+                + " ?disp rdfs:label ?labeldisp . "
+                + " ?disp rdfs:label \"" + dispositivo + "@pt\" ."
+                + " ?prop rdfs:label \"Estado@pt\" . "
+                + " } ";
+
+        Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+        while (res.hasNext()) {
+            resultado = (res.next().get("estado")).toString();
+            System.out.println(resultado);
+        }
+// Create a new query
+        return resultado;
+    }
+
     public static Vector<String> obterComm(String dispositivo, String local) {
         Vector<String> conn = new Vector<>();
 
@@ -132,7 +160,7 @@ public class GerenciadorCasa {
 
     }
 
-  public static boolean consultarLocalporDisp(String local) throws FileNotFoundException, IOException {
+    public static boolean consultarLocaisdeDisp(String disp) throws FileNotFoundException, IOException {
 
         // Open the bloggers RDF graph from the filesystem
         String queryString
@@ -140,14 +168,14 @@ public class GerenciadorCasa {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "SELECT ?labeldisp ?local ?prop ?disp \n"
+                + "SELECT ?labellocal  ?disp ?prop ?local \n"
                 + " WHERE {"
                 + " ?local ?prop ?disp  . "
-                //+ " ?local rdfs:label \""+local+"@pt\"  . "
+                //+ " ?local rdfs:label \"" + local + "@pt\"  . "
                 + " ?prop rdfs:label \"tem_dispositivo@pt\" . "
-                + " ?disp  rdf:type ?class . "
-                + " ?class rdfs:label \"Dispositivos@pt\" . "
-                + " ?disp rdfs:label ?labeldisp . "
+                + " ?local rdfs:label ?labellocal . "
+                + " ?disp rdf:type ?class . "
+                + " ?class rdfs:label \""+disp+"_dispositivo@pt\" . "
                 + " } ";
         Query query = QueryFactory.create(queryString);
 // Execute the query and obtain results
@@ -162,8 +190,35 @@ public class GerenciadorCasa {
         return true;
 
     }
-  
-   public static boolean consultarTodosDispsitivos(String local) throws FileNotFoundException, IOException {
+
+    public static boolean consultarLocalporDisp(String local) throws FileNotFoundException, IOException {
+
+        // Open the bloggers RDF graph from the filesystem
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT ?labeldisp ?local ?prop ?disp \n"
+                + " WHERE {"
+                + " ?local ?prop ?disp  . "
+                + " ?local rdfs:label \"" + local + "@pt\"  . "
+                + " ?prop rdfs:label \"tem_dispositivo@pt\" . "
+                + " ?disp rdfs:label ?labeldisp . "
+                + " } ";
+        Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+        ResultSetFormatter.out(System.out, res, query);
+        while (res.hasNext()) {
+            System.out.println(res.next().get("estado"));
+        }
+
+        return true;
+    }
+
+    public static boolean consultarTodosDispsitivos() throws FileNotFoundException, IOException {
 
         // Open the bloggers RDF graph from the filesystem
         String queryString

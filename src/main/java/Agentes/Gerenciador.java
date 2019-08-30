@@ -48,7 +48,7 @@ public class Gerenciador extends Agent {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
-                        GerenciadorCasa.consultar();
+                        GerenciadorCasa.consultarTodosDispsitivos();
                     } catch (IOException ex) {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -84,6 +84,12 @@ public class Gerenciador extends Agent {
                     
                     try {
                         GerenciadorCasa.consultarLocalporDisp(vetorframestarefa.get(vetorframestarefa.size()-1).getLocal());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    try {
+                        GerenciadorCasa.consultarLocaisdeDisp(vetorframestarefa.get(vetorframestarefa.size()-1).getDispositivo());
                     } catch (IOException ex) {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
