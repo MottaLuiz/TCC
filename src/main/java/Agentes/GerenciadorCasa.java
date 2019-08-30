@@ -33,6 +33,37 @@ import org.apache.jena.update.UpdateRequest;
 public class GerenciadorCasa {
 
     static Model model = ModelFactory.createMemModelMaker().createDefaultModel();
+    
+    
+    public static String EstadoDispositivo(String dispositivo) throws FileNotFoundException, IOException {
+        String resultado = null;
+
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT ?estado \n"
+                + " WHERE {"
+                + " ?disp ?prop ?estado  . "
+                + " ?disp rdfs:label ?labeldisp . "
+                 + " ?disp rdfs:label \"" + dispositivo + "@pt\" ."
+                + " ?prop rdfs:label \"Estado@pt\" . "
+                + " } ";
+        
+        
+        
+        Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+        while (res.hasNext()) {
+            resultado = (res.next().get("estado")).toString();
+            System.out.println(resultado);
+        }
+// Create a new query
+        return resultado;
+    }
 
     public static Vector<String> obterComm(String dispositivo, String local) {
         Vector<String> conn = new Vector<>();
