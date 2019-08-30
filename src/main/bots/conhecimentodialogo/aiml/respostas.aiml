@@ -16,7 +16,7 @@
 <!--  -->
 <!-- For more information see unknown -->
 <category><pattern>DISPOSITIVO * LOCAL * ACAO *</pattern>
-<template>o dispositivo <star index = "1"/> do local <star index = "2"/> foi <star index = "3"/></template>
+<template>o dispositivo <star index="1"/> do local <star index="2"/> foi <star index="3"/></template>
 </category>
 <category><pattern>PERGUNTAR DISPOSITIVO</pattern>
 <template>qual dispositivo gostaria de ligar?</template>

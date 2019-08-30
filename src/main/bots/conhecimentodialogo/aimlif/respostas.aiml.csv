@@ -1,2 +1,2 @@
-0,DISPOSITIVO * LOCAL * ACAO *,*,*,o dispositivo <star index = "1"/> do local <star index = "2"/> foi <star index = "3"/>,respostas.aiml
+0,DISPOSITIVO * LOCAL * ACAO *,*,*,o dispositivo <star index="1"/> do local <star index="2"/> foi <star index="3"/>,respostas.aiml
 0,PERGUNTAR DISPOSITIVO,*,*,qual dispositivo gostaria de ligar?,respostas.aiml
