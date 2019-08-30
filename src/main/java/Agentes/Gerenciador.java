@@ -31,20 +31,28 @@ public class Gerenciador extends Agent {
     protected void setup() {
         FrameTarefa frametarefa = new FrameTarefa();
         Vector<FrameTarefa> vetorframestarefa = new Vector<>();
-        GerenciadorCasa gc = new GerenciadorCasa();
-        try {
-            gc.init();
-        } catch (IOException ex) {
-            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         System.out.println("Gerenciador incializado");
 
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 String estado = new String();
                 estado = "VerificandoErro";
+
                 ACLMessage msgr = receive();
                 if (msgr != null) {
+                    GerenciadorCasa gc = new GerenciadorCasa();
+                    try {
+                        gc.init();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        GerenciadorCasa.consultar();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                     try {
                         Vector<Pares> pares = (Vector<Pares>) msgr.getContentObject();
                         //transforma vetor de pares em frame
@@ -73,6 +81,12 @@ public class Gerenciador extends Agent {
                     System.out.println("teste frame local " + frametarefa.getLocal());
                     //adiciona frame ao vetor de frames
                     vetorframestarefa.add(frametarefa);
+                    
+                    try {
+                        GerenciadorCasa.consultarLocalporDisp(vetorframestarefa.get(vetorframestarefa.size()-1).getLocal());
+                    } catch (IOException ex) {
+                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     ACLMessage msge = new ACLMessage(INFORM);
                     msge.setLanguage("Portugues");
                     msge.addReceiver(new AID("GeradorLN", AID.ISLOCALNAME));
@@ -82,38 +96,41 @@ public class Gerenciador extends Agent {
                             if (vetorframestarefa.get(vetorframestarefa.size() - 1).getTarefa() == null) {
                                 //se nao tem a tarefa a ser realizada
                                 System.out.println("erro Tarefa");
-                            } else if (vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo() == null) {
+                                estado = "IDENTIFICANDO TAREFA";
+                                resposta = "NAO COMPREENDI O COMANDO";
+                            } else if (vetorframestarefa.get(vetorframestarefa.size() - 1).getLocal() == null) {
                                 //se nao tem dispositivo alvo
                                 System.out.println("erro Dispositivo");
                                 estado = "EsperandoDispositivo";
-                                //verifica quais dispositivos existem se existir local
-                                if (vetorframestarefa.get(vetorframestarefa.size() - 1).getLocal() == null){
-                                    //fazer MOTTA ------------------------------------------------ verifica qual dispositivos existem naquele local e sugere pro GeradorLN
-                                    resposta = "possiveis dispositivos para o local especificado";
+                                if (vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo() == null) {
+                                    System.out.println("erro Local e Dispositivo");
+                                    estado = "EsperandoComandoNovamente";
+      
+                                } else {
+                                    
+                                    //verificar em quais locais tem o 
                                 }
-                                else {
-                                    resposta = "PERGUNTAR DISPOSITIVO";
-                                }
-                                
+
                             } else if (vetorframestarefa.get(vetorframestarefa.size() - 1).getLocal() == null) {
                                 //se nao tem local alvo
                                 System.out.println("erro Local");
-                                if (vetorframestarefa.get(vetorframestarefa.size() - 1).getAcao() == null){
+                                if (vetorframestarefa.get(vetorframestarefa.size() - 1).getAcao() == null) {
                                     //fazer MOTTA ------------------------------------------------ verifica qual acao pode ser realizada naquele local e dispositivo
                                     resposta = "acao a ser realizada pelo dispositivo naquele local";
                                 }
-                                
+
                             } else if (vetorframestarefa.get(vetorframestarefa.size() - 1).getAcao() == null) {
                                 //se nao tem a acao a ser realizada
                                 System.out.println("erro Acao");
                             } else {
                                 //se possui todos os dados -- ok
-                                
+                                GerenciadorCasa.consultarDispositivo(vetorframestarefa.get(vetorframestarefa.size() - 1).getLocal(), vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo());
+
                                 System.out.println("deu certo");
                                 //para executar tarefa precisa chamar essa função abaixo enviando o frame. a função retorna uma resposta que precisamos definir
                                 //nessa função já chamo as outras funções que alteram o Owl e que cominicam com os dispositivos, mas parece não estar funcionando pois a resposta está voltando como null
-                                resposta = ExecutadorTarefa.executar(vetorframestarefa.get(vetorframestarefa.size()-1), gc);
-                                  System.out.println("Resposta é " + resposta);
+                                resposta = ExecutadorTarefa.executar(vetorframestarefa.get(vetorframestarefa.size() - 1), gc);
+                                System.out.println("Resposta é " + resposta);
                                 resposta = "DISPOSITIVO " + vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo() + " LOCAL " + vetorframestarefa.get(vetorframestarefa.size() - 1).getLocal() + " ACAO " + vetorframestarefa.get(vetorframestarefa.size() - 1).getAcao();
 
                                 System.out.println("Resposta é " + resposta);
@@ -123,20 +140,23 @@ public class Gerenciador extends Agent {
                             send(msge);
 
                         }
-                        
-                        case "EsperandoDispositivo":{
+
+                        case "EsperandoDispositivo": {
                             System.out.println("entrou esperando dispositivo");
-                            if (vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo() == null){
+                            if (vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo() == null) {
                                 estado = "EsperandoDispositivo";
-                            }
-                            else{
+                            } else {
                                 vetorframestarefa.get(vetorframestarefa.size() - 1).setDispositivo(frametarefa.getDispositivo());
                                 estado = "VerificandoErro";
                             }
                         }
-                        
-                        
-                        
+
+                    }
+
+                    try {
+                        gc.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 } else {

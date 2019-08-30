@@ -29,10 +29,10 @@ public class ExecutadorTarefa {
             switch (frame.getAcao()) {
 
                 case "ligar": {
-                    if (GerenciadorCasa.verificaValorPropDisp(frame.getDispositivo(), "desligado")) {
+                    if (GerenciadorCasa.verificaValorPropDisp(frame.getDispositivo(), frame.getLocal(), "desligado")) {
                         comm = GerenciadorCasa.obterComm(frame.getDispositivo(), frame.getLocal());
                         if (ControladorDispositivos.executa(comm, "ligar")
-                                && GerenciadorCasa.AlterarProp(frame.getDispositivo(), "Estado", "desligado", "ligado")) {
+                                && GerenciadorCasa.AlterarProp(frame.getDispositivo(), frame.getLocal(), "Estado", "desligado", "ligado")) {
                             
                             historico.insere(frame);
                            resp = "InformarExecucao Sucesso";
@@ -54,10 +54,10 @@ public class ExecutadorTarefa {
                 }
 
                 case "desligar":{
-                    if (GerenciadorCasa.verificaValorPropDisp(frame.getDispositivo(), "ligado")) {
+                    if (GerenciadorCasa.verificaValorPropDisp(frame.getDispositivo(),frame.getLocal(), "ligado")) {
                         comm = GerenciadorCasa.obterComm(frame.getDispositivo(), frame.getLocal());
                         if (ControladorDispositivos.executa(comm, "desligar")
-                                && GerenciadorCasa.AlterarProp(frame.getDispositivo(), "Estado", "ligado", "ligado")) {
+                                && GerenciadorCasa.AlterarProp(frame.getDispositivo(), frame.getLocal(), "Estado", "ligado", "ligado")) {
                             
                             historico.insere(frame);
                             resp = "InformarExecucao Sucesso";
