@@ -12,390 +12,390 @@
     <rdfs:label xml:lang="pt">Domain_entity</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_1aafad49_9a74_46d5_a920_0c449a31fcf9"/>
     <rdfs:label xml:lang="pt">Locais</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_1aafad49_9a74_46d5_a920_0c449a31fcf9"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_e228e0f2_529c_4d56_9a3b_cde2b04c9588"/>
     <rdfs:label xml:lang="pt">Dispositivos</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_e228e0f2_529c_4d56_9a3b_cde2b04c9588"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_f50a5100_d511_440c_937e_5cdc83008e4d">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
+    <rdfs:label xml:lang="pt">varanda_local</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
+        </owl:someValuesFrom>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
         </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
         <owl:someValuesFrom>
           <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
         </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
         </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-        </owl:someValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">varanda_local</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
     <rdfs:label xml:lang="pt">som_dispositivo</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_2e89c293_0482_409a_a8c8_fcc6138d1ce5">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <rdfs:label xml:lang="pt">sala_local</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+        <owl:onProperty>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8d07e5df_d85e_4e83_b3eb_402bb4c069c9">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
+    <rdfs:label xml:lang="pt">quarto_local</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
         <owl:someValuesFrom>
           <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
         </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:label xml:lang="pt">quarto_local</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
     <rdfs:label xml:lang="pt">lampada_dispositivo</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_577b4b3b_41db_40da_b2db_edb0939eca64">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-        </owl:onProperty>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
-        </owl:someValuesFrom>
-      </owl:Restriction>
-    </rdfs:subClassOf>
     <rdfs:label xml:lang="pt">cozinha_local</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
+        <owl:onProperty>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+        <owl:onProperty>
+          <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
     <rdfs:label xml:lang="pt">televisao_dispositivo</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
   </owl:Class>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
     <rdfs:label xml:lang="pt">relational_property</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107">
-    <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-    <rdfs:label xml:lang="pt">tem_dispositivo</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#EstaEm">
-    <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
-  </owl:ObjectProperty>
-  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718">
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
-    <rdfs:label xml:lang="pt">Volume</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe">
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
     <rdfs:label xml:lang="pt">ProtocoloComunicao</rdfs:label>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8">
     <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-    <rdfs:label xml:lang="pt">Estado</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
     <rdfs:label xml:lang="pt">EnderecoComunicao</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
   </owl:DatatypeProperty>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e">
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
+  <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718">
+    <rdfs:label xml:lang="pt">Volume</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8">
+    <rdfs:label xml:lang="pt">Estado</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107">
+    <rdfs:label xml:lang="pt">tem_dispositivo</rdfs:label>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:InverseFunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#EstaEm">
+    <rdfs:range rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLObjectProperty_aaaf0dc7_3733_4eb0_a2f0_deb7bf530af1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:InverseFunctionalProperty>
+  <OWLClass_8d07e5df_d85e_4e83_b3eb_402bb4c069c9 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e">
+    <rdfs:label xml:lang="pt">quarto</rdfs:label>
     <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_4a1424fb_6e3e_4b58_a70c_4fe16beaee4d">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e"/>
-        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
-        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
-        >Protocolo2</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
-        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">6</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">som_quarto</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_4a8668dc_7727_4435_8c31_ae1735327ed7">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e"/>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
-        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
-        >Protocolo3</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
-        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">lampada_quarto</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_62b1b918_67ac_4222_bea4_67c98fc13c1b">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e"/>
-        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
-        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
-        >Protocolo1</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+      <OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_62b1b918_67ac_4222_bea4_67c98fc13c1b">
+        <rdfs:label xml:lang="pt">televisao_quarto</rdfs:label>
         <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
          rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">televisao_quarto</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <rdfs:label xml:lang="pt">quarto</rdfs:label>
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8d07e5df_d85e_4e83_b3eb_402bb4c069c9"/>
-  </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_2ac82434_01d2_4da5_9a67_4483b3e5ae91">
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_9b5a4f3b_da62_49f9_b41b_48e7f96138d0">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_2ac82434_01d2_4da5_9a67_4483b3e5ae91"/>
-        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
-        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
-        >Protocolo2</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
-        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">som_varanda</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_c3c70f72_5cb8_41b5_9a51_cde075967f37">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_2ac82434_01d2_4da5_9a67_4483b3e5ae91"/>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
-        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
-        >Protocolo3</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
-        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">lampada_varanda</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <rdfs:label xml:lang="pt">varanda</rdfs:label>
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_f50a5100_d511_440c_937e_5cdc83008e4d"/>
-  </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1">
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_2e89c293_0482_409a_a8c8_fcc6138d1ce5"/>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_3a6d507d_b62b_4041_a276_e044a706f44b">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1"/>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
-        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
-        >Protocolo3</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
-        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">lampada_sala</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_498100a4_19da_4a69_b057_b440d01a9403">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1"/>
-        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
-        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
-        >Protocolo2</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
-        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">som_sala</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_5bf3b201_820a_4c91_8ffc_3e006a93bde5">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1"/>
-        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
-        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
-        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
         <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
         >Protocolo1</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
-        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
-         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">televisao_sala</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4"/>
-      </owl:NamedIndividual>
-    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <rdfs:label xml:lang="pt">sala</rdfs:label>
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
-  </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_f0dc8731_a7c1_4bba_a29e_c6d223698218">
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_577b4b3b_41db_40da_b2db_edb0939eca64"/>
-    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_62d32c2a_1fe8_414e_9534_367770829a2e">
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
-        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_f0dc8731_a7c1_4bba_a29e_c6d223698218"/>
         <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
         >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_4a8668dc_7727_4435_8c31_ae1735327ed7">
+        <rdfs:label xml:lang="pt">lampada_quarto</rdfs:label>
+        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
         <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
         >Protocolo3</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_4a1424fb_6e3e_4b58_a70c_4fe16beaee4d">
+        <rdfs:label xml:lang="pt">som_quarto</rdfs:label>
+        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">6</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
+        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
+        >Protocolo2</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_6bf419a8_0cf4_4c85_81d3_7f5afae6c29e"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </OWLClass_8d07e5df_d85e_4e83_b3eb_402bb4c069c9>
+  <OWLClass_f50a5100_d511_440c_937e_5cdc83008e4d rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_2ac82434_01d2_4da5_9a67_4483b3e5ae91">
+    <rdfs:label xml:lang="pt">varanda</rdfs:label>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_c3c70f72_5cb8_41b5_9a51_cde075967f37">
+        <rdfs:label xml:lang="pt">lampada_varanda</rdfs:label>
+        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
+        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
+        >Protocolo3</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_2ac82434_01d2_4da5_9a67_4483b3e5ae91"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_9b5a4f3b_da62_49f9_b41b_48e7f96138d0">
+        <rdfs:label xml:lang="pt">som_varanda</rdfs:label>
+        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
+        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
+        >Protocolo2</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_2ac82434_01d2_4da5_9a67_4483b3e5ae91"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </OWLClass_f50a5100_d511_440c_937e_5cdc83008e4d>
+  <OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1">
+    <rdfs:label xml:lang="pt">sala</rdfs:label>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_5bf3b201_820a_4c91_8ffc_3e006a93bde5">
+        <rdfs:label xml:lang="pt">televisao_sala</rdfs:label>
+        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
+        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
+        >Protocolo1</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_ca971e31_7631_456d_b9a5_e3c7eeaa97e4>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_498100a4_19da_4a69_b057_b440d01a9403">
+        <rdfs:label xml:lang="pt">som_sala</rdfs:label>
+        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
+        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
+        >Protocolo2</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</OWLDataProperty_806f51cf_9dd6_4183_a190_b29adb034718>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_86e39e07_5021_4e21_8342_97224c25f954"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_3a6d507d_b62b_4041_a276_e044a706f44b">
+        <rdfs:label xml:lang="pt">lampada_sala</rdfs:label>
+        <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
+         rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
+        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
+        >Protocolo3</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_7cec65ea_06f3_4d97_a557_fae708b3c8e1"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd>
+    </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_2e89c293_0482_409a_a8c8_fcc6138d1ce5"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58>
+  <OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58 rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_f0dc8731_a7c1_4bba_a29e_c6d223698218">
+    <rdfs:label xml:lang="pt">cozinha</rdfs:label>
+    <OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
+      <OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd rdf:about="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_62d32c2a_1fe8_414e_9534_367770829a2e">
+        <rdfs:label xml:lang="pt">lampada_cozinha</rdfs:label>
         <OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e
          rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</OWLDataProperty_f25d60c0_0b08_4403_9d56_818fa277e00e>
-        <rdfs:label xml:lang="pt">lampada_cozinha</rdfs:label>
-        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd"/>
-      </owl:NamedIndividual>
+        <OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe
+        >Protocolo3</OWLDataProperty_ec995212_e3f4_438e_81a5_a4eb358b66fe>
+        <OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8
+        >desligado</OWLDataProperty_8ee25e8c_4c12_4b02_826d_3b423b8b32e8>
+        <EstaEm rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLNamedIndividual_f0dc8731_a7c1_4bba_a29e_c6d223698218"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_8ec0f68e_e49d_4e2d_bd65_72130a76eb24"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </OWLClass_a0478db3_9d33_4e68_a662_9b55cdb9eadd>
     </OWLObjectProperty_2c38337c_5059_4795_a8e1_4633a0320107>
-    <rdfs:label xml:lang="pt">cozinha</rdfs:label>
-    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58"/>
-  </owl:NamedIndividual>
+    <rdf:type rdf:resource="http://www.semanticweb.org/luiz/ontologies/2018/9/OntologiaCasa#OWLClass_577b4b3b_41db_40da_b2db_edb0939eca64"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </OWLClass_5d23d50e_356c_47b7_b31f_8137a9317e58>
 </rdf:RDF>
