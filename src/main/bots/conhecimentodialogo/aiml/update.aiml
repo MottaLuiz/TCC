@@ -2,11 +2,11 @@
 <aiml>
 <!-- File: update.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Agosto 30, 2019 -->
+<!-- Last modified: Março 23, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
-<!-- The CONHECIMENTODIALOGO brain is Copyright &copy; 2019 by unknown. -->
+<!-- The CONHECIMENTODIALOGO brain is Copyright &copy; 2020 by unknown. -->
 <!--  -->
 <!-- The CONHECIMENTODIALOGO brain is released under the terms of the GNU Lesser General -->
 <!-- Public License, as published by the Free Software Foundation. -->
@@ -16,7 +16,7 @@
 <!--  -->
 <!-- For more information see unknown -->
 <category><pattern>BUILD</pattern>
-<template>Fri Aug 30 18:37:51 BRT 2019</template>
+<template>Mon Mar 23 19:12:33 BRT 2020</template>
 </category>
 <category><pattern>DELEVLOPMENT ENVIRONMENT</pattern>
 <template>Program AB 0.0.4.2 beta -- AI Foundation Reference AIML 2.0 implementation</template>

@@ -7,13 +7,25 @@
  */
 package Agentes;
 
-import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.texttospeech.v1.AudioConfig;
+import com.google.cloud.texttospeech.v1.AudioEncoding;
+import com.google.cloud.texttospeech.v1.SsmlVoiceGender;
+import com.google.cloud.texttospeech.v1.SynthesisInput;
+import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
+import com.google.cloud.texttospeech.v1.TextToSpeechClient;
+import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
+import com.google.common.collect.Lists;
+import com.google.protobuf.ByteString;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +38,20 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine.Info;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import static javax.sound.sampled.AudioSystem.getAudioInputStream;
+import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 
 /**
  *
@@ -46,57 +72,46 @@ public class GeradorVoz extends Agent {
                 ACLMessage msg = receive();
                 if (msg != null) {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msg.getContent());
-                    
-                    
-                    // interrompe este comportamento ate que chegue uma nova mensagem
+                    try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
+                        // Set the text input to be synthesized
 
-                    TextToSpeech textToSpeech = new TextToSpeech();
-                    textToSpeech.setUsernameAndPassword("474a2e01-7aef-47b3-8dc7-7e6c3be4ee45", "idIWedWDbmfW");
-                    try {
-                        //System.out.println("----------------------------------------------------------------------------ESTOU CANSADO FUNCIONA GERADOR DE VOZ FDP " + msg.getContent());
-                        SynthesizeOptions synthesizeOptions
-                                = new SynthesizeOptions.Builder()
-                                        //.text("Teste, por favor funcione")
-                                        .text(msg.getContent())
-                                        .accept("audio/wav")
-                                        .voice("pt-BR_IsabelaVoice")
-                                        .build();
+                        SynthesisInput input = SynthesisInput.newBuilder()
+                                .setText("a lampada foi ligada")
+                                .build();
 
-                        InputStream inputStream
-                                = textToSpeech.synthesize(synthesizeOptions).execute();
-                        InputStream in = WaveUtils.reWriteWaveHeader(inputStream);
+                        // Build the voice request, select the language code ("en-US") and the ssml voice gender
+                        // ("neutral")
+                        VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
+                                .setLanguageCode("pt-BR")
+                                .setSsmlGender(SsmlVoiceGender.NEUTRAL)
+                                .build();
 
-                        OutputStream out = new FileOutputStream("hello_world.wav");
-                        byte[] buffer = new byte[1024];
-                        int length;
-                        while ((length = in.read(buffer)) > 0) {
-                            out.write(buffer, 0, length);
+                        // Select the type of audio file you want returned
+                        AudioConfig audioConfig = AudioConfig.newBuilder()
+                                .setAudioEncoding(AudioEncoding.MP3)
+                                .build();
+
+                        // Perform the text-to-speech request on the text input with the selected voice parameters and
+                        // audio file type
+                        SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice,
+                                audioConfig);
+
+                        // Get the audio contents from the response
+                        ByteString audioContents = response.getAudioContent();
+
+                        // Write the response to the output file.
+                        try (OutputStream out = new FileOutputStream("output.mp3")) {
+                            out.write(audioContents.toByteArray());
+                            System.out.println("Audio content written to file \"output.mp3\"");
                         }
-
-                        out.close();
-                        in.close();
-                        inputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (IOException ex) {
+                        Logger.getLogger(GeradorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }
+
                     try {
-                        File currDir = new File(".");
-                        String path = currDir.getAbsolutePath();
-                        path = path.substring(0, path.length() - 2);
-                        //System.out.println(path);
-                        String resourcesPath = path + "\\hello_world.wav";
-                        filePath = resourcesPath;
-                        // create AudioInputStream object 
-                        audioInputStream
-                                = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
-                        // create clip reference 
-                        clip = AudioSystem.getClip();
+                        play("output.mp3");
 
-                        // open audioInputStream to the clip 
-                        clip.open(audioInputStream);
-
-                        clip.start();
                     } catch (Exception ex) {
                         System.out.println("Error with playing sound.");
                         ex.printStackTrace();
@@ -110,13 +125,51 @@ public class GeradorVoz extends Agent {
 
                 block();
             }
-        });
+        }
+        );
+
     }
 
-    public void play() {
-        //start the clip 
-        clip.start();
+    public void play(String filePath) {
+        final File file = new File(filePath);
 
+        try (final AudioInputStream in = getAudioInputStream(file)) {
+
+            final AudioFormat outFormat = getOutFormat(in.getFormat());
+            final Info info = new Info(SourceDataLine.class, outFormat);
+
+            try (final SourceDataLine line
+                    = (SourceDataLine) AudioSystem.getLine(info)) {
+
+                if (line != null) {
+                    line.open(outFormat);
+                    line.start();
+                    stream(getAudioInputStream(outFormat, in), line);
+                    line.drain();
+                    line.stop();
+                }
+            }
+
+        } catch (UnsupportedAudioFileException
+                | LineUnavailableException
+                | IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private AudioFormat getOutFormat(AudioFormat inFormat) {
+        final int ch = inFormat.getChannels();
+
+        final float rate = inFormat.getSampleRate();
+        return new AudioFormat(PCM_SIGNED, rate, 16, ch, ch * 2, rate, false);
+    }
+
+    private void stream(AudioInputStream in, SourceDataLine line)
+            throws IOException {
+        final byte[] buffer = new byte[4096];
+        for (int n = 0; n != -1; n = in.read(buffer, 0, buffer.length)) {
+            line.write(buffer, 0, n);
+        }
     }
 
 }

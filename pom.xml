@@ -56,8 +56,55 @@
         </profile>
     </profiles>
  
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>libraries-bom</artifactId>
+                <version>3.4.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     
+    
+        
+        
     <dependencies>
+<dependency>
+  <groupId>com.googlecode.soundlibs</groupId>
+  <artifactId>tritonus-share</artifactId>
+  <version>0.3.7-2</version>
+</dependency>
+<dependency>
+  <groupId>com.googlecode.soundlibs</groupId>
+  <artifactId>mp3spi</artifactId>
+  <version>1.9.5-1</version>
+</dependency>
+<dependency>
+  <groupId>com.googlecode.soundlibs</groupId>
+  <artifactId>vorbisspi</artifactId>
+  <version>1.0.3-1</version>
+</dependency>
+
+
+
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-language</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-texttospeech</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-storage</artifactId>
+        </dependency>
+ 
         <dependency>
             <groupId>org.cogroo.lang.pt_br</groupId>
             <artifactId>cogroo-gc-pt_br</artifactId>
@@ -113,24 +160,7 @@
             <version>1.11.0</version>  
         </dependency>
 
-
-           
-        <dependency>
-            <groupId>com.ibm.watson.developer_cloud</groupId>
-            <artifactId>speech-to-text</artifactId>
-            <version>6.6.0</version>
-        </dependency>
         
-        <dependency>
-            <groupId>com.ibm.watson.developer_cloud</groupId>
-            <artifactId>java-sdk</artifactId>
-            <version>6.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.watson.developer_cloud</groupId>
-            <artifactId>assistant</artifactId>
-            <version>6.5.1</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
