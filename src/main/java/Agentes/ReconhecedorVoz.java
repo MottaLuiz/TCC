@@ -7,6 +7,17 @@
  */
 package Agentes;
 
+import com.google.cloud.speech.v1.RecognitionAudio;
+import com.google.cloud.speech.v1.RecognitionConfig;
+import com.google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+import com.google.cloud.speech.v1.RecognizeResponse;
+import com.google.cloud.speech.v1.SpeechClient;
+import com.google.cloud.speech.v1.SpeechRecognitionAlternative;
+import com.google.cloud.speech.v1.SpeechRecognitionResult;
+import com.google.protobuf.ByteString;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -16,33 +27,23 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.*;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+
 import jade.core.behaviours.CyclicBehaviour;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.LineUnavailableException;
-import utils.FrameControle;
+
 /**
  *
  * @author Lidera Consultoria
  */
-public class ReconhecedorVoz  extends Agent{
+public class ReconhecedorVoz extends Agent {
     //teste
-    
-    //private FrameControle teste = new FrameControle();
 
+    //private FrameControle teste = new FrameControle();
     /**
      * @param args the command line arguments
      */
@@ -50,16 +51,34 @@ public class ReconhecedorVoz  extends Agent{
 
         System.out.println("Reconhecedor de voz incializado");
         addBehaviour(new CyclicBehaviour(this) {
+
             public void action() {
-                SpeechToText service = new SpeechToText();
+                String aux = "";
 
-                service.setUsernameAndPassword("b556be8d-b0d3-4820-a458-b17ba6398137", "2tYzwqkqzrZt");
+                Scanner sc = new Scanner(System.in);
+                String msgr = "";
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                while (!aux.equals("c")) {
 
-// Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
-                int sampleRate = 16000;
-                AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
+                    System.out.println("Digite c para enviar comando:");
+                    aux = sc.nextLine();
+                }
+                float sampleRate = 48000;
+                int sampleSizeInBits = 16;
+                int channels = 1;
+                boolean signed = true;
+                boolean bigEndian = true;
+
+                AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
+// format of audio file
+                AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
                 DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
+                // checks if system supports the data line
                 if (!AudioSystem.isLineSupported(info)) {
                     System.out.println("Line not supported");
                     System.exit(0);
@@ -68,188 +87,85 @@ public class ReconhecedorVoz  extends Agent{
                 TargetDataLine line;
                 try {
                     line = (TargetDataLine) AudioSystem.getLine(info);
-                
 
-                line.open(format);
+                    line.open(format);
+                    System.out.println("Gravando Comando:");
+                    line.start();
 
-                line.start();
-
-                AudioInputStream audio = new AudioInputStream(line);
-
-                RecognizeOptions options = new RecognizeOptions.Builder()
-                        //.interimResults(true)
-                        .inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
-                        .audio(audio)
-                        //.contentType(HttpMediaType.AUDIO_RAW)
-                        .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate)
-                        /*.model(RecognizeOptions.pt-BR_BroadbandModel)  PT_BR_BROADBANDMODEL*/
-                        .model("pt-BR_BroadbandModel")
-                        .wordConfidence(Boolean.TRUE)
-                        .build();
-                /*aqui começa a leitura*/
-                service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
-                    @Override
-                    public void onTranscription(SpeechRecognitionResults speechResults) {
-                       System.out.println(speechResults);
-                        String msgr;
-                        msgr="";
-                        msgr=speechResults.toString();
-                       /* msgr="{\n" +
-"  \"results\": [\n" +
-"    {\n" +
-"      \"final\": true,\n" +
-"      \"alternatives\": [\n" +
-"        {\n" +
-"          \"transcript\": \"quero criar uma rotina \",\n" +
-"          \"confidence\": 1.0,\n" +
-"          \"word_confidence\": [\n" +
-"            [\n" +
-"              \"quero\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"criar\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"uma\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"rotina\",\n" +
-"              1.0\n" +
-"            ]\n" +
-"          ]\n" +
-"        }\n" +
-"      ]\n" +
-"    }\n" +
-"  ],\n" +
-"  \"result_index\": 0\n" +
-"}";*/
-                     /*   msgr="{\n" +
-"  \"results\": [\n" +
-"    {\n" +
-"      \"final\": true,\n" +
-"      \"alternatives\": [\n" +
-"        {\n" +
-"          \"transcript\": \"desligue a luz \",\n" +
-"          \"confidence\": 0.771,\n" +
-"          \"word_confidence\": [\n" +
-"            [\n" +
-"              \"desligue\",\n" +
-"              0.596\n" +
-"            ],\n" +
-"            [\n" +
-"              \"a\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"luz\",\n" +
-"              0.923\n" +
-"            ]\n" +
-"          ]\n" +
-"        }\n" +
-"      ]\n" +
-"    }\n" +
-"  ],\n" +
-"  \"result_index\": 0\n" +
-"}";*/
+                    Thread stopper = new Thread(new Runnable() {
                         
-                      /*  msgr="{\n" +
-"  \"results\": [\n" +
-"    {\n" +
-"      \"final\": true,\n" +
-"      \"alternatives\": [\n" +
-"        {\n" +
-"          \"transcript\": \"ligue luz da sala e desligue a televisão do quarto \",\n" +
-"          \"confidence\": 0.873,\n" +
-"          \"word_confidence\": [\n" +
-"            [\n" +
-"              \"ligue\",\n" +
-"              0.157\n" +
-"            ],\n" +
-"            [\n" +
-"              \"luz\",\n" +
-"              0.975\n" +
-"            ],\n" +
-"            [\n" +
-"              \"da\",\n" +
-"              0.998\n" +
-"            ],\n" +
-"            [\n" +
-"              \"sala\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"e\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"desligue\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"a\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"televisão\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"do\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            [\n" +
-"              \"quarto\",\n" +
-"              0.847\n" +
-"            ]\n" +
-"          ]\n" +
-"        }\n" +
-"      ]\n" +
-"    }\n" +
-"  ],\n" +
-"  \"result_index\": 0\n" +
-"}";*/
-                      msgr="{\n" +
-"  \"results\": [\n" +
-"    {\n" +
-"      \"final\": true,\n" +
-"      \"alternatives\": [\n" +
-"        {\n" +
-"          \"transcript\": \"ligue luz da sala \",\n" +
-"          \"confidence\": 0.873,\n" +
-"          \"word_confidence\": [\n" +
-"            [\n" +
-"              \"ligue\",\n" +
-"              0.157\n" +
-"            ],\n" +
-"            [\n" +
-"              \"luz\",\n" +
-"              0.975\n" +
-"            ],\n" +
-"            [\n" +
-"              \"da\",\n" +
-"              0.998\n" +
-"            ],\n" +
-"            [\n" +
-"              \"sala\",\n" +
-"              1.0\n" +
-"            ],\n" +
-"            ]\n" +
-"        }\n" +
-"      ]\n" +
-"    }\n" +
-"  ],\n" +
-"  \"result_index\": 0\n" +
-"}"; 
+                        @Override
+                        public void run() {
+                            AudioInputStream ais = new AudioInputStream(line);
+                            File currDir = new File(".");
+                            String path = currDir.getAbsolutePath();
+                            path = path.substring(0, path.length() - 2);
+                            //System.out.println(path);
+                            String resourcesPath = path + "\\src\\main\\resources\\comando.wav";
+                            File wavFile = new File(resourcesPath);
+                            try {
+                                AudioSystem.write(ais, fileType, wavFile);
+                            } catch (IOException ex) {
+                                Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         
-                        ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
-                        msge.setLanguage("Portugues");
-                        msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
-                        msge.setContent(msgr);
-                        send(msge);
-                        /*
+                    });
+                    stopper.start();
+                    Thread.sleep(6000);
+                    line.stop();
+                    line.close();
+                    System.out.println("Comando gravado");
+
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try (SpeechClient speech = SpeechClient.create()) {
+                    File currDir = new File(".");
+                    String path = currDir.getAbsolutePath();
+                    path = path.substring(0, path.length() - 2);
+                    //System.out.println(path);
+                    String resourcesPath = path + "\\src\\main\\resources\\comando.wav";
+
+                    byte[] content = Files.readAllBytes(Path.of(resourcesPath));
+                    // Configure request with video media type
+                    RecognitionConfig recConfig
+                            = RecognitionConfig.newBuilder()
+                                    // encoding may either be omitted or must match the value in the file header
+                                    .setEncoding(AudioEncoding.LINEAR16)
+                                    .setLanguageCode("pt-BR")
+                                    // sample rate hertz may be either be omitted or must match the value in the file
+                                    // header
+                                    .setSampleRateHertz(48000)
+                                    .setModel("command_and_search")
+                                    .build();
+
+                    RecognitionAudio recognitionAudio
+                            = RecognitionAudio.newBuilder().setContent(ByteString.copyFrom(content)).build();
+
+                    RecognizeResponse recognizeResponse = speech.recognize(recConfig, recognitionAudio);
+                    // Just print the first result here.
+                    SpeechRecognitionResult result = recognizeResponse.getResultsList().get(0);
+                    // There can be several alternative transcripts for a given chunk of speech. Just use the
+                    // first (most likely) one here.
+                    SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
+                    System.out.printf("Transcript : %s\n", alternative.getTranscript());
+
+                    msgr = alternative.getTranscript();
+                } catch (IOException ex) {
+                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println(msgr);
+                ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
+                msge.setLanguage("Portugues");
+                msge.addReceiver(new AID("Semantizador", AID.ISLOCALNAME));
+                msge.setContent(msgr);
+                send(msge);
+
+                /*
                         //TESTE 
                         ACLMessage mensagem = new ACLMessage(ACLMessage.INFORM);
                         teste.setEndereco("asd");
@@ -265,34 +181,15 @@ public class ReconhecedorVoz  extends Agent{
             Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
         }
                         send(mensagem);
+                 */
+                System.out.println(
+                        "Reconhecedor Finalizado");
 
-                        */
-
-                    }
-                });
-
-                System.out.println("Listening to your voice for the next 5s...");
-                    try {
-                        Thread.sleep(5 * 1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-// closing the WebSockets underlying InputStream will close the WebSocket itself.
-        line.stop();
-
-        line.close();
-} catch (LineUnavailableException ex) {
-                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        System.out.println("Reconhecedor Finalizado");
-                
-               
-                block();
-        // interrompe este comportamento ate que chegue uma nova mensagem
+                //block();
+                // interrompe este comportamento ate que chegue uma nova mensagem
             }
-            });
+        }
+        );
     }
-        
-    
+
 }
