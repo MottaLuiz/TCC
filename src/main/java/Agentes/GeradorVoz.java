@@ -7,9 +7,7 @@
  */
 package Agentes;
 
-import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -50,35 +48,6 @@ public class GeradorVoz extends Agent {
                     
                     // interrompe este comportamento ate que chegue uma nova mensagem
 
-                    TextToSpeech textToSpeech = new TextToSpeech();
-                    textToSpeech.setUsernameAndPassword("474a2e01-7aef-47b3-8dc7-7e6c3be4ee45", "idIWedWDbmfW");
-                    try {
-                        //System.out.println("----------------------------------------------------------------------------ESTOU CANSADO FUNCIONA GERADOR DE VOZ FDP " + msg.getContent());
-                        SynthesizeOptions synthesizeOptions
-                                = new SynthesizeOptions.Builder()
-                                        //.text("Teste, por favor funcione")
-                                        .text(msg.getContent())
-                                        .accept("audio/wav")
-                                        .voice("pt-BR_IsabelaVoice")
-                                        .build();
-
-                        InputStream inputStream
-                                = textToSpeech.synthesize(synthesizeOptions).execute();
-                        InputStream in = WaveUtils.reWriteWaveHeader(inputStream);
-
-                        OutputStream out = new FileOutputStream("hello_world.wav");
-                        byte[] buffer = new byte[1024];
-                        int length;
-                        while ((length = in.read(buffer)) > 0) {
-                            out.write(buffer, 0, length);
-                        }
-
-                        out.close();
-                        in.close();
-                        inputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                     try {
                         File currDir = new File(".");
                         String path = currDir.getAbsolutePath();
