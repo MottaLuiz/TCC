@@ -18,6 +18,7 @@ import com.google.protobuf.ByteString;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -35,6 +36,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.LineUnavailableException;
+
 
 /**
  *
@@ -130,7 +132,7 @@ public class ReconhecedorVoz extends Agent {
                     //System.out.println(path);
                     String resourcesPath = path + "\\src\\main\\resources\\comando.wav";
 
-                    byte[] content = Files.readAllBytes(Path.of(resourcesPath));
+                    byte[] content = Files.readAllBytes(Paths.get(resourcesPath));
                     // Configure request with video media type
                     RecognitionConfig recConfig
                             = RecognitionConfig.newBuilder()

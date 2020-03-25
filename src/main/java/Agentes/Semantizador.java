@@ -64,24 +64,13 @@ public class Semantizador extends Agent {
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
-                if ((msgr != null) && (msgr.toString() != "{\n"
-                        + "  \"results\": [],\n"
-                        + "  \"result_index\": 0\n"
-                        + "}")) {
+                if (msgr != null) {
 
                     //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
                     String mensagem = msgr.getContent();
-                    String[] textoseparado = mensagem.split(":");
-                    System.out.println("textoseparado: " + textoseparado[4]);
-                    String frase = textoseparado[4].substring(2, textoseparado[4].length() - 26);
-                    System.out.println("frase:" + frase);
-                    //System.out.println("confiancafrase:" + textoseparado[5].substring(1, 6));
-                    String[] palavras = frase.split(" ");
+                    String[] palavras = mensagem.split(" ");
                     for (int i = 0; i <= palavras.length - 1; i++) {
-                        int auxiliar = textoseparado[6].indexOf(palavras[i]) + 17 + palavras[i].length();
-                        int auxiliar2 = textoseparado[6].indexOf(palavras[i]) + 25 + palavras[i].length();
                         System.out.println("palavra " + i + ":" + palavras[i]);
-                        System.out.println("confiança palavra " + i + ":" + textoseparado[6].substring(auxiliar, auxiliar2));
 
                     }
                     Set<String> possiveisacoes = new HashSet<String>(Arrays.asList(new String[]{"ligar", "desligar", "aumentar", "diminuir"}));
@@ -96,13 +85,13 @@ public class Semantizador extends Agent {
                     ComponentFactory factory = ComponentFactory.create(local);
                     cogroo = factory.createPipe();
                     Document document = new DocumentImpl();
-                    document.setText(frase);
+                    document.setText(mensagem);
                     cogroo.analyze(document);
                     System.out.println(document);
-                    frase = getEq(frase, resourcesPath);
-                    System.out.println("frase2=" + frase);
+                    mensagem = getEq(mensagem, resourcesPath);
+                    System.out.println("frase2=" + mensagem);
 
-                    if ("criar rotina".equals(frase)) {
+                    if ("criar rotina".equals(mensagem)) {
                         modocriacao = 1;
                         Vector<Pares> pares = new Vector<>();
                         Pares p = new Pares();
@@ -113,7 +102,7 @@ public class Semantizador extends Agent {
                         Vector<Pares> pares = new Vector<>();
                         Pares p = new Pares();
                         p.setIntencao("Informarnome");
-                        p.setArgs(frase);
+                        p.setArgs(mensagem);
                         modocriacao = 2;
                     }
 
@@ -236,8 +225,10 @@ public class Semantizador extends Agent {
                             for (Token token : sentence.getTokens()) {
                                 palavra = StringUtils.removeAll(StringUtils.removeAll(Arrays.toString(token.getLemmas()), "\\["), "\\]");
                                 palavra = getEq(palavra, resourcesPath);
+                                
+                                System.out.println("palavra = "+palavra + "POSTag = "+token.getPOSTag());
 
-                                if ("v-fin".equals(token.getPOSTag())) {
+                                if (("v-fin".equals(token.getPOSTag())) || ("v-inf".equals(token.getPOSTag()))) {
                                     if (("ligar".equals(palavra)) && (token.getLexeme().length() > 5)) {
                                         palavra = "desligar";
                                     }

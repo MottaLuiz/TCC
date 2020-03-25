@@ -15,6 +15,7 @@ import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
 import com.google.cloud.texttospeech.v1.TextToSpeechClient;
 import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
 import com.google.protobuf.ByteString;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -57,41 +58,41 @@ public class GeradorVoz extends Agent {
                 ACLMessage msg = receive();
                 if (msg != null) {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msg.getContent());
-                    try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
-                        // Set the text input to be synthesized
-
-                        SynthesisInput input = SynthesisInput.newBuilder()
-                                .setText("a lampada foi ligada")
-                                .build();
-
-                        // Build the voice request, select the language code ("en-US") and the ssml voice gender
-                        // ("neutral")
-                        VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
-                                .setLanguageCode("pt-BR")
-                                .setSsmlGender(SsmlVoiceGender.NEUTRAL)
-                                .build();
-
-                        // Select the type of audio file you want returned
-                        AudioConfig audioConfig = AudioConfig.newBuilder()
-                                .setAudioEncoding(AudioEncoding.MP3)
-                                .build();
-
-                        // Perform the text-to-speech request on the text input with the selected voice parameters and
-                        // audio file type
-                        SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice,
-                                audioConfig);
-
-                        // Get the audio contents from the response
-                        ByteString audioContents = response.getAudioContent();
-
-                        // Write the response to the output file.
-                        try (OutputStream out = new FileOutputStream("output.mp3")) {
-                            out.write(audioContents.toByteArray());
-                            System.out.println("Audio content written to file \"output.mp3\"");
-                        }
-                    } catch (IOException ex) {
-                        Logger.getLogger(GeradorVoz.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+//                    try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
+//                        // Set the text input to be synthesized
+//
+//                        SynthesisInput input = SynthesisInput.newBuilder()
+//                                .setText(msg.getContent())
+//                                .build();
+//
+//                        // Build the voice request, select the language code ("en-US") and the ssml voice gender
+//                        // ("neutral")
+//                        VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
+//                                .setLanguageCode("pt-BR")
+//                                .setSsmlGender(SsmlVoiceGender.NEUTRAL)
+//                                .build();
+//
+//                        // Select the type of audio file you want returned
+//                        AudioConfig audioConfig = AudioConfig.newBuilder()
+//                                .setAudioEncoding(AudioEncoding.MP3)
+//                                .build();
+//
+//                        // Perform the text-to-speech request on the text input with the selected voice parameters and
+//                        // audio file type
+//                        SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice,
+//                                audioConfig);
+//
+//                        // Get the audio contents from the response
+//                        ByteString audioContents = response.getAudioContent();
+//
+//                        // Write the response to the output file.
+//                        try (OutputStream out = new FileOutputStream("output.mp3")) {
+//                            out.write(audioContents.toByteArray());
+//                            System.out.println("Audio content written to file \"output.mp3\"");
+//                        }
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(GeradorVoz.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
 
                     try {
 
@@ -107,6 +108,13 @@ public class GeradorVoz extends Agent {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                
+                ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
+                msge.setLanguage("Portugues");
+                msge.addReceiver(new AID("SimuladorCasa", AID.ISLOCALNAME));
+                msge.setContent("Simular");
+                send(msge);
 
                 block();
             }
