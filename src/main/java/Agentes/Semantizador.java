@@ -315,7 +315,9 @@ public class Semantizador extends Agent {
                         p.setIntencao("Informarconfirmacao");
                         p.setArgs("confirmacao");
                         pares.add(p);
-                        enviarmsg(pares);
+                        enviarmsg(pares);/*
+                        falta passar para frente se foi sim ou nao o resultado da confirmacao dada pelo usuário
+                        */
                     }
 
                 }

@@ -116,7 +116,7 @@ public class SimuladorCasa extends Agent {
             //1.1 - lampada
             String bool;
             try {
-                bool = gc.EstadoDispositivo("lampada_cozinha");
+                bool = gc.EstadoDispositivo("lampada","cozinha");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 0, 960, 540);
@@ -129,7 +129,7 @@ public class SimuladorCasa extends Agent {
             //2 - Quarto
             //2.1 - lampada
             try {
-                bool = gc.EstadoDispositivo("lampada_quarto");
+                bool = gc.EstadoDispositivo("lampada","quarto");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 0, 960, 540);
@@ -143,7 +143,7 @@ public class SimuladorCasa extends Agent {
             //3 - Sala
             //3.1 - lampada
             try {
-                bool = gc.EstadoDispositivo("lampada_sala");
+                bool = gc.EstadoDispositivo("lampada","sala");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 0, 960, 540);
@@ -156,7 +156,7 @@ public class SimuladorCasa extends Agent {
             //4 - Varanda
             //4.1 - lampada
             try {
-                bool = gc.EstadoDispositivo("lampada_varanda");
+                bool = gc.EstadoDispositivo("lampada","varanda");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 0, 960, 540);
@@ -208,7 +208,7 @@ public class SimuladorCasa extends Agent {
             //2 - Quarto
             //2.2 - tv
             try {
-                bool = gc.EstadoDispositivo("televisao_quarto");
+                bool = gc.EstadoDispositivo("televisao","quarto");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("televisaoligada.png"));
                 }
@@ -228,7 +228,7 @@ public class SimuladorCasa extends Agent {
             
             //2.3 - som
             try {
-                bool = gc.EstadoDispositivo("som_quarto");
+                bool = gc.EstadoDispositivo("som","quarto");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("somligado.png"));
                 }
@@ -250,7 +250,7 @@ public class SimuladorCasa extends Agent {
             //3 - Sala
             //3.2 - tv
             try {
-                bool = gc.EstadoDispositivo("televisao_sala");
+                bool = gc.EstadoDispositivo("televisao","sala");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("televisaoligada.png"));
                 }
@@ -271,7 +271,7 @@ public class SimuladorCasa extends Agent {
             
             //3.3 - som
             try {
-                bool = gc.EstadoDispositivo("som_sala");
+                bool = gc.EstadoDispositivo("som","sala");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("somligado.png"));
                 }
@@ -293,7 +293,7 @@ public class SimuladorCasa extends Agent {
             //4 - Varanda
             //4.2 - som
             try {
-                bool = gc.EstadoDispositivo("som_varanda");
+                bool = gc.EstadoDispositivo("som","varanda");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("somligado.png"));
                 }

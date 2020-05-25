@@ -9,7 +9,8 @@
             <properties>
                 <exec.args>-classpath %classpath jade.Boot -gui -agents GeradorVoz:Agentes.GeradorVoz;GeradorLN:Agentes.GeradorLN;Gerenciador:Agentes.Gerenciador;Semantizador:Agentes.Semantizador;ReconhecedorVoz:Agentes.ReconhecedorVoz;SimuladorCasa:Agentes.SimuladorCasa;</exec.args>
                 <exec.executable>java</exec.executable>
-                <Env.GOOGLE_APPLICATION_CREDENTIALS>D:\faculdade\TCC\My_First_Project-078109da8c9e.json</Env.GOOGLE_APPLICATION_CREDENTIALS>
+                <Env.GOOGLE_APPLICATION_CREDENTIALS>C:\Users\sluiz\Dropbox\TCC\Softwers\chaves google cloud\My First Project-2a5c6a7b56f1.json</Env.GOOGLE_APPLICATION_CREDENTIALS>
+                
                 
             </properties>
         </action>

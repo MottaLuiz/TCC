@@ -9,7 +9,6 @@ package Agentes;
 
 import java.util.Vector;
 import utils.FrameTarefa;
-import utils.Pares;
 import utils.HistoricoTarefas;
 
 /**
@@ -22,7 +21,6 @@ public class ExecutadorTarefa {
 
     static String executar(FrameTarefa frame, GerenciadorCasa gc) {
         String resp = new String();
-        Pares paux = new Pares();
         Vector<String> comm = new Vector<>();
 
         if (frame.getTarefa().equals("ContralarDisp")) {

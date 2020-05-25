@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.Vector;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
@@ -36,9 +37,8 @@ import org.apache.jena.update.UpdateRequest;
 public class GerenciadorCasa {
 
     static Model model = ModelFactory.createMemModelMaker().createDefaultModel();
-    
-    
-    public static String EstadoDispositivo(String dispositivo) throws FileNotFoundException, IOException {
+
+    public static String EstadoDispositivo(String dispositivo, String local) throws FileNotFoundException, IOException {
         String resultado = null;
 
         String queryString
@@ -50,12 +50,10 @@ public class GerenciadorCasa {
                 + " WHERE {"
                 + " ?disp ?prop ?estado  . "
                 + " ?disp rdfs:label ?labeldisp . "
-                 + " ?disp rdfs:label \"" + dispositivo + "@pt\" ."
+                + " ?disp rdfs:label \"" + dispositivo + "_" + local + "@pt\" ."
                 + " ?prop rdfs:label \"Estado@pt\" . "
                 + " } ";
-        
-        
-        
+
         Query query = QueryFactory.create(queryString);
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
@@ -140,10 +138,7 @@ public class GerenciadorCasa {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "ASK {?local ?property ?object . "
-                + "?local rdfs:label \"" + local + "@pt\" . "
-                //+ "?property rdfs:label  \"tem_dispositivo@pt\" . "
-                + "?object rdfs:label \"" + disp + "_" + local + "@pt\" }";
+                + "ASK {?object rdfs:label \"" + disp + "_" + local + "@pt\" }";
 
         Query query = QueryFactory.create(queryString);
 
@@ -163,8 +158,10 @@ public class GerenciadorCasa {
 
     }
 
-    public static boolean consultarLocaisdeDisp(String disp) throws FileNotFoundException, IOException {
-
+    public static Vector<String> consultarLocaisdeDisp(String disp) throws FileNotFoundException, IOException {
+        
+        Vector<String> locaisaux = new Vector<>();
+        Vector<String> locais = new Vector<>();
         // Open the bloggers RDF graph from the filesystem
         String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
@@ -178,19 +175,25 @@ public class GerenciadorCasa {
                 + " ?prop rdfs:label \"tem_dispositivo@pt\" . "
                 + " ?local rdfs:label ?labellocal . "
                 + " ?disp rdf:type ?class . "
-                + " ?class rdfs:label \""+disp+"_dispositivo@pt\" . "
+                + " ?class rdfs:label \"" + disp + "_dispositivo@pt\" . "
                 + " } ";
         Query query = QueryFactory.create(queryString);
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
-        ResultSetFormatter.out(System.out, res, query);
+        //ResultSetFormatter.out(System.out, res, query);
         while (res.hasNext()) {
-            System.out.println(res.next().get("estado"));
+            locaisaux.add(res.next().get("labellocal").toString());
+          
         }
+        for (int i=0; i<locaisaux.size(); i++){
+            locais.add(locaisaux.elementAt(i).substring(0,locaisaux.elementAt(i).length()-3));
+            
+        }
+        System.out.println(locais);
 // Create a new query
 
-        return true;
+        return locais;
 
     }
 
@@ -215,7 +218,7 @@ public class GerenciadorCasa {
         ResultSet res = qe.execSelect();
         ResultSetFormatter.out(System.out, res, query);
         while (res.hasNext()) {
-            System.out.println(res.next().get("estado"));
+            System.out.println(res.next().get("disp"));
         }
 
         return true;
@@ -244,7 +247,36 @@ public class GerenciadorCasa {
         ResultSet res = qe.execSelect();
         ResultSetFormatter.out(System.out, res, query);
         while (res.hasNext()) {
-            System.out.println(res.next().get("estado"));
+            System.out.println(res.next().get("disp"));
+        }
+// Create a new query
+
+        return true;
+
+    }
+
+    public static boolean consultarTodosLocais() throws FileNotFoundException, IOException {
+
+        // Open the bloggers RDF graph from the filesystem
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT ?labellocal ?local \n"
+                + " WHERE {"
+                + " ?local  rdf:type ?class . "
+                + " ?class rdfs:label \"Locais@pt\" . "
+                + " ?local rdfs:label ?labellocal . "
+                + " } ";
+
+        Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+        ResultSetFormatter.out(System.out, res, query);
+        while (res.hasNext()) {
+            System.out.println(res.next().get("local"));
         }
 // Create a new query
 
@@ -253,7 +285,7 @@ public class GerenciadorCasa {
     }
 
     public static boolean verificaValorPropDisp(String disp, String local, String propvalue) {
-
+//refazer
         boolean res;
 
 // Create a new query
@@ -262,9 +294,8 @@ public class GerenciadorCasa {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "ASK {?local ?disp ?prop \"" + propvalue + "\" . "
-                + "?local rdfs:label \"" + local + "@pt\" . "
-                + "?disp rdfs:label \"" + disp + "@pt\" . "
+                + "ASK {?disp ?prop \"" + propvalue + "\" . "
+                + " ?disp rdfs:label \"" + disp + "_" + local + "@pt\" . "
                 /*+ "?property rdfs:label  \"tem_dispositivo@pt\" . "*/
                 //+ "?prop rdfs:label \"Estado@pt\" . "
                 + "}";
@@ -273,7 +304,9 @@ public class GerenciadorCasa {
 
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
+
         res = qe.execAsk();
+        System.out.println(res);
 
 //while (results.hasNext()){
 //System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
@@ -297,13 +330,41 @@ public class GerenciadorCasa {
                 + "INSERT { ?disp ?prop \"" + estadonovo + "\" }\n"
                 + "WHERE {\n"
                 + " ?prop rdfs:label \"" + prop + "@pt\" . "
-                + " ?disp rdfs:label \"" + disp + "@pt\" . "
+                + " ?disp rdfs:label \"" + disp + "_" + local + "@pt\" . "
                 + "  } ";
-
         UpdateRequest up = UpdateFactory.create(queryString);
-        boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, prop);
+        UpdateAction.execute(up, model);
+        boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, estadonovo);
+        
         return resp;
     }
+
+    static boolean consultarLocal(String local) {
+       boolean res;
+        
+// Create a new query
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "ASK {?object rdfs:label \"" + local + "@pt\" }";
+
+        Query query = QueryFactory.create(queryString);
+
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        res = qe.execAsk();
+        System.out.println("\n Consulta Local: " + res + "\n");
+
+//while (results.hasNext()){
+//System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
+//}
+// Output query results 
+// Important - free up resources used running the query
+        qe.close();
+
+        return res;}
 
     public void init() throws FileNotFoundException, IOException {
         File currDir = new File(".");
