@@ -197,6 +197,47 @@ public class GerenciadorCasa {
 
     }
 
+       public static Vector<String> consultarDispsNoLocal(String local) throws FileNotFoundException, IOException {
+        
+        Vector<String> dispsaux = new Vector<>();
+        Vector<String> disps = new Vector<>();
+        String aux = new String();
+        aux = "_"+local+"@pt";
+        // Open the bloggers RDF graph from the filesystem
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT ?labeldisp  ?disp ?prop ?local \n"
+                + " WHERE {"
+                + " ?local ?prop ?disp  . "
+                + " ?local rdfs:label \"" + local + "@pt\"  . "
+                + " ?prop rdfs:label \"tem_dispositivo@pt\" . "
+                + " ?disp rdfs:label ?labeldisp . "
+               // " ?disp rdf:type ?class . "
+                //" ?class rdfs:label \"" + disp + "_dispositivo@pt\" . "
+                + " } ";
+        Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+        //ResultSetFormatter.out(System.out, res, query);
+        while (res.hasNext()) {
+            dispsaux.add(res.next().get("labeldisp").toString());
+          
+        }
+        for (int i=0; i<dispsaux.size(); i++){
+            disps.add(dispsaux.elementAt(i).substring(0,dispsaux.elementAt(i).length()-aux.length()));
+            
+        }
+        System.out.println(disps);
+// Create a new query
+
+        return disps;
+
+    }
+       
     public static boolean consultarLocalporDisp(String local) throws FileNotFoundException, IOException {
 
         // Open the bloggers RDF graph from the filesystem
