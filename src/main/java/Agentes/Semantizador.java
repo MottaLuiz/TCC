@@ -68,6 +68,7 @@ public class Semantizador extends Agent {
 
                     //System.out.println(" - " + myAgent.getLocalName( )+"<- " + msgr.getContent());
                     String mensagem = msgr.getContent();
+//                    mensagem = StringUtils.stripAccents(mensagem);
                     String[] palavras = mensagem.split(" ");
                     for (int i = 0; i <= palavras.length - 1; i++) {
                         System.out.println("palavra " + i + ":" + palavras[i]);
@@ -187,7 +188,7 @@ public class Semantizador extends Agent {
                                         pares.add(pcomando);
                                         if (possiveisacoes.contains(StringUtils.stripAccents(acao[a]))) {
                                             pacao.setIntencao("Informaracao");
-                                            pacao.setArgs(acao[a]);
+                                            pacao.setArgs(StringUtils.stripAccents(acao[a]));
                                             if (modocriacao == 2) {
                                                 modocriacao = 0;
                                             }
@@ -198,11 +199,11 @@ public class Semantizador extends Agent {
                                             pares.add(pacao);
                                         }
                                         plocal.setIntencao("Informarlocal");
-                                        plocal.setArgs(locais[a][k]);
+                                        plocal.setArgs(StringUtils.stripAccents(locais[a][k]));
                                         System.out.println("locais " + locais[a][k]);
                                         pares.add(plocal);
                                         pdispositivo.setIntencao("Informardispositivo");
-                                        pdispositivo.setArgs(dispositivos[a][j]);
+                                        pdispositivo.setArgs(StringUtils.stripAccents(dispositivos[a][j]));
                                         System.out.println("dispositivo: " + dispositivos[a][j]);
                                         //System.out.println("acao args:" + p.getArgs().toString());
                                         //System.out.println("acao intencao:" + p.getIntencao().toString());
@@ -255,7 +256,7 @@ public class Semantizador extends Agent {
                                     Vector<Pares> pares = new Vector<>();
                                     Pares p = new Pares();
                                     p.setIntencao("Informarnumeral");
-                                    p.setArgs(palavra);
+                                    p.setArgs(StringUtils.stripAccents(palavra));
                                     pares.add(p);
                                     enviarmsg(pares);
                                     modocriacao = 0;
@@ -285,7 +286,7 @@ public class Semantizador extends Agent {
                                     
                                     if (possiveisacoes.contains(StringUtils.stripAccents(acao))) {
                                         pacao.setIntencao("Informaracao");
-                                        pacao.setArgs(acao);
+                                        pacao.setArgs(StringUtils.stripAccents(acao));
 
                                         System.out.println("acao: " + acao);
                                         pares.add(pacao);
@@ -295,12 +296,12 @@ public class Semantizador extends Agent {
                                     }
 
                                     pdisp.setIntencao("Informardispositivo");
-                                    pdisp.setArgs(dispositivos[j]);
+                                    pdisp.setArgs(StringUtils.stripAccents(dispositivos[j]));
                                     System.out.println("dispositivos: " + dispositivos[j]);
                                     pares.add(pdisp);
 
                                     plocal.setIntencao("Informarlocal");
-                                    plocal.setArgs(locais[k]);
+                                    plocal.setArgs(StringUtils.stripAccents(locais[k]));
                                     System.out.println("local: " + locais[k]);
                                     pares.add(plocal);
 

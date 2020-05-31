@@ -132,7 +132,7 @@ public class SimuladorCasa extends Agent {
                 bool = gc.EstadoDispositivo("lampada","quarto");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
-                    g.fillRect(0, 0, 960, 540);
+                    g.fillRect(960, 540, 960, 540);
                 }
                 System.out.println("estado é igual a : " + bool);
             } catch (IOException ex) {
@@ -146,7 +146,7 @@ public class SimuladorCasa extends Agent {
                 bool = gc.EstadoDispositivo("lampada","sala");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
-                    g.fillRect(0, 0, 960, 540);
+                    g.fillRect(0, 540, 960, 540);
                 }
                 System.out.println("estado é igual a : " + bool);
             } catch (IOException ex) {
@@ -159,7 +159,7 @@ public class SimuladorCasa extends Agent {
                 bool = gc.EstadoDispositivo("lampada","varanda");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
-                    g.fillRect(0, 0, 960, 540);
+                    g.fillRect(960, 0, 960, 540);
                 }
                 System.out.println("estado é igual a : " + bool);
             } catch (IOException ex) {

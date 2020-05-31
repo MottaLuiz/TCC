@@ -40,7 +40,7 @@ public class GeradorLN extends Agent {
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
-                if (msgr != null) {
+                if ((msgr != null)&&(msgr.getContent().toString() !="")) {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent().toString());
 
                     try {

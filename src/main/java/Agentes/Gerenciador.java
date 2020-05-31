@@ -41,6 +41,7 @@ public class Gerenciador extends Agent {
                 try {
                     gc.init();
                 } catch (IOException ex) {
+                    System.out.println("ERRO NA INICIALIZACAO");
                     Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 try {
@@ -65,17 +66,16 @@ public class Gerenciador extends Agent {
                     }*/
                 ACLMessage msgr = receive();
 
-                /* if (msgr != null) {
+                if (msgr != null) {
 
-                 
- try {
+                    try {
                         Vector<Pares> pares = (Vector<Pares>) msgr.getContentObject();
                         //transforma vetor de pares em frame
                         for (int i = 0; i < pares.size(); i++) {
                             System.out.println("teste gerenciador argumento: " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
                             System.out.println(pares.get(i).getIntencao());
                             if ("Informarcomando".equals(pares.get(i).getIntencao())) {
-                               frametarefa.setTarefa(pares.get(i).getArgs());
+                                frametarefa.setTarefa(pares.get(i).getArgs());
                             } else if ("Informaracao".equals(pares.get(i).getIntencao())) {
                                 frametarefa.setAcao(pares.get(i).getArgs());
                             } else if ("Informardispositivo".equals(pares.get(i).getIntencao())) {
@@ -85,37 +85,38 @@ public class Gerenciador extends Agent {
                             }
                         }
                         pares = null;
-                        
 
                     } catch (UnreadableException ex) {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                //imprime frame
-                 frametarefa.setTarefa("Controlardispositivos");
-                frametarefa.setAcao("ligar");
-                frametarefa.setDispositivo("ventilador");
-                frametarefa.setLocal("sala");
-                System.out.println("teste frame tarefa" + frametarefa.getTarefa());
-                System.out.println("teste frame Acao" + frametarefa.getAcao());
-                System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
-                System.out.println("teste frame local " + frametarefa.getLocal());
+                    //imprime frame
+//                    frametarefa.setTarefa("Controlardispositivos");
+//                    frametarefa.setAcao("ligar");
+//                    frametarefa.setDispositivo("ventilador");
+//                    frametarefa.setLocal("sala");
+                    System.out.println("teste frame tarefa " + frametarefa.getTarefa());
+                    System.out.println("teste frame Acao " + frametarefa.getAcao());
+                    System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
+                    System.out.println("teste frame local " + frametarefa.getLocal());
+                    vetorframestarefa.add(frametarefa);
+//                    System.out.println("teste frame tarefa" + frametarefa.getTarefa());
+//                    System.out.println("teste frame Acao" + frametarefa.getAcao());
+//                    System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
+//                    System.out.println("teste frame local " + frametarefa.getLocal());
+//                    //adiciona frame ao vetor de frames
+//                    vetorframestarefa.add(frametarefa);
+                    GerenciadorCasa.consultarDispositivo(vetorframestarefa.elementAt(0).getLocal(),
+                            vetorframestarefa.elementAt(0).getDispositivo());
+                    GerenciadorCasa.verificaValorPropDisp("lampada", "sala", "ligar");
+                }
+//                frametarefa.setTarefa("Controlardispositivos");
+//                frametarefa.setAcao("ligar");
+//                //frametarefa.setDispositivo("ventilador");
+//                frametarefa.setLocal("sala");
+
                 //adiciona frame ao vetor de frames
-                vetorframestarefa.add(frametarefa);
-                GerenciadorCasa.consultarDispositivo(vetorframestarefa.elementAt(0).getLocal(),
-                        vetorframestarefa.elementAt(0).getDispositivo());
-                GerenciadorCasa.verificaValorPropDisp("lampada", "sala", "ligar");
-                }*/
-                frametarefa.setTarefa("Controlardispositivos");
-                frametarefa.setAcao("ligar");
-                //frametarefa.setDispositivo("ventilador");
-                frametarefa.setLocal("sala");
-                System.out.println("teste frame tarefa " + frametarefa.getTarefa());
-                System.out.println("teste frame Acao " + frametarefa.getAcao());
-                System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
-                System.out.println("teste frame local " + frametarefa.getLocal());
-                //adiciona frame ao vetor de frames
-                vetorframestarefa.add(frametarefa);
-                if (vetorframestarefa != null) {
+//                vetorframestarefa.add(frametarefa);
+                if (vetorframestarefa.size() != 0) {
                     /*             Lógica de execução:
                  
                  1º Verificar se frame Completo
@@ -448,21 +449,23 @@ public class Gerenciador extends Agent {
                                                     Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                                                 }
                                             }
-                                        }else{ /*
+                                        } else {
+                                            /*
                                          se não existe -> equivalente ao caso falta dois quaisquer:retornar que comando não
                                                          entendido e dispositivo nao encontrado, solicitar novo comando,
                                                          aguardar por novo comando. */
-                                            resposta ="Ação nao entendida,"+ vetorframestarefa.elementAt(0).getDispositivo() 
-                                                    +" em "+vetorframestarefa.elementAt(0).getLocal()+"nao encontrado";
+                                            resposta = "Ação nao entendida," + vetorframestarefa.elementAt(0).getDispositivo()
+                                                    + " em " + vetorframestarefa.elementAt(0).getLocal() + "nao encontrado";
                                             System.out.println(resposta);
-                                                        vetorframestarefa.removeElementAt(0);
+                                            vetorframestarefa.removeElementAt(0);
                                         }
-                                    }else{   /*
+                                    } else {
+                                        /*
                                 Falta dois quaisquer: retornar que comando não entendido, solicitar novo comando,
                                                         aguardar por novo comando.
                                          */
-                                        resposta ="Comando não entendido";
-                                            System.out.println(resposta);
+                                        resposta = "Comando não entendido";
+                                        System.out.println(resposta);
                                         vetorframestarefa.removeElementAt(0);
                                     }
                                 }
@@ -489,11 +492,11 @@ public class Gerenciador extends Agent {
 
                 send(msge);
 
-                try {
-                    gc.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    gc.close();
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+//                }
 
                 //}
                 // else {

@@ -58,10 +58,12 @@ public class GerenciadorCasa {
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
+        
         while (res.hasNext()) {
             resultado = (res.next().get("estado")).toString();
             System.out.println(resultado);
         }
+        System.out.println("O(A) "+dispositivo+" do(a) "+local+" está "+resultado);
 // Create a new query
         return resultado;
     }
