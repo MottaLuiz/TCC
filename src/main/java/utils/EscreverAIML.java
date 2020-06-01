@@ -32,7 +32,7 @@ public class EscreverAIML {
             resourcesPath = resourcesPath + "\\bots\\conhecimentodialogo\\aiml\\rotinascriadas.aiml";
             String texto = new Scanner(new File(resourcesPath)).useDelimiter("\\A").next();
             texto = texto.substring(0, texto.length() - 8);
-            texto = texto 
+            texto = texto
                     + "<category><pattern>" + request + "</pattern>\n"
                     + "<template>" + response + "</template>\n"
                     + "</category>\n"
@@ -50,6 +50,24 @@ public class EscreverAIML {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void GravaComando(String local, String dispositivo, String acao) throws IOException {
+        local = StringUtils.stripAccents(local.toUpperCase());
+        dispositivo = StringUtils.stripAccents(dispositivo.toUpperCase());
+        acao = StringUtils.stripAccents(acao.toUpperCase());
+        String resourcesPath2 = getResourcesPath();
+        resourcesPath2 = resourcesPath2 + "\\resources\\historico_comandos.csv";
+        String texto2 = new Scanner(new File(resourcesPath2)).useDelimiter("\\A").next();
+        texto2 = texto2 + local +","+ dispositivo +","+ acao+",";
+        FileOutputStream fileOut2 = new FileOutputStream(resourcesPath2);
+        fileOut2.write(texto2.getBytes());
+
+    }
+    
+    public String LeComando (String quantidade) throws IOException {
+
+        return "LIGAR LAMPADA SALA LIGAR TELEVISAO QUARTO";
     }
 
     private static String getResourcesPath() {

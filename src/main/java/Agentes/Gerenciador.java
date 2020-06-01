@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import utils.*;
 import java.util.*;
 import utils.PilhaDialogo;
+import utils.EscreverAIML;
 
 /**
  *
@@ -27,12 +28,16 @@ import utils.PilhaDialogo;
 public class Gerenciador extends Agent {
 
     private String resposta = new String();
+    private int modocriacao = 0;
+    private String nome_rotina = new String();
+    private int flag_numeral = 0;
 
     protected void setup() {
         FrameTarefa frametarefa = new FrameTarefa();
         Vector<FrameTarefa> vetorframestarefa = new Vector<>();
         GerenciadorCasa gc = new GerenciadorCasa();
         FrameTarefa frametarefaconfirmacao = new FrameTarefa();
+        EscreverAIML escreveAIML = new EscreverAIML();
 
         System.out.println("Gerenciador incializado");
 
@@ -41,7 +46,6 @@ public class Gerenciador extends Agent {
                 try {
                     gc.init();
                 } catch (IOException ex) {
-                    System.out.println("ERRO NA INICIALIZACAO");
                     Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 try {
@@ -82,11 +86,25 @@ public class Gerenciador extends Agent {
                                 frametarefa.setDispositivo(pares.get(i).getArgs());
                             } else if ("Informarlocal".equals(pares.get(i).getIntencao())) {
                                 frametarefa.setLocal(pares.get(i).getArgs());
+                            } else if ("informarintencao".equals(pares.get(i).getIntencao())) {
+                                System.out.println("Inicio da criacao de rotina");
+                                modocriacao = 1;
+                            } else if (("Informarnome".equals(pares.get(i).getIntencao())) && (modocriacao == 1)) {
+                                nome_rotina = pares.get(i).getArgs();
+                                System.out.println("nome da rotina é " + nome_rotina);
+                                modocriacao = 2;
+                            } else if (("Informarnumeral".equals(pares.get(i).getIntencao())) && (modocriacao == 2)) {
+                                modocriacao = 0;
+                                System.out.println("tentando escrever a rotina " + nome_rotina);
+                                escreveAIML.escreverAIML(nome_rotina, escreveAIML.LeComando(pares.get(i).getArgs()));
+                                flag_numeral = 1;
                             }
                         }
                         pares = null;
 
                     } catch (UnreadableException ex) {
+                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //imprime frame
@@ -94,6 +112,7 @@ public class Gerenciador extends Agent {
 //                    frametarefa.setAcao("ligar");
 //                    frametarefa.setDispositivo("ventilador");
 //                    frametarefa.setLocal("sala");
+
                     System.out.println("teste frame tarefa " + frametarefa.getTarefa());
                     System.out.println("teste frame Acao " + frametarefa.getAcao());
                     System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
@@ -116,20 +135,21 @@ public class Gerenciador extends Agent {
 
                 //adiciona frame ao vetor de frames
 //                vetorframestarefa.add(frametarefa);
-                if (vetorframestarefa.size() != 0) {
-                    /*             Lógica de execução:
+                if ((modocriacao == 0)&& (flag_numeral == 0)){
+                    if (vetorframestarefa.size() != 0) {
+                        /*             Lógica de execução:
                  
                  1º Verificar se frame Completo
                     Opções: 
                         Completo -> 
                             2º Consultar existência do dispositivo no local informado
-                     */
-                    if (vetorframestarefa.elementAt(0).getTarefa().equals("Controlardispositivos")) {
-                        if (vetorframestarefa.elementAt(0).getAcao() != null && vetorframestarefa.elementAt(0).getDispositivo() != null
-                                && vetorframestarefa.elementAt(0).getLocal() != null) {
-                            if (GerenciadorCasa.consultarDispositivo(vetorframestarefa.elementAt(0).getLocal(),
-                                    vetorframestarefa.elementAt(0).getDispositivo())) {
-                                /*                                  
+                         */
+                        if (vetorframestarefa.elementAt(0).getTarefa().equals("Controlardispositivos")) {
+                            if (vetorframestarefa.elementAt(0).getAcao() != null && vetorframestarefa.elementAt(0).getDispositivo() != null
+                                    && vetorframestarefa.elementAt(0).getLocal() != null) {
+                                if (GerenciadorCasa.consultarDispositivo(vetorframestarefa.elementAt(0).getLocal(),
+                                        vetorframestarefa.elementAt(0).getDispositivo())) {
+                                    /*                                  
                                Dispsitivo existe ->
                         3ºVerificar se ação é possível
                                         Se não for possível -> retornar o por que não foi possível executar e aguarda novo 
@@ -137,38 +157,22 @@ public class Gerenciador extends Agent {
                  
                                         Se possível->
                                             4º executa ação e retorna que a ação foi executada, aguarda por novo comando
-                                 */
-                                if (vetorframestarefa.elementAt(0).getAcao().equals("ligar")) {
-                                    try {
-                                        if ("desligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                vetorframestarefa.elementAt(0).getLocal()))) {
-                                            GerenciadorCasa.AlterarProp(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                    vetorframestarefa.elementAt(0).getLocal(), "Estado", "desligado", "ligado");
-                                            resposta = "Foi ligado " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                    + " " + vetorframestarefa.elementAt(0).getLocal();
-                                            vetorframestarefa.removeElementAt(0);
-
-                                        } else {
-                                            resposta = "Nao foi ligado " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                    + " " + vetorframestarefa.elementAt(0).getLocal();
-                                            vetorframestarefa.removeElementAt(0);
-
-                                        }
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                } else {
-                                    if (vetorframestarefa.elementAt(0).getAcao().equals("desligar")) {
+                                     */
+                                    if (vetorframestarefa.elementAt(0).getAcao().equals("ligar")) {
                                         try {
-                                            if ("ligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
+                                            if ("desligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
                                                     vetorframestarefa.elementAt(0).getLocal()))) {
                                                 GerenciadorCasa.AlterarProp(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                        vetorframestarefa.elementAt(0).getLocal(), "Estado", "ligado", "desligado");
-                                                resposta = "Foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                        vetorframestarefa.elementAt(0).getLocal(), "Estado", "desligado", "ligado");
+                                                resposta = "Foi ligado " + vetorframestarefa.elementAt(0).getDispositivo()
                                                         + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
+                                                escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
+
                                                 vetorframestarefa.removeElementAt(0);
+
                                             } else {
-                                                resposta = "Nao foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                resposta = "Nao foi ligado " + vetorframestarefa.elementAt(0).getDispositivo()
                                                         + " " + vetorframestarefa.elementAt(0).getLocal();
                                                 vetorframestarefa.removeElementAt(0);
 
@@ -176,33 +180,52 @@ public class Gerenciador extends Agent {
                                         } catch (IOException ex) {
                                             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                                         }
-
                                     } else {
-                                        if (vetorframestarefa.elementAt(0).getAcao().equals("aumentar")) {
+                                        if (vetorframestarefa.elementAt(0).getAcao().equals("desligar")) {
+                                            try {
+                                                if ("ligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
+                                                        vetorframestarefa.elementAt(0).getLocal()))) {
+                                                    GerenciadorCasa.AlterarProp(vetorframestarefa.elementAt(0).getDispositivo(),
+                                                            vetorframestarefa.elementAt(0).getLocal(), "Estado", "ligado", "desligado");
+                                                    resposta = "Foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                            + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                    vetorframestarefa.removeElementAt(0);
+                                                } else {
+                                                    resposta = "Nao foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                            + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                    vetorframestarefa.removeElementAt(0);
+
+                                                }
+                                            } catch (IOException ex) {
+                                                Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+
                                         } else {
-                                            if (vetorframestarefa.elementAt(0).getAcao().equals("diminuir")) {
+                                            if (vetorframestarefa.elementAt(0).getAcao().equals("aumentar")) {
+                                            } else {
+                                                if (vetorframestarefa.elementAt(0).getAcao().equals("diminuir")) {
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            } else {/*
+                                } else {/*
                              Dispositivo Não existe no local informado
                                     3ºVerificar se local existe:
                                         Local existe-> retornar que dispositivo não existe no local e não foi possível 
                                         realizar ação, dizer que aguarda novo comando;*/
-                                if (GerenciadorCasa.consultarLocal(vetorframestarefa.elementAt(0).getLocal())) {
-                                    resposta = "Dispositivo " + vetorframestarefa.elementAt(0).getDispositivo()
-                                            + " nao existe no local informado";
-                                    vetorframestarefa.removeElementAt(0);
-                                    System.out.println(resposta);
+                                    if (GerenciadorCasa.consultarLocal(vetorframestarefa.elementAt(0).getLocal())) {
+                                        resposta = "Dispositivo " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                + " nao existe no local informado";
+                                        vetorframestarefa.removeElementAt(0);
+                                        System.out.println(resposta);
 
-                                }/* Local não existe -> caso frame falta local-> 
+                                    }/* Local não existe -> caso frame falta local-> 
                                           Verificar se existe o dispositivo pedido em outros locais:                                                               
-                                 */ else {
-                                    try {
-                                        Vector<String> locais = GerenciadorCasa.consultarLocaisdeDisp(
-                                                vetorframestarefa.elementAt(0).getDispositivo());
-                                        if (locais.size() == 1) {/*
+                                     */ else {
+                                        try {
+                                            Vector<String> locais = GerenciadorCasa.consultarLocaisdeDisp(
+                                                    vetorframestarefa.elementAt(0).getDispositivo());
+                                            if (locais.size() == 1) {/*
                                             Existe 1 -> Retornar que dispositivo encontrado em outro local, questionar se
                                                             deseja executar ação nesse dispositivo encontrado:
                                                                 Salvar frame e aguardar consfirmação de ação:
@@ -211,42 +234,42 @@ public class Gerenciador extends Agent {
                                                                                                 aguarda por novo  comando.
                  
                                                                     Não executar -> esquece o frame e aguarda novo comando.*/
-                                            resposta = "Dispositivo existe em " + locais.elementAt(0) + " confirmar tarefa";
-                                            frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
-                                            frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
-                                            frametarefaconfirmacao.setLocal(locais.elementAt(0));
-                                            System.out.println(resposta);
-                                            vetorframestarefa.removeElementAt(0);
-                                            //Falta a parte da confirmação precisa pensar como implementar
-                                        } else {
-                                            if (locais.size() > 1) {/*                  
+                                                resposta = "Dispositivo existe em " + locais.elementAt(0) + " confirmar tarefa";
+                                                frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
+                                                frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
+                                                frametarefaconfirmacao.setLocal(locais.elementAt(0));
+                                                System.out.println(resposta);
+                                                vetorframestarefa.removeElementAt(0);
+                                                //Falta a parte da confirmação precisa pensar como implementar
+                                            } else {
+                                                if (locais.size() > 1) {/*                  
                                                 Existe mais de 1 -> Retornar que o dispositivo não foi encontrado no local
                                                                     pedido, mas exite o dispositivo nos outros locais. 
                                                                     Sugerir tentar novamente ação para um dos dispositivos 
                                                                     nos locais onde ele foi encontrado. aguardar novo comando.*/
-                                                resposta = "Dispositivo nao encontrado no local mas encontrado em";
-                                                for (int i = 0; i < locais.size(); i++) {
-                                                    resposta = resposta + " " + locais.elementAt(i);
+                                                    resposta = "Dispositivo nao encontrado no local mas encontrado em";
+                                                    for (int i = 0; i < locais.size(); i++) {
+                                                        resposta = resposta + " " + locais.elementAt(i);
 
-                                                }
-                                                System.out.println(resposta);
-                                                vetorframestarefa.removeElementAt(0);
-                                            } else {/*não existe -> retornar que o dispositvo pedido não existe em nenhum local,
+                                                    }
+                                                    System.out.println(resposta);
+                                                    vetorframestarefa.removeElementAt(0);
+                                                } else {/*não existe -> retornar que o dispositvo pedido não existe em nenhum local,
                                                                 aguardar por novo comando.*/
-                                                resposta = "Dispositivo nao existe em nenhum local";
-                                                System.out.println(resposta);
-                                                vetorframestarefa.removeElementAt(0);
+                                                    resposta = "Dispositivo nao existe em nenhum local";
+                                                    System.out.println(resposta);
+                                                    vetorframestarefa.removeElementAt(0);
+                                                }
                                             }
+
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                                         }
 
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                                     }
-
                                 }
-                            }
-                        } else {
-                            /*                             
+                            } else {
+                                /*                             
                         Não Completo->
                             2º testar o que falta no frame:
                                 
@@ -254,50 +277,29 @@ public class Gerenciador extends Agent {
                                 Consultar existencia de local:
                                     -> se existe:
                                     3º buscar por dispositivos no local:*/
-                            if (vetorframestarefa.elementAt(0).getAcao() != null && vetorframestarefa.elementAt(0).getDispositivo() == null
-                                    && vetorframestarefa.elementAt(0).getLocal() != null) {
-                                if (GerenciadorCasa.consultarLocal(vetorframestarefa.elementAt(0).getLocal())) {
-                                    try {
-                                        Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal(
-                                                vetorframestarefa.elementAt(0).getLocal());
-                                        if (dispositivos.isEmpty()) {/*não há dispositivo -> retornar que não existem dispositivos no local escolhido e que 
+                                if (vetorframestarefa.elementAt(0).getAcao() != null && vetorframestarefa.elementAt(0).getDispositivo() == null
+                                        && vetorframestarefa.elementAt(0).getLocal() != null) {
+                                    if (GerenciadorCasa.consultarLocal(vetorframestarefa.elementAt(0).getLocal())) {
+                                        try {
+                                            Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal(
+                                                    vetorframestarefa.elementAt(0).getLocal());
+                                            if (dispositivos.isEmpty()) {/*não há dispositivo -> retornar que não existem dispositivos no local escolhido e que 
                                                                 aguarda novo comando. Aguardar novo comando.*/
 
-                                            resposta = "Nao existe dispositivos no local informado";
-                                            System.out.println(resposta);
-                                            vetorframestarefa.removeElementAt(0);
-                                        } else {
-                                            if (dispositivos.size() == 1) {
-                                                /* 1 dispositivo -> verificar se ação possível no dispositivo:
+                                                resposta = "Nao existe dispositivos no local informado";
+                                                System.out.println(resposta);
+                                                vetorframestarefa.removeElementAt(0);
+                                            } else {
+                                                if (dispositivos.size() == 1) {
+                                                    /* 1 dispositivo -> verificar se ação possível no dispositivo:
                                                             se possível -> perguntar se deseja executar a tarefa, salvar frame 
                                                                             completo e aguardar confirmação.
                                                             se não possível ->retornar que comando não entendido e que aguarda
                                                                                 novo comando. Aguardar por novo comando 
                                                                                 esquecer frame.*/
-                                                if (vetorframestarefa.elementAt(0).getAcao().equals("ligar")) {
-                                                    try {
-                                                        if ("desligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                                vetorframestarefa.elementAt(0).getLocal()))) {
-                                                            frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
-                                                            frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
-                                                            frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
-                                                                    + " " + frametarefaconfirmacao.getLocal();
-                                                            System.out.println(resposta);
-                                                            vetorframestarefa.removeElementAt(0);
-
-                                                        } else {
-                                                            resposta = "Comando não entendido, faltou dispositivo";
-                                                            vetorframestarefa.removeElementAt(0);
-
-                                                        }
-                                                    } catch (IOException ex) {
-                                                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                                                    }
-                                                } else {
-                                                    if (vetorframestarefa.elementAt(0).getAcao().equals("desligar")) {
+                                                    if (vetorframestarefa.elementAt(0).getAcao().equals("ligar")) {
                                                         try {
-                                                            if ("ligado".equals(GerenciadorCasa.EstadoDispositivo(dispositivos.elementAt(0),
+                                                            if ("desligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
                                                                     vetorframestarefa.elementAt(0).getLocal()))) {
                                                                 frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
                                                                 frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
@@ -306,6 +308,7 @@ public class Gerenciador extends Agent {
                                                                         + " " + frametarefaconfirmacao.getLocal();
                                                                 System.out.println(resposta);
                                                                 vetorframestarefa.removeElementAt(0);
+
                                                             } else {
                                                                 resposta = "Comando não entendido, faltou dispositivo";
                                                                 vetorframestarefa.removeElementAt(0);
@@ -314,63 +317,83 @@ public class Gerenciador extends Agent {
                                                         } catch (IOException ex) {
                                                             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                                                         }
-
                                                     } else {
-                                                        if ((vetorframestarefa.elementAt(0).getAcao().equals("aumentar")
-                                                                || vetorframestarefa.elementAt(0).getAcao().equals("diminuir"))
-                                                                && (dispositivos.elementAt(0).equals("som")
-                                                                || dispositivos.elementAt(0).equals("televisao"))) {
-                                                            frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
-                                                            frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
-                                                            frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " o volume do " + frametarefaconfirmacao.getDispositivo()
-                                                                    + " " + frametarefaconfirmacao.getLocal();
-                                                            System.out.println(resposta);
-                                                            vetorframestarefa.removeElementAt(0);
-                                                        } else {
-                                                            resposta = "Comando não entendido, faltou dispositivo";
-                                                            vetorframestarefa.removeElementAt(0);
+                                                        if (vetorframestarefa.elementAt(0).getAcao().equals("desligar")) {
+                                                            try {
+                                                                if ("ligado".equals(GerenciadorCasa.EstadoDispositivo(dispositivos.elementAt(0),
+                                                                        vetorframestarefa.elementAt(0).getLocal()))) {
+                                                                    frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
+                                                                    frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
+                                                                    frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
+                                                                    resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
+                                                                            + " " + frametarefaconfirmacao.getLocal();
+                                                                    System.out.println(resposta);
+                                                                    vetorframestarefa.removeElementAt(0);
+                                                                } else {
+                                                                    resposta = "Comando não entendido, faltou dispositivo";
+                                                                    vetorframestarefa.removeElementAt(0);
 
+                                                                }
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+
+                                                        } else {
+                                                            if ((vetorframestarefa.elementAt(0).getAcao().equals("aumentar")
+                                                                    || vetorframestarefa.elementAt(0).getAcao().equals("diminuir"))
+                                                                    && (dispositivos.elementAt(0).equals("som")
+                                                                    || dispositivos.elementAt(0).equals("televisao"))) {
+                                                                frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
+                                                                frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
+                                                                frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
+                                                                resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " o volume do " + frametarefaconfirmacao.getDispositivo()
+                                                                        + " " + frametarefaconfirmacao.getLocal();
+                                                                System.out.println(resposta);
+                                                                vetorframestarefa.removeElementAt(0);
+                                                            } else {
+                                                                resposta = "Comando não entendido, faltou dispositivo";
+                                                                vetorframestarefa.removeElementAt(0);
+
+                                                            }
                                                         }
                                                     }
-                                                }
 
-                                            } else {
-                                                /*   + de 1 dispositivo -> Retornar os dispositivos que exitem no local. 
+                                                } else {
+                                                    /*   + de 1 dispositivo -> Retornar os dispositivos que exitem no local. 
                                                                     Sugerir tentar novamente ação para um dos dispositivos 
                                                                     no local. solicitar repetir comando para algum dos disps.
-                                                 */
-                                                resposta = "Dispositivo nao entendido, dispositivos encontrados no local informado";
-                                                for (int i = 0; i < dispositivos.size(); i++) {
-                                                    resposta = resposta + " " + dispositivos.elementAt(i);
+                                                     */
+                                                    resposta = "Dispositivo nao entendido, dispositivos encontrados no local informado";
+                                                    for (int i = 0; i < dispositivos.size(); i++) {
+                                                        resposta = resposta + " " + dispositivos.elementAt(i);
 
+                                                    }
+                                                    System.out.println(resposta);
+                                                    vetorframestarefa.removeElementAt(0);
                                                 }
-                                                System.out.println(resposta);
-                                                vetorframestarefa.removeElementAt(0);
                                             }
-                                        }
 
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                } else {/*-> se nao existe -> caso falta dois quaisquer: retornar que dispositivo não entendido e local nao existe
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    } else {/*-> se nao existe -> caso falta dois quaisquer: retornar que dispositivo não entendido e local nao existe
                                                         solicitar novo comando.*/
-                                    resposta = "Dispositivo nao entendido e local informado nao existe";
-                                    System.out.println(resposta);
-                                    vetorframestarefa.removeElementAt(0);
-                                }
-                            } else {/* Falta Local:
+                                        resposta = "Dispositivo nao entendido e local informado nao existe";
+                                        System.out.println(resposta);
+                                        vetorframestarefa.removeElementAt(0);
+                                    }
+                                } else {/* Falta Local:
                                       3º Verificar se existe o dispositivo pedido em outros locais: */
  /*
                                                 não existe -> retornar que o dispositvo pedido não existe em nenhum local,
                                                                 aguardar por novo comando.*/
 
-                                if (vetorframestarefa.elementAt(0).getAcao() != null && vetorframestarefa.elementAt(0).getDispositivo() != null
-                                        && vetorframestarefa.elementAt(0).getLocal() == null) {
-                                    try {
-                                        Vector<String> locais = GerenciadorCasa.consultarLocaisdeDisp(
-                                                vetorframestarefa.elementAt(0).getDispositivo());
-                                        if (locais.size() == 1) {/*
+                                    if (vetorframestarefa.elementAt(0).getAcao() != null && vetorframestarefa.elementAt(0).getDispositivo() != null
+                                            && vetorframestarefa.elementAt(0).getLocal() == null) {
+                                        try {
+                                            Vector<String> locais = GerenciadorCasa.consultarLocaisdeDisp(
+                                                    vetorframestarefa.elementAt(0).getDispositivo());
+                                            if (locais.size() == 1) {/*
                                             Existe 1 -> Retornar que dispositivo encontrado em outro local, questionar se
                                                             deseja executar ação nesse dispositivo encontrado:
                                                                 Salvar frame e aguardar consfirmação de ação:
@@ -379,109 +402,112 @@ public class Gerenciador extends Agent {
                                                                                                 aguarda por novo  comando.
                  
                                                                     Não executar -> esquece o frame e aguarda novo comando.*/
-                                            resposta = "Dispositivo encontrado em " + locais.elementAt(0) + " confirmar tarefa";
-                                            frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
-                                            frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
-                                            frametarefaconfirmacao.setLocal(locais.elementAt(0));
-                                            System.out.println(resposta);
-                                            vetorframestarefa.removeElementAt(0);
-                                            //Falta a parte da confirmação precisa pensar como implementar
-                                        } else {
-                                            if (locais.size() > 1) {/*                  
+                                                resposta = "Dispositivo encontrado em " + locais.elementAt(0) + " confirmar tarefa";
+                                                frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
+                                                frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
+                                                frametarefaconfirmacao.setLocal(locais.elementAt(0));
+                                                System.out.println(resposta);
+                                                vetorframestarefa.removeElementAt(0);
+                                                //Falta a parte da confirmação precisa pensar como implementar
+                                            } else {
+                                                if (locais.size() > 1) {/*                  
                                                 Existe mais de 1 -> Retornar que o dispositivo não foi encontrado no local
                                                                     pedido, mas exite o dispositivo nos outros locais. 
                                                                     Sugerir tentar novamente ação para um dos dispositivos 
                                                                     nos locais onde ele foi encontrado. aguardar novo comando.*/
-                                                resposta = "local nao entendido mas dispositivo encontrado em";
-                                                for (int i = 0; i < locais.size(); i++) {
-                                                    resposta = resposta + " " + locais.elementAt(i);
+                                                    resposta = "local nao entendido mas dispositivo encontrado em";
+                                                    for (int i = 0; i < locais.size(); i++) {
+                                                        resposta = resposta + " " + locais.elementAt(i);
 
-                                                }
-                                                System.out.println(resposta);
-                                                vetorframestarefa.removeElementAt(0);
-                                            } else {/*não existe -> retornar que o dispositvo pedido não existe em nenhum local,
+                                                    }
+                                                    System.out.println(resposta);
+                                                    vetorframestarefa.removeElementAt(0);
+                                                } else {/*não existe -> retornar que o dispositvo pedido não existe em nenhum local,
                                                                 aguardar por novo comando.*/
-                                                resposta = "local nao entendido e dispositivo nao existe";
-                                                System.out.println(resposta);
-                                                vetorframestarefa.removeElementAt(0);
+                                                    resposta = "local nao entendido e dispositivo nao existe";
+                                                    System.out.println(resposta);
+                                                    vetorframestarefa.removeElementAt(0);
+                                                }
                                             }
-                                        }
 
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                } else {/*Falta Ação:
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    } else {/*Falta Ação:
                                     Verificar se dispositivo solicitado existe no local indicado:
                                         se existe -> tv e som : informar que ação nao entendida, solicitar para repetir o comando.
                                     lampada : verificar estado e sugerir ação, aguardar confirmação e executar se for o caso*/
-                                    if (vetorframestarefa.elementAt(0).getAcao() == null && vetorframestarefa.elementAt(0).getDispositivo() != null
-                                            && vetorframestarefa.elementAt(0).getLocal() != null) {
-                                        if (GerenciadorCasa.consultarDispositivo(vetorframestarefa.elementAt(0).getLocal(),
-                                                vetorframestarefa.elementAt(0).getDispositivo())) {
-                                            if ("som".equals(vetorframestarefa.elementAt(0).getDispositivo())
-                                                    || "televisao".equals(vetorframestarefa.elementAt(0).getDispositivo())) {
-                                                resposta = "ação para " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                        + " " + vetorframestarefa.elementAt(0).getLocal() + "nao entendida";
-                                            }
-                                            if ("lampada".equals(vetorframestarefa.elementAt(0).getDispositivo())) {
-                                                try {
-                                                    if ("ligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                            vetorframestarefa.elementAt(0).getLocal()))) {
-                                                        frametarefaconfirmacao.setAcao("desligar");
-                                                        frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
-                                                        frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                        resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
-                                                                + " " + frametarefaconfirmacao.getLocal();
-                                                        System.out.println(resposta);
-                                                        vetorframestarefa.removeElementAt(0);
-                                                    }
-                                                    if ("desligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                            vetorframestarefa.elementAt(0).getLocal()))) {
-                                                        frametarefaconfirmacao.setAcao("ligar");
-                                                        frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
-                                                        frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                        resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
-                                                                + " " + frametarefaconfirmacao.getLocal();
-                                                        System.out.println(resposta);
-                                                        vetorframestarefa.removeElementAt(0);
-                                                    }
-                                                } catch (IOException ex) {
-                                                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                                        if (vetorframestarefa.elementAt(0).getAcao() == null && vetorframestarefa.elementAt(0).getDispositivo() != null
+                                                && vetorframestarefa.elementAt(0).getLocal() != null) {
+                                            if (GerenciadorCasa.consultarDispositivo(vetorframestarefa.elementAt(0).getLocal(),
+                                                    vetorframestarefa.elementAt(0).getDispositivo())) {
+                                                if ("som".equals(vetorframestarefa.elementAt(0).getDispositivo())
+                                                        || "televisao".equals(vetorframestarefa.elementAt(0).getDispositivo())) {
+                                                    resposta = "ação para " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                            + " " + vetorframestarefa.elementAt(0).getLocal() + "nao entendida";
                                                 }
-                                            }
-                                        } else {
-                                            /*
+                                                if ("lampada".equals(vetorframestarefa.elementAt(0).getDispositivo())) {
+                                                    try {
+                                                        if ("ligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
+                                                                vetorframestarefa.elementAt(0).getLocal()))) {
+                                                            frametarefaconfirmacao.setAcao("desligar");
+                                                            frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
+                                                            frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
+                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
+                                                                    + " " + frametarefaconfirmacao.getLocal();
+                                                            System.out.println(resposta);
+                                                            vetorframestarefa.removeElementAt(0);
+                                                        }
+                                                        if ("desligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
+                                                                vetorframestarefa.elementAt(0).getLocal()))) {
+                                                            frametarefaconfirmacao.setAcao("ligar");
+                                                            frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
+                                                            frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
+                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
+                                                                    + " " + frametarefaconfirmacao.getLocal();
+                                                            System.out.println(resposta);
+                                                            vetorframestarefa.removeElementAt(0);
+                                                        }
+                                                    } catch (IOException ex) {
+                                                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                                                    }
+                                                }
+                                            } else {
+                                                /*
                                          se não existe -> equivalente ao caso falta dois quaisquer:retornar que comando não
                                                          entendido e dispositivo nao encontrado, solicitar novo comando,
                                                          aguardar por novo comando. */
-                                            resposta = "Ação nao entendida," + vetorframestarefa.elementAt(0).getDispositivo()
-                                                    + " em " + vetorframestarefa.elementAt(0).getLocal() + "nao encontrado";
+                                                resposta = "Ação nao entendida," + vetorframestarefa.elementAt(0).getDispositivo()
+                                                        + " em " + vetorframestarefa.elementAt(0).getLocal() + "nao encontrado";
+                                                System.out.println(resposta);
+                                                vetorframestarefa.removeElementAt(0);
+                                            }
+                                        } else {
+                                            /*
+                                Falta dois quaisquer: retornar que comando não entendido, solicitar novo comando,
+                                                        aguardar por novo comando.
+                                             */
+                                            resposta = "Comando não entendido";
                                             System.out.println(resposta);
                                             vetorframestarefa.removeElementAt(0);
                                         }
-                                    } else {
-                                        /*
-                                Falta dois quaisquer: retornar que comando não entendido, solicitar novo comando,
-                                                        aguardar por novo comando.
-                                         */
-                                        resposta = "Comando não entendido";
-                                        System.out.println(resposta);
-                                        vetorframestarefa.removeElementAt(0);
                                     }
                                 }
                             }
-                        }
-
-                    } else {
-                        if (vetorframestarefa.elementAt(0).getTarefa().equals("confirmacao")) {
 
                         } else {
-                            if (vetorframestarefa.elementAt(0).getTarefa().equals("criarcomando")) {
+                            if (vetorframestarefa.elementAt(0).getTarefa().equals("confirmacao")) {
 
+                            } else {
+                                if (vetorframestarefa.elementAt(0).getTarefa().equals("criarcomando")) {
+
+                                }
                             }
                         }
                     }
                 }
+                flag_numeral = 0;
+
                 ACLMessage msge = new ACLMessage(INFORM);
 
                 msge.setLanguage(
@@ -497,7 +523,6 @@ public class Gerenciador extends Agent {
 //                } catch (IOException ex) {
 //                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
 //                }
-
                 //}
                 // else {
                 block();

@@ -34,4 +34,9 @@ public class HistoricoTarefas {
     public boolean vazia() {
         return this.historico.isEmpty();
     }
+    
+    public int conta () {
+        return this.historico.size();
+    }
+    
 }
