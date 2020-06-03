@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: rotinascriadas.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: junho 03, 2020 -->
+<!-- Last modified: Junho 03, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -21,4 +21,10 @@
 <category><pattern>ASSISTIR A UM FILME</pattern>
 <template>LIGAR LAMPADA SALA LIGAR TELEVISAO QUARTO</template>
 </category>
-</aiml>
+<category><pattern>ESCUTAR MUSICA</pattern>
+<template> QUARTO LIGAR LAMPADA SALA LIGAR TELEVISAO QUARTO</template>
+</category>
+<category><pattern>JANTAR COM MUSICA</pattern>
+<template> LIGAR SOM SALA LIGAR LAMPADA COZINHA LIGAR SOM SALA</template>
+</category>
+ </aiml>

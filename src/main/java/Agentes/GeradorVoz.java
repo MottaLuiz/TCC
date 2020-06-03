@@ -95,8 +95,9 @@ public class GeradorVoz extends Agent {
 //                    }
 
                     try {
+                        System.out.println("Descomentar linha a seguir para tocar o som direto");
 
-                        play("output.mp3");
+//                        play("output.mp3");
 
                     } catch (Exception ex) {
                         System.out.println("Error with playing sound.");

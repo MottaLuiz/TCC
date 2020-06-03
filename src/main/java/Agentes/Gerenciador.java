@@ -194,6 +194,10 @@ public class Gerenciador extends Agent {
                                                 } else {
                                                     resposta = "Nao foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
                                                             + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                                                                    /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
+                                                escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
+
+                                                    
                                                     vetorframestarefa.removeElementAt(0);
 
                                                 }
