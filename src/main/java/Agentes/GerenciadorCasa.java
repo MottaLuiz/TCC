@@ -452,7 +452,7 @@ public class GerenciadorCasa {
             Logger.getLogger(GerenciadorCasa.class.getName()).log(Level.SEVERE, null, ex);
         }
        // boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, );
-        return resp;
+        return true;//resp;
     }
 
     public static int ConsultarVolume(String dispositivo, String local) throws FileNotFoundException, IOException {
