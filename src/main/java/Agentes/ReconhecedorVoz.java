@@ -55,11 +55,11 @@ public class ReconhecedorVoz extends Agent {
         addBehaviour(new CyclicBehaviour(this) {
 
             public void action() {
-                String aux = "";
+                //String aux = "";
 
                 Scanner sc = new Scanner(System.in);
                 String msgr = "";
-                try {
+               /* try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
@@ -159,7 +159,15 @@ public class ReconhecedorVoz extends Agent {
                     msgr = alternative.getTranscript();
                 } catch (IOException ex) {
                     Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
+               try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                    System.out.println("Digite o comando e pressione enter:");
+                    msgr= sc.nextLine();
+               
                 System.out.println(msgr);
                 ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                 msge.setLanguage("Portugues");

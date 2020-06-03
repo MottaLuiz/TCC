@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -58,12 +60,12 @@ public class GerenciadorCasa {
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
-        
+
         while (res.hasNext()) {
             resultado = (res.next().get("estado")).toString();
             System.out.println(resultado);
         }
-        System.out.println("O(A) "+dispositivo+" do(a) "+local+" está "+resultado);
+        System.out.println("O(A) " + dispositivo + " do(a) " + local + " está " + resultado);
 // Create a new query
         return resultado;
     }
@@ -161,7 +163,7 @@ public class GerenciadorCasa {
     }
 
     public static Vector<String> consultarLocaisdeDisp(String disp) throws FileNotFoundException, IOException {
-        
+
         Vector<String> locaisaux = new Vector<>();
         Vector<String> locais = new Vector<>();
         // Open the bloggers RDF graph from the filesystem
@@ -186,11 +188,11 @@ public class GerenciadorCasa {
         //ResultSetFormatter.out(System.out, res, query);
         while (res.hasNext()) {
             locaisaux.add(res.next().get("labellocal").toString());
-          
+
         }
-        for (int i=0; i<locaisaux.size(); i++){
-            locais.add(locaisaux.elementAt(i).substring(0,locaisaux.elementAt(i).length()-3));
-            
+        for (int i = 0; i < locaisaux.size(); i++) {
+            locais.add(locaisaux.elementAt(i).substring(0, locaisaux.elementAt(i).length() - 3));
+
         }
         System.out.println(locais);
 // Create a new query
@@ -199,12 +201,12 @@ public class GerenciadorCasa {
 
     }
 
-       public static Vector<String> consultarDispsNoLocal(String local) throws FileNotFoundException, IOException {
-        
+    public static Vector<String> consultarDispsNoLocal(String local) throws FileNotFoundException, IOException {
+
         Vector<String> dispsaux = new Vector<>();
         Vector<String> disps = new Vector<>();
         String aux = new String();
-        aux = "_"+local+"@pt";
+        aux = "_" + local + "@pt";
         // Open the bloggers RDF graph from the filesystem
         String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
@@ -217,7 +219,7 @@ public class GerenciadorCasa {
                 + " ?local rdfs:label \"" + local + "@pt\"  . "
                 + " ?prop rdfs:label \"tem_dispositivo@pt\" . "
                 + " ?disp rdfs:label ?labeldisp . "
-               // " ?disp rdf:type ?class . "
+                // " ?disp rdf:type ?class . "
                 //" ?class rdfs:label \"" + disp + "_dispositivo@pt\" . "
                 + " } ";
         Query query = QueryFactory.create(queryString);
@@ -227,11 +229,11 @@ public class GerenciadorCasa {
         //ResultSetFormatter.out(System.out, res, query);
         while (res.hasNext()) {
             dispsaux.add(res.next().get("labeldisp").toString());
-          
+
         }
-        for (int i=0; i<dispsaux.size(); i++){
-            disps.add(dispsaux.elementAt(i).substring(0,dispsaux.elementAt(i).length()-aux.length()));
-            
+        for (int i = 0; i < dispsaux.size(); i++) {
+            disps.add(dispsaux.elementAt(i).substring(0, dispsaux.elementAt(i).length() - aux.length()));
+
         }
         System.out.println(disps);
 // Create a new query
@@ -239,7 +241,7 @@ public class GerenciadorCasa {
         return disps;
 
     }
-       
+
     public static boolean consultarLocalporDisp(String local) throws FileNotFoundException, IOException {
 
         // Open the bloggers RDF graph from the filesystem
@@ -378,13 +380,13 @@ public class GerenciadorCasa {
         UpdateRequest up = UpdateFactory.create(queryString);
         UpdateAction.execute(up, model);
         boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, estadonovo);
-        
+
         return resp;
     }
 
     static boolean consultarLocal(String local) {
-       boolean res;
-        
+        boolean res;
+
 // Create a new query
         String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
@@ -407,7 +409,81 @@ public class GerenciadorCasa {
 // Important - free up resources used running the query
         qe.close();
 
-        return res;}
+        return res;
+    }
+
+    public static boolean AlterarPropVolume(String disp, String local, String acao) {
+
+        try {
+            int volume = GerenciadorCasa.ConsultarVolume(disp, local);
+            if (acao == "aumentar") {
+                volume = volume++;
+                if (volume > 10) {
+                    volume = 10;
+                }
+            }
+            if (acao == "diminuir") {
+                volume = volume--;
+                if (volume < 0) {
+                    volume = 0;
+                }
+
+            }
+            String vol = String.valueOf(volume);
+       
+        
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                //   + "DELETE { ?disp ?prop \"" + antigoestado + "\" }\n"
+                //  + "INSERT { ?disp ?prop \"" + estadonovo + "\" }\n"
+                + "WHERE {\n"
+                + " ?prop rdfs:label \"Volume@pt\" . "
+                + " ?disp rdfs:label \"" + disp + "_" + local + "@pt\" . "
+                + "  } ";
+        UpdateRequest up = UpdateFactory.create(queryString);
+        UpdateAction.execute(up, model);
+         
+
+       
+         } catch (IOException ex) {
+            Logger.getLogger(GerenciadorCasa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       // boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, );
+        return resp;
+    }
+
+    public static int ConsultarVolume(String dispositivo, String local) throws FileNotFoundException, IOException {
+        int resultado = 10;
+
+        String queryString
+                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "SELECT ?volume \n"
+                + " WHERE {"
+                + " ?disp ?prop ?volume  . "
+                + " ?disp rdfs:label ?labeldisp . "
+                + " ?disp rdfs:label \"" + dispositivo + "_" + local + "@pt\" ."
+                + " ?prop rdfs:label \"Volume@pt\" . "
+                + " } ";
+
+        Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet res = qe.execSelect();
+
+        while (res.hasNext()) {
+            resultado = (res.next().getLiteral("volume").getInt());
+            System.out.println(resultado);
+        }
+        System.out.println("O volume do(a)" + dispositivo + " do(a) " + local + " está em " + resultado);
+// Create a new query
+        return resultado;
+    }
 
     public void init() throws FileNotFoundException, IOException {
         File currDir = new File(".");

@@ -52,8 +52,9 @@ public class Gerenciador extends Agent {
 
                     GerenciadorCasa.consultarTodosDispsitivos();
                     GerenciadorCasa.consultarTodosLocais();
-                    Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal("sala");
-
+                    //Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal("sala");
+                    //int i = GerenciadorCasa.ConsultarVolume("som", "sala");
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                 }
