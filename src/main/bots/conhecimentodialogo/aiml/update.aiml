@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: update.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Junho 07, 2020 -->
+<!-- Last modified: junho 08, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -16,7 +16,7 @@
 <!--  -->
 <!-- For more information see unknown -->
 <category><pattern>BUILD</pattern>
-<template>Sun Jun 07 21:53:57 BRT 2020</template>
+<template>Mon Jun 08 18:55:04 BRT 2020</template>
 </category>
 <category><pattern>DELEVLOPMENT ENVIRONMENT</pattern>
 <template>Program AB 0.0.4.2 beta -- AI Foundation Reference AIML 2.0 implementation</template>

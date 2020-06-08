@@ -52,8 +52,12 @@ public class Gerenciador extends Agent {
 
                     GerenciadorCasa.consultarTodosDispsitivos();
                     GerenciadorCasa.consultarTodosLocais();
-                    //Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal("sala");
-                    //int i = GerenciadorCasa.ConsultarVolume("som", "sala");
+                    Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal("sala");
+                    // GerenciadorCasa.AlterarProp("som", "quarto","Estado", "desligado", "ligado");
+                    // GerenciadorCasa.AlterarPropVolume("som", "quarto","aumentar");
+                    // int i = GerenciadorCasa.ConsultarVolume("som", "quarto");
+                    //   GerenciadorCasa.AlterarPropVolume("som", "quarto","diminuir");
+                    //  int i1 = GerenciadorCasa.ConsultarVolume("som", "quarto");
 
                 } catch (IOException ex) {
                     Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,7 +81,7 @@ public class Gerenciador extends Agent {
                         Vector<Pares> pares = (Vector<Pares>) msgr.getContentObject();
                         //transforma vetor de pares em frame
                         for (int i = 0; i < pares.size(); i++) {
-                            System.out.println("teste gerenciador argumento: "+i +" : " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
+                            System.out.println("teste gerenciador argumento: " + i + " : " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
                             System.out.println(pares.get(i).getIntencao());
                             if ("Informarcomando".equals(pares.get(i).getIntencao())) {
                                 frametarefa.setTarefa(pares.get(i).getArgs());
@@ -209,10 +213,10 @@ public class Gerenciador extends Agent {
                                             }
 
                                         } else {
-                                            if (vetorframestarefa.elementAt(0).getAcao().equals("aumentar")) {
-                                            } else {
-                                                if (vetorframestarefa.elementAt(0).getAcao().equals("diminuir")) {
-                                                }
+                                            if (vetorframestarefa.elementAt(0).getAcao().equals("aumentar")
+                                                    || vetorframestarefa.elementAt(0).getAcao().equals("diminuir")) {
+                                                resposta = GerenciadorCasa.AlterarPropVolume(vetorframestarefa.elementAt(0).getDispositivo(),
+                                                        vetorframestarefa.elementAt(0).getLocal(),vetorframestarefa.elementAt(0).getAcao());
                                             }
                                         }
                                     }
@@ -526,11 +530,11 @@ public class Gerenciador extends Agent {
 
                 send(msge);
 
-//                try {
-//                    gc.close();
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                //              try {
+                //                 gc.close();
+                //              } catch (IOException ex) {
+                //                  Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                //              }
                 //}
                 // else {
                 block();
