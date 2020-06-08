@@ -56,7 +56,7 @@ public class GeradorVoz extends Agent {
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msg = receive();
-                if (msg != null) {
+                if ((msg != null)&&msg.getContent()!="") {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msg.getContent());
 //                    try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
 //                        // Set the text input to be synthesized

@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: rotinascriadas.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Junho 03, 2020 -->
+<!-- Last modified: Junho 07, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -26,5 +26,17 @@
 </category>
 <category><pattern>JANTAR COM MUSICA</pattern>
 <template> LIGAR SOM SALA LIGAR LAMPADA COZINHA LIGAR SOM SALA</template>
+</category>
+<category><pattern>ILUMINAR TUDO</pattern>
+<template> LIGAR LAMPADA COZINHA E LIGAR LAMPADA QUARTO E LIGAR LAMPADA VARANDA</template>
+</category>
+<category><pattern>ROTINA TESTE</pattern>
+<template> DESLIGAR e LAMPADA VARANDA LIGAR e LAMPADA QUARTO</template>
+</category>
+<category><pattern>ROTINA TESTE NOVAMENTE</pattern>
+<template> E DESLIGAR LAMPADA VARANDA E LIGAR LAMPADA QUARTO</template>
+</category>
+<category><pattern>ULTIMA ROTINA</pattern>
+<template> DESLIGAR LAMPADA VARANDA E LIGAR LAMPADA QUARTO</template>
 </category>
 </aiml>

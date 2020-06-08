@@ -174,13 +174,16 @@ public class Semantizador extends Agent {
                                             System.out.println("tokenlematizado=" + palavra);
                                         }
                                         if ("P".equals(structure.getTag())) {
-                                            System.out.println("acao:" + Arrays.toString(token.getLemmas()));
+                                            System.out.println("acao "+Integer.toString(cont) +":"+ Arrays.toString(token.getLemmas()));
 
-                                            if (("ligar".equals(palavra)) && (token.getLexeme().length() > 5)) {
+                                            if (("ligar".equals(palavra)) && (token.getLexeme().contains("des"))) {
                                                 palavra = "desligar";
                                             }
-                                            acao[cont] = palavra;
-                                            cont = cont + 1;
+                                            if (possiveisacoes.contains(palavra)){
+                                                acao[cont] = palavra;
+                                                cont = cont + 1;
+                                            }
+                                            
                                             auxdisp = 0;
                                             auxlocais = 0;
                                         } else if ("ACC".equals(structure.getTag())) {
@@ -266,7 +269,7 @@ public class Semantizador extends Agent {
                                     System.out.println("palavra = " + palavra + "POSTag = " + token.getPOSTag());
 
                                     if (("v-fin".equals(token.getPOSTag())) || ("v-inf".equals(token.getPOSTag()))) {
-                                        if (("ligar".equals(palavra)) && (token.getLexeme().length() > 5)) {
+                                        if (("ligar".equals(palavra)) && (token.getLexeme().contains("des")))  {
                                             palavra = "desligar";
                                         }
                                         acao = palavra;
@@ -397,10 +400,16 @@ public class Semantizador extends Agent {
 
         try {
             msge.setContentObject(pares);
+            System.out.println("TESTE ENVIO PAR");
         } catch (IOException ex) {
             Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
         }
         send(msge);
+                        try {
+                    Thread.sleep(1 * 1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
     }
 
