@@ -64,7 +64,7 @@ public class SimuladorCasa extends Agent {
             public void action() {
                 ACLMessage msgr = receive();
 
-                if (msgr != null) {
+                if ((msgr != null)) {
                 System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
                 //simula casa toda vez que recebe uma mensagem
                 JFrame frame = new JFrame();

@@ -54,7 +54,7 @@ public class Gerenciador extends Agent {
                     GerenciadorCasa.consultarTodosLocais();
                     //Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal("sala");
                     //int i = GerenciadorCasa.ConsultarVolume("som", "sala");
-                    
+
                 } catch (IOException ex) {
                     Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -77,7 +77,7 @@ public class Gerenciador extends Agent {
                         Vector<Pares> pares = (Vector<Pares>) msgr.getContentObject();
                         //transforma vetor de pares em frame
                         for (int i = 0; i < pares.size(); i++) {
-                            System.out.println("teste gerenciador argumento: " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
+                            System.out.println("teste gerenciador argumento: "+i +" : " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
                             System.out.println(pares.get(i).getIntencao());
                             if ("Informarcomando".equals(pares.get(i).getIntencao())) {
                                 frametarefa.setTarefa(pares.get(i).getArgs());
@@ -89,18 +89,26 @@ public class Gerenciador extends Agent {
                                 frametarefa.setLocal(pares.get(i).getArgs());
                             } else if ("informarintencao".equals(pares.get(i).getIntencao())) {
                                 System.out.println("Inicio da criacao de rotina");
+                                resposta = "Informe o nome da rotina.";
                                 modocriacao = 1;
                             } else if (("Informarnome".equals(pares.get(i).getIntencao())) && (modocriacao == 1)) {
                                 nome_rotina = pares.get(i).getArgs();
                                 System.out.println("nome da rotina é " + nome_rotina);
+                                resposta = "Informe quantos comandos você gostaria de adicionar à rotina " + nome_rotina;
                                 modocriacao = 2;
                             } else if (("Informarnumeral".equals(pares.get(i).getIntencao())) && (modocriacao == 2)) {
                                 modocriacao = 0;
                                 System.out.println("tentando escrever a rotina " + nome_rotina);
-                                escreveAIML.escreverAIML(nome_rotina, escreveAIML.LeComando(pares.get(i).getArgs()));
+                                escreveAIML.escreverAIML(nome_rotina, escreveAIML.LeComando(pares.get(i).getArgs())[0]);
+                                resposta = "A rotina com nome " + nome_rotina + " foi criada com " + escreveAIML.LeComando(pares.get(i).getArgs())[1] + " comandos";
                                 flag_numeral = 1;
                             }
                         }
+                        System.out.println("teste frame tarefa " + frametarefa.getTarefa());
+                        System.out.println("teste frame Acao " + frametarefa.getAcao());
+                        System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
+                        System.out.println("teste frame local " + frametarefa.getLocal());
+                        vetorframestarefa.add(frametarefa);
                         pares = null;
 
                     } catch (UnreadableException ex) {
@@ -114,11 +122,6 @@ public class Gerenciador extends Agent {
 //                    frametarefa.setDispositivo("ventilador");
 //                    frametarefa.setLocal("sala");
 
-                    System.out.println("teste frame tarefa " + frametarefa.getTarefa());
-                    System.out.println("teste frame Acao " + frametarefa.getAcao());
-                    System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
-                    System.out.println("teste frame local " + frametarefa.getLocal());
-                    vetorframestarefa.add(frametarefa);
 //                    System.out.println("teste frame tarefa" + frametarefa.getTarefa());
 //                    System.out.println("teste frame Acao" + frametarefa.getAcao());
 //                    System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
@@ -136,7 +139,7 @@ public class Gerenciador extends Agent {
 
                 //adiciona frame ao vetor de frames
 //                vetorframestarefa.add(frametarefa);
-                if ((modocriacao == 0)&& (flag_numeral == 0)){
+                if ((modocriacao == 0) && (flag_numeral == 0)) {
                     if (vetorframestarefa.size() != 0) {
                         /*             Lógica de execução:
                  
@@ -190,10 +193,14 @@ public class Gerenciador extends Agent {
                                                             vetorframestarefa.elementAt(0).getLocal(), "Estado", "ligado", "desligado");
                                                     resposta = "Foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
                                                             + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                    /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
+                                                    escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
+
                                                     vetorframestarefa.removeElementAt(0);
                                                 } else {
                                                     resposta = "Nao foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
                                                             + " " + vetorframestarefa.elementAt(0).getLocal();
+
                                                     vetorframestarefa.removeElementAt(0);
 
                                                 }
