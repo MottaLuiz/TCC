@@ -351,7 +351,7 @@ public class GerenciadorCasa {
         QueryExecution qe = QueryExecutionFactory.create(query, model);
 
         res = qe.execAsk();
-        System.out.println(res);
+        System.out.println(res+disp+local);
 
 //while (results.hasNext()){
 //System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
@@ -380,7 +380,7 @@ public class GerenciadorCasa {
         UpdateRequest up = UpdateFactory.create(queryString);
         UpdateAction.execute(up, model);
         boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, estadonovo);
-
+        System.out.println(resp+disp);
         return resp;
     }
 
@@ -415,43 +415,67 @@ public class GerenciadorCasa {
     public static boolean AlterarPropVolume(String disp, String local, String acao) {
 
         try {
-            int volume = GerenciadorCasa.ConsultarVolume(disp, local);
+            int volumeant = GerenciadorCasa.ConsultarVolume(disp, local);
+            int volumenovo = 0;
             if (acao == "aumentar") {
-                volume = volume++;
-                if (volume > 10) {
-                    volume = 10;
+                volumenovo = volumeant + 1;
+                if (volumenovo > 10) {
+                    volumenovo = 10;
                 }
             }
             if (acao == "diminuir") {
-                volume = volume--;
-                if (volume < 0) {
-                    volume = 0;
+                volumenovo = volumeant - 1;
+                if (volumenovo < 0) {
+                    volumenovo = 0;
                 }
 
             }
-            String vol = String.valueOf(volume);
-       
-        
-        String queryString
-                = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                //   + "DELETE { ?disp ?prop \"" + antigoestado + "\" }\n"
-                //  + "INSERT { ?disp ?prop \"" + estadonovo + "\" }\n"
-                + "WHERE {\n"
-                + " ?prop rdfs:label \"Volume@pt\" . "
-                + " ?disp rdfs:label \"" + disp + "_" + local + "@pt\" . "
-                + "  } ";
-        UpdateRequest up = UpdateFactory.create(queryString);
-        UpdateAction.execute(up, model);
-         
+            String volnovo = String.valueOf(volumenovo);
+            String volant = String.valueOf(volumeant);
+            String queryString
+                    = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                    + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                    + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                    + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                    + "SELECT ?volume \n"
+                    + " WHERE {"
+                    + " ?disp ?prop ?volume  . "
+                    + " ?disp rdfs:label ?labeldisp . "
+                    + " ?disp rdfs:label \"" + disp + "_" + local + "@pt\" ."
+                    + " ?prop rdfs:label \"Volume@pt\" . "
+                    + " } ";
 
-       
-         } catch (IOException ex) {
+            Query query = QueryFactory.create(queryString);
+// Execute the query and obtain results
+            QueryExecution qe = QueryExecutionFactory.create(query, model);
+            ResultSet res = qe.execSelect();
+            String resultado = null;
+            while (res.hasNext()) {
+                resultado = (res.next().get("volume").toString());
+            }
+
+            String novoNo = resultado;
+            novoNo = novoNo.replaceFirst(volant, volnovo);
+            System.out.println(resultado);
+            System.out.println(novoNo);
+            String queryString1
+                    = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                    + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                    + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                    + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                    + "DELETE { ?disp ?prop \"" + resultado + "\" }\n"
+                    + "INSERT { ?disp ?prop \"" + novoNo + "\" }\n"
+                    + "WHERE {\n"
+                    + " ?prop rdfs:label \"Volume@pt\" . "
+                    + " ?disp rdfs:label \"" + disp + "_" + local + "@pt\" . "
+                    + "  } ";
+            UpdateRequest up = UpdateFactory.create(queryString1);
+            UpdateAction.execute(up, model);
+
+        } catch (IOException ex) {
             Logger.getLogger(GerenciadorCasa.class.getName()).log(Level.SEVERE, null, ex);
         }
-       // boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, );
+        // boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, );
         return true;//resp;
     }
 

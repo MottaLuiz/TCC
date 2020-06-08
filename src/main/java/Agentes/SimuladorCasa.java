@@ -86,8 +86,8 @@ public class SimuladorCasa extends Agent {
                 frame = null;
                 // interrompe este comportamento ate que chegue uma nova mensagem
                 }
+                block();
                 
-
             }
         });
     }
