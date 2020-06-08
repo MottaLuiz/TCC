@@ -173,7 +173,7 @@ public class Gerenciador extends Agent {
                                                 GerenciadorCasa.AlterarProp(vetorframestarefa.elementAt(0).getDispositivo(),
                                                         vetorframestarefa.elementAt(0).getLocal(), "Estado", "desligado", "ligado");
                                                 resposta = "Foi ligado " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                        + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                        + " em " + vetorframestarefa.elementAt(0).getLocal();
                                                 /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
                                                 escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
 
@@ -181,7 +181,7 @@ public class Gerenciador extends Agent {
 
                                             } else {
                                                 resposta = "Nao foi ligado " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                        + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                        + " em " + vetorframestarefa.elementAt(0).getLocal();
                                                 vetorframestarefa.removeElementAt(0);
 
                                             }
@@ -196,14 +196,14 @@ public class Gerenciador extends Agent {
                                                     GerenciadorCasa.AlterarProp(vetorframestarefa.elementAt(0).getDispositivo(),
                                                             vetorframestarefa.elementAt(0).getLocal(), "Estado", "ligado", "desligado");
                                                     resposta = "Foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                            + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                            + " em " + vetorframestarefa.elementAt(0).getLocal();
                                                     /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
                                                     escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
 
                                                     vetorframestarefa.removeElementAt(0);
                                                 } else {
                                                     resposta = "Nao foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                            + " " + vetorframestarefa.elementAt(0).getLocal();
+                                                            + " em " + vetorframestarefa.elementAt(0).getLocal();
 
                                                     vetorframestarefa.removeElementAt(0);
 
@@ -227,7 +227,7 @@ public class Gerenciador extends Agent {
                                         realizar ação, dizer que aguarda novo comando;*/
                                     if (GerenciadorCasa.consultarLocal(vetorframestarefa.elementAt(0).getLocal())) {
                                         resposta = "Dispositivo " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                + " nao existe no local informado";
+                                                + " nao existe no local "+ vetorframestarefa.elementAt(0).getLocal();
                                         vetorframestarefa.removeElementAt(0);
                                         System.out.println(resposta);
 
@@ -246,7 +246,8 @@ public class Gerenciador extends Agent {
                                                                                                 aguarda por novo  comando.
                  
                                                                     Não executar -> esquece o frame e aguarda novo comando.*/
-                                                resposta = "Dispositivo existe em " + locais.elementAt(0) + " confirmar tarefa";
+                                                resposta = "Dispositivo "+vetorframestarefa.elementAt(0).getDispositivo()+
+                                                        " existe em " + locais.elementAt(0) + " confirmar tarefa";
                                                 frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
                                                 frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
                                                 frametarefaconfirmacao.setLocal(locais.elementAt(0));

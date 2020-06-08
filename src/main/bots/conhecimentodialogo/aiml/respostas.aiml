@@ -21,4 +21,49 @@
 <category><pattern>PERGUNTAR DISPOSITIVO</pattern>
 <template>qual dispositivo gostaria de ligar?</template>
 </category>
+<category><pattern>Informe o nome da rotina.</pattern>
+<template>Qual o nome da rotina que deseja criar?</template>
+</category>
+<category><pattern>Informe quantos comandos você gostaria de adicionar à rotina</pattern>
+<template>Quantos comandos possui a rotina?</template>
+</category>
+<category><pattern>A rotina com nome * foi criada com * comandos</pattern>
+<template>Rotina <star index = "1"/> com <star index = "2"/> foi criada com sucesso!</template>
+</category>
+<category><pattern>Foi ligado * em *</pattern>
+<template>O dispositivo <star index = "1"/> do local <star index = "2"/> foi acionado com sucesso!</template>
+</category>
+<category><pattern>Nao foi ligado * em *</pattern>
+<template>Não foi possível acionar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando.</template>
+</category>
+<category><pattern>Foi desligado * em *</pattern>
+<template>Dispositivo <star index = "1"/> do local <star index = "2"/> foi desligado.</template>
+</category>
+<category><pattern>Nao foi desligado * em *</pattern>
+<template>Não foi possível  desligar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando</template>
+</category>
+<category><pattern>* em * Volume maximo</pattern>
+<template>O dispositivo <star index = "1"/> do local <star index = "2"/> está no volume máximo. Tente outro comando</template>
+</category>
+<category><pattern>* em * Volume minimo</pattern>
+<template>O dispositivo <star index = "1"/> do local <star index = "2"/> está no volume mínimo. Tente outro comando</template>
+</category>
+<category><pattern>consegui aumentar volume para * em *</pattern>
+<template>O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi aumentado</template>
+</category>
+<category><pattern>consegui diminuir volume para * em *</pattern>
+<template>O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi diminuido</template>
+</category>
+<category><pattern>dispositivo desligado nao foi possivel aumentar o volume do * em *</pattern>
+<template>Não foi possível aumentar o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo está desligado. Tente outro comando.</template>
+</category>
+<category><pattern>dispositivo desligado nao foi possivel diminuir o volume do * em *</pattern>
+<template>Não foi possível diminuir o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo está desligado. Tente outro comando.</template>
+</category>
+<category><pattern>Dispositivo * nao existe no local *</pattern>
+<template>Não existe o dispositivo <star index = "1"/> no local <star index = "2"/>. Tente outro comando.</template>
+</category>
+<category><pattern>Dispositivo * existe em * confirmar tarefa</pattern>
+<template>O dispositivo <star index = "1"/> não foi encontrado no local informado poém foi encontrado no local <star index = "2" />. Deseja realizar ação para o dipositivo encontrado?</template>
+</category>
 </aiml>

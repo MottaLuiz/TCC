@@ -34,9 +34,11 @@ public class GeradorLN extends Agent {
         MagicBooleans.trace_mode = TRACE_MODE;
         Bot bot = new Bot("conhecimentodialogo", resourcesPath);
         System.out.println("Gerador de linguagem natural incializado");
+        
         bot.writeAIMLFiles();
         bot.writeQuit();
         System.out.println("Gerador de linguagem natural incializado");
+       
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();

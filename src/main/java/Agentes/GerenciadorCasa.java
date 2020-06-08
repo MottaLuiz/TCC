@@ -421,13 +421,13 @@ public class GerenciadorCasa {
                 if (acao == "aumentar") {
                     volumenovo = volumeant + 1;
                     if (volumenovo > 10) {
-                        return "Volume maximo";
+                        return disp+" em "+ local+" Volume maximo";
                     }
                 }
                 if (acao == "diminuir") {
                     volumenovo = volumeant - 1;
                     if (volumenovo < 0) {
-                        return "Volume minimo";
+                        return disp+" em "+ local+" Volume minimo";
                     }
 
                 }
@@ -449,9 +449,9 @@ public class GerenciadorCasa {
                         + "  } ";
                 UpdateRequest up = UpdateFactory.create(queryString);
                 UpdateAction.execute(up, model);
-                resp = "consegui "+acao+" volume";
+                resp = "consegui "+acao+" volume para "+disp+" em "+local;
             }else {
-                resp="dispositivo desligado";
+                resp= "dispositivo desligado nao foi possivel "+acao+" o volume do "+disp+" em "+local;
             }
         } catch (IOException ex) {
             Logger.getLogger(GerenciadorCasa.class.getName()).log(Level.SEVERE, null, ex);
