@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-<!-- File: resp.aiml -->
+<!-- File: O dispositivo nao foi compreendido. Foi impossivel realizar o comando. Tente um novo comando. -->
 <!-- Author: unknown -->
 <!-- Last modified: junho 09, 2020 -->
 <!--  -->
@@ -15,13 +15,7 @@
 <!-- implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   -->
 <!--  -->
 <!-- For more information see unknown -->
-<category><pattern>INFORMAR LOCAL *</pattern>
-<template>Nao tenho registro do ambiente <star index="1"/></template>
-</category>
-<category><pattern>INFORMAR DISPOSITIVO * *</pattern>
-<template>Nao tenho registro do dispositivo <star index="2"/> no ambiente <star index="2"/></template>
-</category>
-<category><pattern>INFORMAREXECUCAO *</pattern>
-<template><star index="1"/> na execucao da tarefa</template>
+<category><pattern>COMANDO NAO ENTENDIDO</pattern><that>FALTOU DISPOSITIVO</that>
+<template>*</template>
 </category>
 </aiml>

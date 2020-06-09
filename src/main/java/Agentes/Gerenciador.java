@@ -350,7 +350,7 @@ public class Gerenciador extends Agent {
                                                                     System.out.println(resposta);
                                                                     vetorframestarefa.removeElementAt(0);
                                                                 } else {
-                                                                    resposta = "Comando nao entendido, faltou dispositivo";
+                                                                    resposta = "Comando nao entendido. faltou dispositivo";
                                                                     vetorframestarefa.removeElementAt(0);
 
                                                                 }
