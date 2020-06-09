@@ -21,7 +21,7 @@ public class HistoricoTarefas {
 
     public void insere(FrameTarefa objeto) {
 
-        this.historico.add(0, objeto);
+        this.historico.add(0,objeto);
         if (this.historico.size() > 20) {
             this.historico.remove(20);
         }
@@ -31,11 +31,11 @@ public class HistoricoTarefas {
         return this.historico.get(i);
     }
 
-    public boolean vazia() {
+    public boolean isEmpty() {
         return this.historico.isEmpty();
     }
     
-    public int conta () {
+    public int size() {
         return this.historico.size();
     }
     
