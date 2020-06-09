@@ -121,7 +121,7 @@ public class Gerenciador extends Agent {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //imprime frame
-//                    frametarefa.setTarefa("Controlardispositivos");
+//                  frametarefa.setTarefa("Controlardispositivos");
 //                    frametarefa.setAcao("ligar");
 //                    frametarefa.setDispositivo("ventilador");
 //                    frametarefa.setLocal("sala");
@@ -136,9 +136,10 @@ public class Gerenciador extends Agent {
                             vetorframestarefa.elementAt(0).getDispositivo());
                     GerenciadorCasa.verificaValorPropDisp("lampada", "sala", "ligar");
                 }
+                //para testes....
 //                frametarefa.setTarefa("Controlardispositivos");
-//                frametarefa.setAcao("ligar");
-//                //frametarefa.setDispositivo("ventilador");
+//                frametarefa.setAcao("aumentar");
+//                frametarefa.setDispositivo("som");
 //                frametarefa.setLocal("sala");
 
                 //adiciona frame ao vetor de frames
@@ -216,7 +217,7 @@ public class Gerenciador extends Agent {
                                             if (vetorframestarefa.elementAt(0).getAcao().equals("aumentar")
                                                     || vetorframestarefa.elementAt(0).getAcao().equals("diminuir")) {
                                                 resposta = GerenciadorCasa.AlterarPropVolume(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                        vetorframestarefa.elementAt(0).getLocal(),vetorframestarefa.elementAt(0).getAcao());
+                                                        vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getAcao());
                                             }
                                         }
                                     }
@@ -227,7 +228,7 @@ public class Gerenciador extends Agent {
                                         realizar ação, dizer que aguarda novo comando;*/
                                     if (GerenciadorCasa.consultarLocal(vetorframestarefa.elementAt(0).getLocal())) {
                                         resposta = "Dispositivo " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                + " nao existe no local "+ vetorframestarefa.elementAt(0).getLocal();
+                                                + " nao existe no local " + vetorframestarefa.elementAt(0).getLocal();
                                         vetorframestarefa.removeElementAt(0);
                                         System.out.println(resposta);
 
@@ -246,8 +247,8 @@ public class Gerenciador extends Agent {
                                                                                                 aguarda por novo  comando.
                  
                                                                     Não executar -> esquece o frame e aguarda novo comando.*/
-                                                resposta = "Dispositivo "+vetorframestarefa.elementAt(0).getDispositivo()+
-                                                        " existe em " + locais.elementAt(0) + " confirmar tarefa";
+                                                resposta = "Dispositivo " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                        + " existe em " + locais.elementAt(0) + " confirmar tarefa";
                                                 frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
                                                 frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
                                                 frametarefaconfirmacao.setLocal(locais.elementAt(0));

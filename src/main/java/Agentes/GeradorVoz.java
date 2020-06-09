@@ -58,46 +58,46 @@ public class GeradorVoz extends Agent {
                 ACLMessage msg = receive();
                 if ((msg != null)&&msg.getContent()!="") {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msg.getContent());
-//                    try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
-//                        // Set the text input to be synthesized
-//
-//                        SynthesisInput input = SynthesisInput.newBuilder()
-//                                .setText(msg.getContent())
-//                                .build();
-//
-//                        // Build the voice request, select the language code ("en-US") and the ssml voice gender
-//                        // ("neutral")
-//                        VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
-//                                .setLanguageCode("pt-BR")
-//                                .setSsmlGender(SsmlVoiceGender.NEUTRAL)
-//                                .build();
-//
-//                        // Select the type of audio file you want returned
-//                        AudioConfig audioConfig = AudioConfig.newBuilder()
-//                                .setAudioEncoding(AudioEncoding.MP3)
-//                                .build();
-//
-//                        // Perform the text-to-speech request on the text input with the selected voice parameters and
-//                        // audio file type
-//                        SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice,
-//                                audioConfig);
-//
-//                        // Get the audio contents from the response
-//                        ByteString audioContents = response.getAudioContent();
-//
-//                        // Write the response to the output file.
-//                        try (OutputStream out = new FileOutputStream("output.mp3")) {
-//                            out.write(audioContents.toByteArray());
-//                            System.out.println("Audio content written to file \"output.mp3\"");
-//                        }
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(GeradorVoz.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
+                    try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
+                        // Set the text input to be synthesized
+
+                        SynthesisInput input = SynthesisInput.newBuilder()
+                                .setText(msg.getContent())
+                                .build();
+
+                        // Build the voice request, select the language code ("en-US") and the ssml voice gender
+                        // ("neutral")
+                        VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
+                                .setLanguageCode("pt-BR")
+                                .setSsmlGender(SsmlVoiceGender.NEUTRAL)
+                                .build();
+
+                        // Select the type of audio file you want returned
+                        AudioConfig audioConfig = AudioConfig.newBuilder()
+                                .setAudioEncoding(AudioEncoding.MP3)
+                                .build();
+
+                        // Perform the text-to-speech request on the text input with the selected voice parameters and
+                        // audio file type
+                        SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice,
+                                audioConfig);
+
+                        // Get the audio contents from the response
+                        ByteString audioContents = response.getAudioContent();
+
+                        // Write the response to the output file.
+                        try (OutputStream out = new FileOutputStream("output.mp3")) {
+                            out.write(audioContents.toByteArray());
+                            System.out.println("Audio content written to file \"output.mp3\"");
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(GeradorVoz.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                     try {
                         System.out.println("Descomentar linha a seguir para tocar o som direto");
 
-//                        play("output.mp3");
+                        play("output.mp3");
 
                     } catch (Exception ex) {
                         System.out.println("Error with playing sound.");

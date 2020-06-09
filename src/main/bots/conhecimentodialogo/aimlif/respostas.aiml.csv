@@ -1,17 +1,17 @@
 0,DISPOSITIVO * LOCAL * ACAO *,*,*,o dispositivo <star index="1"/> do local <star index="2"/> foi <star index="3"/>,respostas.aiml
 0,PERGUNTAR DISPOSITIVO,*,*,qual dispositivo gostaria de ligar?,respostas.aiml
-0,Informe o nome da rotina,*,*,Qual o nome da rotina que deseja criar?,respostas.aiml
-0,Informe quantos comandos você gostaria de adicionar à rotina,*,*,Quantos comandos possui a rotina?,respostas.aiml
-0,A rotina com nome * foi criada com * comandos,*,*,Rotina <star index = "1"/> com <star index = "2"/> foi criada com sucesso!,respostas.aiml
-0,Foi ligado * em *,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> foi acionado com sucesso!,respostas.aiml
-0,Nao foi ligado * em *,*,*,Não foi possível acionar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando.,respostas.aiml
-0,Foi desligado * em *,*,*,Dispositivo <star index = "1"/> do local <star index = "2"/> foi desligado.,respostas.aiml
-0,Nao foi desligado * em *,*,*,Não foi possível  desligar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando,respostas.aiml
-0,* em * Volume maximo,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> está no volume máximo. Tente outro comando,respostas.aiml
-0,* em * Volume minimo,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> está no volume mínimo. Tente outro comando,respostas.aiml
-0,consegui aumentar volume para * em *,*,*,O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi aumentado,respostas.aiml
-0,consegui diminuir volume para * em *,*,*,O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi diminuido,respostas.aiml
-0,dispositivo desligado nao foi possivel aumentar o volume do * em *,*,*,Não foi possível aumentar o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo está desligado. Tente outro comando.,respostas.aiml
-0,dispositivo desligado nao foi possivel diminuir o volume do * em *,*,*,Não foi possível diminuir o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo está desligado. Tente outro comando.,respostas.aiml
-0,Dispositivo * nao existe no local *,*,*,Não existe o dispositivo <star index = "1"/> no local <star index = "2"/>. Tente outro comando.,respostas.aiml
-0,Dispositivo * existe em * confirmar tarefa,*,*,O dispositivo <star index = "1"/> não foi encontrado no local informado poém foi encontrado no local <star index = "2" />. Deseja realizar ação para o dipositivo encontrado?,respostas.aiml
+0,INFORME O NOME DA ROTINA,*,*,Qual o nome da rotina que deseja criar?,respostas.aiml
+0,INFORME QUANTOS COMANDOS VOCê GOSTARIA DE ADICIONAR à ROTINA,*,*,Quantos comandos possui a rotina?,respostas.aiml
+0,A ROTINA COM NOME * FOI CRIADA COM * COMANDOS,*,*,Rotina <star index = "1"/> com <star index = "2"/> foi criada com sucesso!,respostas.aiml
+0,FOI LIGADO * EM *,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> foi acionado com sucesso!,respostas.aiml
+0,NAO FOI LIGADO * EM *,*,*,Nao foi possivel acionar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando.,respostas.aiml
+0,FOI DESLIGADO * EM *,*,*,Dispositivo <star index = "1"/> do local <star index = "2"/> foi desligado.,respostas.aiml
+0,NAO FOI DESLIGADO * EM *,*,*,Nao foi possivel  desligar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando,respostas.aiml
+0,* EM * VOLUME MAXIMO,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> esta no volume maximo. Tente outro comando,respostas.aiml
+0,* EM * VOLUME MINIMO,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> esta no volume minimo. Tente outro comando,respostas.aiml
+0,CONSEGUI AUMENTAR VOLUME PARA * EM *,*,*,O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi aumentado,respostas.aiml
+0,CONSEGUI DIMINUIR VOLUME PARA * EM *,*,*,O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi diminuido,respostas.aiml
+0,DISPOSITIVO DESLIGADO NAO FOI POSSIVEL AUMENTAR O VOLUME DO * EM *,*,*,Nao foi possivel aumentar o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo esta desligado. Tente outro comando.,respostas.aiml
+0,DISPOSITIVO DESLIGADO NAO FOI POSSIVEL DIMINUIR O VOLUME DO * EM *,*,*,Nao foi possivel diminuir o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo esta desligado. Tente outro comando.,respostas.aiml
+0,DISPOSITIVO * NAO EXISTE NO LOCAL *,*,*,Nao existe o dispositivo <star index = "1"/> no local <star index = "2"/>. Tente outro comando.,respostas.aiml
+0,DISPOSITIVO * EXISTE EM * CONFIRMAR TAREFA,*,*,O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado no local <star index = "2" />. Deseja realizar açao para o dipositivo encontrado?,respostas.aiml
