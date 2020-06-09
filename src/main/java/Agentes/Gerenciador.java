@@ -261,16 +261,22 @@ public class Gerenciador extends Agent {
                                                                     pedido, mas exite o dispositivo nos outros locais. 
                                                                     Sugerir tentar novamente ação para um dos dispositivos 
                                                                     nos locais onde ele foi encontrado. aguardar novo comando.*/
-                                                    resposta = "Dispositivo nao encontrado no local mas encontrado em";
+                                                    resposta = "Dispositivo "+vetorframestarefa.elementAt(0).getDispositivo()+ " "
+                                                            + "nao encontrado no local mas encontrado em";
                                                     for (int i = 0; i < locais.size(); i++) {
-                                                        resposta = resposta + " " + locais.elementAt(i);
-
+                                                        if (i!=locais.size())
+                                                        {resposta = resposta + " " + locais.elementAt(i);}
+                                                        else {
+                                                            if(i==locais.size()){
+                                                                resposta=resposta+" e "+locais.elementAt(i);
+                                                            }
+                                                                    }
                                                     }
                                                     System.out.println(resposta);
                                                     vetorframestarefa.removeElementAt(0);
                                                 } else {/*não existe -> retornar que o dispositvo pedido não existe em nenhum local,
                                                                 aguardar por novo comando.*/
-                                                    resposta = "Dispositivo nao existe em nenhum local";
+                                                    resposta = "Dispositivo "+vetorframestarefa.elementAt(0).getDispositivo()+" nao existe em nenhum local";
                                                     System.out.println(resposta);
                                                     vetorframestarefa.removeElementAt(0);
                                                 }
@@ -300,7 +306,7 @@ public class Gerenciador extends Agent {
                                             if (dispositivos.isEmpty()) {/*não há dispositivo -> retornar que não existem dispositivos no local escolhido e que 
                                                                 aguarda novo comando. Aguardar novo comando.*/
 
-                                                resposta = "Nao existe dispositivos no local informado";
+                                                resposta = "Nao existe dispositivos no local "+vetorframestarefa.elementAt(0).getLocal();
                                                 System.out.println(resposta);
                                                 vetorframestarefa.removeElementAt(0);
                                             } else {
@@ -318,13 +324,13 @@ public class Gerenciador extends Agent {
                                                                 frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
                                                                 frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
                                                                 frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                                resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
-                                                                        + " " + frametarefaconfirmacao.getLocal();
+                                                                resposta = "Dispositivo nao entendido. Mas encontrado outro. Deseja " + frametarefaconfirmacao.getAcao() + " o " + frametarefaconfirmacao.getDispositivo()
+                                                                        + " no local " + frametarefaconfirmacao.getLocal();
                                                                 System.out.println(resposta);
                                                                 vetorframestarefa.removeElementAt(0);
 
                                                             } else {
-                                                                resposta = "Comando não entendido, faltou dispositivo";
+                                                                resposta = "Comando nao entendido, faltou dispositivo";
                                                                 vetorframestarefa.removeElementAt(0);
 
                                                             }
@@ -339,12 +345,12 @@ public class Gerenciador extends Agent {
                                                                     frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
                                                                     frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
                                                                     frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                                    resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
-                                                                            + " " + frametarefaconfirmacao.getLocal();
+                                                                    resposta = "Dispositivo nao entendido. Mas encontrado outro. Deseja " + frametarefaconfirmacao.getAcao() + " o " + frametarefaconfirmacao.getDispositivo()
+                                                                            + " no local " + frametarefaconfirmacao.getLocal();
                                                                     System.out.println(resposta);
                                                                     vetorframestarefa.removeElementAt(0);
                                                                 } else {
-                                                                    resposta = "Comando não entendido, faltou dispositivo";
+                                                                    resposta = "Comando nao entendido, faltou dispositivo";
                                                                     vetorframestarefa.removeElementAt(0);
 
                                                                 }
@@ -360,12 +366,12 @@ public class Gerenciador extends Agent {
                                                                 frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
                                                                 frametarefaconfirmacao.setDispositivo(dispositivos.elementAt(0));
                                                                 frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                                resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " o volume do " + frametarefaconfirmacao.getDispositivo()
-                                                                        + " " + frametarefaconfirmacao.getLocal();
+                                                                resposta = "Dispositivo nao entendido. Mas encontrado outro. Deseja " + frametarefaconfirmacao.getAcao() + " o volume do " + frametarefaconfirmacao.getDispositivo()
+                                                                        + " do local " + frametarefaconfirmacao.getLocal();
                                                                 System.out.println(resposta);
                                                                 vetorframestarefa.removeElementAt(0);
                                                             } else {
-                                                                resposta = "Comando não entendido, faltou dispositivo";
+                                                                resposta = "Comando nao entendido, faltou dispositivo";
                                                                 vetorframestarefa.removeElementAt(0);
 
                                                             }
@@ -377,10 +383,15 @@ public class Gerenciador extends Agent {
                                                                     Sugerir tentar novamente ação para um dos dispositivos 
                                                                     no local. solicitar repetir comando para algum dos disps.
                                                      */
-                                                    resposta = "Dispositivo nao entendido, dispositivos encontrados no local informado";
+                                                    resposta = "Dispositivo nao entendido. no local "+vetorframestarefa.elementAt(0).getLocal()+" encontrados os dispositivos ";
                                                     for (int i = 0; i < dispositivos.size(); i++) {
-                                                        resposta = resposta + " " + dispositivos.elementAt(i);
-
+                                                       if (i!=dispositivos.size())
+                                                        {resposta = resposta + " " + dispositivos.elementAt(i);}
+                                                        else {
+                                                            if(i==dispositivos.size()){
+                                                                resposta=resposta+" e "+dispositivos.elementAt(i);
+                                                            }
+                                                                    }
                                                     }
                                                     System.out.println(resposta);
                                                     vetorframestarefa.removeElementAt(0);
@@ -392,7 +403,7 @@ public class Gerenciador extends Agent {
                                         }
                                     } else {/*-> se nao existe -> caso falta dois quaisquer: retornar que dispositivo não entendido e local nao existe
                                                         solicitar novo comando.*/
-                                        resposta = "Dispositivo nao entendido e local informado nao existe";
+                                        resposta = "Dispositivo nao entendido e o local "+ vetorframestarefa.elementAt(0).getLocal()+" informado nao existe";
                                         System.out.println(resposta);
                                         vetorframestarefa.removeElementAt(0);
                                     }
@@ -416,7 +427,7 @@ public class Gerenciador extends Agent {
                                                                                                 aguarda por novo  comando.
                  
                                                                     Não executar -> esquece o frame e aguarda novo comando.*/
-                                                resposta = "Dispositivo encontrado em " + locais.elementAt(0) + " confirmar tarefa";
+                                                resposta = "Local nao entendido. Dispositivo "+vetorframestarefa.elementAt(0).getDispositivo()+" encontrado em " + locais.elementAt(0) + " confirmar tarefa";
                                                 frametarefaconfirmacao.setAcao(vetorframestarefa.elementAt(0).getAcao());
                                                 frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
                                                 frametarefaconfirmacao.setLocal(locais.elementAt(0));
@@ -429,16 +440,21 @@ public class Gerenciador extends Agent {
                                                                     pedido, mas exite o dispositivo nos outros locais. 
                                                                     Sugerir tentar novamente ação para um dos dispositivos 
                                                                     nos locais onde ele foi encontrado. aguardar novo comando.*/
-                                                    resposta = "local nao entendido mas dispositivo encontrado em";
+                                                    resposta = "local nao entendido mas dispositivo "+vetorframestarefa.elementAt(0).getDispositivo()+" encontrado em";
                                                     for (int i = 0; i < locais.size(); i++) {
-                                                        resposta = resposta + " " + locais.elementAt(i);
-
+                                                       if (i!=locais.size())
+                                                        {resposta = resposta + " " + locais.elementAt(i);}
+                                                        else {
+                                                            if(i==locais.size()){
+                                                                resposta=resposta+" e "+locais.elementAt(i);
+                                                            }
+                                                                    }
                                                     }
                                                     System.out.println(resposta);
                                                     vetorframestarefa.removeElementAt(0);
                                                 } else {/*não existe -> retornar que o dispositvo pedido não existe em nenhum local,
                                                                 aguardar por novo comando.*/
-                                                    resposta = "local nao entendido e dispositivo nao existe";
+                                                    resposta = "local nao entendido e dispositivo "+vetorframestarefa.elementAt(0).getDispositivo()+" nao existe";
                                                     System.out.println(resposta);
                                                     vetorframestarefa.removeElementAt(0);
                                                 }
@@ -457,8 +473,8 @@ public class Gerenciador extends Agent {
                                                     vetorframestarefa.elementAt(0).getDispositivo())) {
                                                 if ("som".equals(vetorframestarefa.elementAt(0).getDispositivo())
                                                         || "televisao".equals(vetorframestarefa.elementAt(0).getDispositivo())) {
-                                                    resposta = "ação para " + vetorframestarefa.elementAt(0).getDispositivo()
-                                                            + " " + vetorframestarefa.elementAt(0).getLocal() + "nao entendida";
+                                                    resposta = "açao para " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                            + " no local " + vetorframestarefa.elementAt(0).getLocal() + " nao entendida";
                                                 }
                                                 if ("lampada".equals(vetorframestarefa.elementAt(0).getDispositivo())) {
                                                     try {
@@ -467,8 +483,8 @@ public class Gerenciador extends Agent {
                                                             frametarefaconfirmacao.setAcao("desligar");
                                                             frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
                                                             frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
-                                                                    + " " + frametarefaconfirmacao.getLocal();
+                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " a " + frametarefaconfirmacao.getDispositivo()
+                                                                    + " do local " + frametarefaconfirmacao.getLocal();
                                                             System.out.println(resposta);
                                                             vetorframestarefa.removeElementAt(0);
                                                         }
@@ -477,8 +493,8 @@ public class Gerenciador extends Agent {
                                                             frametarefaconfirmacao.setAcao("ligar");
                                                             frametarefaconfirmacao.setDispositivo(vetorframestarefa.elementAt(0).getDispositivo());
                                                             frametarefaconfirmacao.setLocal(vetorframestarefa.elementAt(0).getLocal());
-                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " " + frametarefaconfirmacao.getDispositivo()
-                                                                    + " " + frametarefaconfirmacao.getLocal();
+                                                            resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " a " + frametarefaconfirmacao.getDispositivo()
+                                                                    + " do local " + frametarefaconfirmacao.getLocal();
                                                             System.out.println(resposta);
                                                             vetorframestarefa.removeElementAt(0);
                                                         }
@@ -491,8 +507,8 @@ public class Gerenciador extends Agent {
                                          se não existe -> equivalente ao caso falta dois quaisquer:retornar que comando não
                                                          entendido e dispositivo nao encontrado, solicitar novo comando,
                                                          aguardar por novo comando. */
-                                                resposta = "Ação nao entendida," + vetorframestarefa.elementAt(0).getDispositivo()
-                                                        + " em " + vetorframestarefa.elementAt(0).getLocal() + "nao encontrado";
+                                                resposta = "Açao nao entendida e " + vetorframestarefa.elementAt(0).getDispositivo()
+                                                        + " em " + vetorframestarefa.elementAt(0).getLocal() + " nao encontrado";
                                                 System.out.println(resposta);
                                                 vetorframestarefa.removeElementAt(0);
                                             }
@@ -501,7 +517,7 @@ public class Gerenciador extends Agent {
                                 Falta dois quaisquer: retornar que comando não entendido, solicitar novo comando,
                                                         aguardar por novo comando.
                                              */
-                                            resposta = "Comando não entendido";
+                                            resposta = "Comando nao entendido";
                                             System.out.println(resposta);
                                             vetorframestarefa.removeElementAt(0);
                                         }

@@ -66,4 +66,61 @@
 <category><pattern>DISPOSITIVO * EXISTE EM * CONFIRMAR TAREFA</pattern>
 <template>O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado no local <star index = "2" />. Deseja realizar açao para o dipositivo encontrado?</template>
 </category>
+<category><pattern>Dispositivo * nao encontrado no local mas encontrado em *</pattern>
+<template>O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado nos locais <star index = "2" />. Nao foi possivel realizar a açao. Tente um novo comando</template>
+</category>
+<category><pattern>Dispositivo * nao existe em nenhum local</pattern>
+<template>O dispositivo <star index = "1"/> nao foi encontrado em nenhum local. Tente outro comando</template>
+</category>
+<category><pattern>Nao existe dispositivos no local *</pattern>
+<template>Nao foi possivel entender qual dispositivo deseja acionar. Nenhum dispositivo encontrado no local <star index = "1"/>. Tente um novo comando.</template>
+</category>
+<category><pattern>Dispositivo nao entendido. Mas encontrado outro. Deseja ligar o * no local *</pattern>
+<template>O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja ligar O dispositivo <star index = "1"/> do local <star index = "2"/>?</template>
+</category>
+<category><pattern>Dispositivo nao entendido. Mas encontrado outro. Deseja desligar o * no local *</pattern>
+<template>O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja desligar O dispositivo <star index = "1"/> do local <star index = "2"/>?</template>
+</category>
+<category><pattern>Comando nao entendido, faltou dispositivo</pattern>
+<template>O dispositivo informado nao foi compreendido. Nao foi possivel realizar o comando. Tente novo comando.</template>
+</category>
+<category><pattern>Dispositivo nao entendido. Mas encontrado outro. Deseja aumentar o volume do * do local *</pattern>
+<template>O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja aumetar o volume do dispositivo <star index = "1"/> do local <star index = "2"/>?</template>
+</category>
+<category><pattern>Dispositivo nao entendido. Mas encontrado outro. Deseja diminuir o volume do * do local *</pattern>
+<template>O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja diminuir o volume do dispositivo <star index = "1"/> do local <star index = "2"/>?</template>
+</category>
+<category><pattern>Dispositivo nao entendido. no local * encontrados os dispositivos *</pattern>
+<template> Nao foi possivel realizar o comando. Dispositivo informado nao foi compreendido. Porem no local <star index = "1"/> foram encontrados os dispositivos <star index = "2"/>. Tente um novo comando.</template>
+</category>
+<category><pattern>Dispositivo nao entendido e o local * informado nao existe</pattern>
+<template>O dispositivo nao foi compreendido e o local <star index = "1"/> nao existe no sistema. Tente outro comando.</template>
+</category>
+<category><pattern>Local nao entendido. Dispositivo * encontrado em * confirmar tarefa</pattern>
+<template>O local nao foi compreendido. Porem o dispositivo <star index = "1"/> foi encontrado no local <star index = "2"/>. Deseja realizar a ação para o dispositivo encontrado? </template>
+</category>
+<category><pattern>local nao entendido mas dispositivo * encontrado em *</pattern>
+<template>O local nao foi compreendido. Porem o dispositivo <star index = "1"/> foi encontrado nos locais <star index = "2"/>. Tente um novo comando.</template>
+</category>
+<category><pattern>local nao entendido e dispositivo * nao existe</pattern>
+<template>O local nao foi compreendido e o dispositivo <star index = "1"/> nao foi encontrado em nenhum outro local. Tente um novo comando.</template>
+</category>
+<category><pattern>açao para televisao no local * nao entendida</pattern>
+<template>A açao solicitada para a televisao do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual açao deseja realizar.</template>
+</category>
+<category><pattern>açao para som no local * nao entendida</pattern>
+<template>A açao solicitada para o som do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual açao deseja realizar.</template>
+</category>
+<category><pattern>Deseja ligar a * do local *</pattern>
+<template>Deseja ligar a <star index = "1"/> do local <star index = "2"/>?</template>
+</category>
+<category><pattern>Deseja desligar a * do local *</pattern>
+<template>Deseja desligar a <star index = "1"/> do local <star index = "2"/>?</template>
+</category>
+<category><pattern>Açao nao entendida e * em * nao encontrado</pattern>
+<template>A açao nao foi entendida e o dispositivo <star index = "1"/> do local <star index = "2"/> nao foi encontrado no sistema. Tente um novo comando.</template>
+</category>
+<category><pattern>Comando nao entendido</pattern>
+<template>O comando solicitado nao foi compreendido. Tente um novo comando.</template>
+</category>
 </aiml>
