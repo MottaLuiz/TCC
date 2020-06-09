@@ -64,10 +64,10 @@
 <template>Nao existe o dispositivo <star index = "1"/> no local <star index = "2"/>. Tente outro comando.</template>
 </category>
 <category><pattern>DISPOSITIVO * EXISTE EM * CONFIRMAR TAREFA</pattern>
-<template>O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado no local <star index = "2" />. Deseja realizar açao para o dipositivo encontrado?</template>
+<template>O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado no local <star index = "2" />. Deseja realizar tarefa para o dipositivo encontrado?</template>
 </category>
 <category><pattern>DISPOSITIVO * NAO ENCONTRADO NO LOCAL MAS ENCONTRADO EM *</pattern>
-<template>O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado nos locais <star index = "2" />. Nao foi possivel realizar a açao. Tente um novo comando</template>
+<template>O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado nos locais <star index = "2" />. Nao foi possivel realizar a tarefa. Tente um novo comando</template>
 </category>
 <category><pattern>DISPOSITIVO * NAO EXISTE EM NENHUM LOCAL</pattern>
 <template>O dispositivo <star index = "1"/> nao foi encontrado em nenhum local. Tente outro comando</template>
@@ -103,10 +103,10 @@
 <template>O local nao foi compreendido e o dispositivo <star index = "1"/> nao foi encontrado em nenhum outro local. Tente um novo comando.</template>
 </category>
 <category><pattern>AçAO PARA TELEVISAO NO LOCAL * NAO ENTENDIDA</pattern>
-<template>A açao solicitada para a televisao do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual açao deseja realizar.</template>
+<template>A tarefa solicitada para a televisao do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.</template>
 </category>
 <category><pattern>AçAO PARA SOM NO LOCAL * NAO ENTENDIDA</pattern>
-<template>A açao solicitada para o som do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual açao deseja realizar.</template>
+<template>A tarefa solicitada para o som do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.</template>
 </category>
 <category><pattern>DESEJA LIGAR A * DO LOCAL *</pattern>
 <template>Deseja ligar a <star index = "1"/> do local <star index = "2"/>?</template>
@@ -115,7 +115,7 @@
 <template>Deseja desligar a <star index = "1"/> do local <star index = "2"/>?</template>
 </category>
 <category><pattern>AçAO NAO ENTENDIDA E * EM * NAO ENCONTRADO</pattern>
-<template>A açao nao foi entendida e o dispositivo <star index = "1"/> do local <star index = "2"/> nao foi encontrado no sistema. Tente um novo comando.</template>
+<template>A tarefa nao foi entendida e o dispositivo <star index = "1"/> do local <star index = "2"/> nao foi encontrado no sistema. Tente um novo comando.</template>
 </category>
 <category><pattern>COMANDO NAO ENTENDIDO</pattern>
 <template>O comando solicitado nao foi compreendido. Tente um novo comando.</template>

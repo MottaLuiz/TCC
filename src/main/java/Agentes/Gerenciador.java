@@ -38,16 +38,17 @@ public class Gerenciador extends Agent {
         GerenciadorCasa gc = new GerenciadorCasa();
         FrameTarefa frametarefaconfirmacao = new FrameTarefa();
         EscreverAIML escreveAIML = new EscreverAIML();
+         try {
+                    gc.init();
+                } catch (IOException ex) {
+                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
         System.out.println("Gerenciador incializado");
 
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
-                try {
-                    gc.init();
-                } catch (IOException ex) {
-                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               
                 try {
 
                     GerenciadorCasa.consultarTodosDispsitivos();
@@ -137,13 +138,13 @@ public class Gerenciador extends Agent {
                     GerenciadorCasa.verificaValorPropDisp("lampada", "sala", "ligar");
                 }
                 //para testes....
-//                frametarefa.setTarefa("Controlardispositivos");
-//                frametarefa.setAcao("aumentar");
-//                frametarefa.setDispositivo("som");
-//                frametarefa.setLocal("sala");
+//              frametarefa.setTarefa("Controlardispositivos");
+  //              frametarefa.setAcao("ligar");
+  //              frametarefa.setDispositivo("lampada");
+  //              frametarefa.setLocal("garagem");
 
                 //adiciona frame ao vetor de frames
-//                vetorframestarefa.add(frametarefa);
+ //               vetorframestarefa.add(frametarefa);
                 if ((modocriacao == 0) && (flag_numeral == 0)) {
                     if (vetorframestarefa.size() != 0) {
                         /*             Lógica de execução:
