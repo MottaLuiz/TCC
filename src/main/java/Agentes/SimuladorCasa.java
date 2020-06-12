@@ -58,65 +58,64 @@ public class SimuladorCasa extends Agent {
     List<Dispositivo> listadispositivos = new ArrayList<Dispositivo>();
 
     protected void setup() {
-
+                JFrame frame = new JFrame();
+                PaintPane pane = new PaintPane();
         System.out.println("Simulador da Casa incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
 
+
                 if ((msgr != null)) {
-                System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
-                //simula casa toda vez que recebe uma mensagem
-                JFrame frame = new JFrame();
-                PaintPane pane = new PaintPane();
-                pane.setBackground(Color.white);
+                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
+                    //simula casa toda vez que recebe uma mensagem
+                    frame.setVisible(false);
+                    pane.setBackground(Color.white);
 
-                frame.setBounds(0, 0, 1920, 1080);
-                frame.setVisible(true);
-                frame.add(pane);
+                    frame.setBounds(0, 0, 1920, 1080);
+                    frame.setVisible(true);
+                    frame.add(pane);
 
-                //mostra por 10s       
-                try {
-                    Thread.sleep(10000);
-
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                frame.setVisible(false);
-                frame = null;
-                // interrompe este comportamento ate que chegue uma nova mensagem
+//                    //mostra por 10s       
+//                    try {
+//                        Thread.sleep(10000);
+//
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    frame.setVisible(false);
+//                    frame = null;
+                    // interrompe este comportamento ate que chegue uma nova mensagem
                 }
                 block();
-                
+
             }
         });
     }
 
     protected class PaintPane extends JPanel {
+
         BufferedImage img = null;
 
         @Override
         protected void paintComponent(Graphics g) {
 
             //GerenciadorCasa gc = new GerenciadorCasa();
-          //  try {
-           ////     gc.init();
-          //  } catch (IOException ex) {
-           //     Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
-           // }
-
+            //  try {
+            ////     gc.init();
+            //  } catch (IOException ex) {
+            //     Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
+            // }
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
-
-            
 
             //ILUMINACAO
             //1 - Cozinha
             //1.1 - lampada
             String bool;
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("lampada","cozinha");
+                bool = GerenciadorCasa.EstadoDispositivo("lampada", "cozinha");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 0, 960, 540);
@@ -125,11 +124,11 @@ public class SimuladorCasa extends Agent {
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             //2 - Quarto
             //2.1 - lampada
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("lampada","quarto");
+                bool = GerenciadorCasa.EstadoDispositivo("lampada", "quarto");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(960, 540, 960, 540);
@@ -138,12 +137,11 @@ public class SimuladorCasa extends Agent {
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
+
             //3 - Sala
             //3.1 - lampada
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("lampada","sala");
+                bool = GerenciadorCasa.EstadoDispositivo("lampada", "sala");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 540, 960, 540);
@@ -152,11 +150,11 @@ public class SimuladorCasa extends Agent {
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             //4 - Varanda
             //4.1 - lampada
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("lampada","varanda");
+                bool = GerenciadorCasa.EstadoDispositivo("lampada", "varanda");
                 if (bool.equals("ligado")) {
                     g.setColor(Color.yellow);
                     g.fillRect(960, 0, 960, 540);
@@ -165,15 +163,7 @@ public class SimuladorCasa extends Agent {
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-          
-            
-            
-            
-            
-            
-            
-            
+
             //DESENHO DA CASA
             g.setColor(Color.black);
             //1 - Cozinha
@@ -184,38 +174,34 @@ public class SimuladorCasa extends Agent {
             FontMetrics fm = g.getFontMetrics();
             Rectangle2D rect = fm.getStringBounds("Cozinha", g);
             g.drawString("Cozinha", (int) (0 + rect.getWidth() / 2), (int) (0 + rect.getHeight()));
-            
+
             //2 - Quarto
             g.drawRect(960, 540, 960, 540);
             rect = fm.getStringBounds("Quarto", g);
             g.drawString("Quarto", (int) (960 + rect.getWidth() / 2), (int) (540 + rect.getHeight()));
-            
+
             //3 - Sala
             g.drawRect(0, 540, 960, 540);
 
             rect = fm.getStringBounds("Sala", g);
             g.drawString("Sala", (int) (0 + rect.getWidth() / 2), (int) (540 + rect.getHeight()));
-            
-            
+
             //4 - Varanda
             g.drawRect(960, 0, 960, 540);
             rect = fm.getStringBounds("Varanda", g);
             g.drawString("Varanda", (int) (960 + rect.getWidth() / 2), (int) (0 + rect.getHeight()));
-            
-            
-            
+
             //DISPOSITIVOS
             //2 - Quarto
             //2.2 - tv
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("televisao","quarto");
+                bool = GerenciadorCasa.EstadoDispositivo("televisao", "quarto");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("televisaoligada.png"));
-                }
-                else {
+                } else {
                     img = ImageIO.read(new File("televisaodesligada.png"));
                 }
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -225,39 +211,36 @@ public class SimuladorCasa extends Agent {
 
             BufferedImage bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
             g.drawImage(img, 1000, 600, Math.round(w), Math.round(h), null);
-            
+
             //2.3 - som
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("som","quarto");
+                bool = GerenciadorCasa.EstadoDispositivo("som", "quarto");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("somligado.png"));
-                }
-                else {
+                } else {
                     img = ImageIO.read(new File("somdesligado.png"));
                 }
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
             prop = (float) 0.1;
             w = img.getWidth(null) * prop;
-             h = img.getHeight(null) * prop;
+            h = img.getHeight(null) * prop;
 
-             bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
+            bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
             g.drawImage(img, 1500, 600, Math.round(w), Math.round(h), null);
-            
-            
+
             //3 - Sala
             //3.2 - tv
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("televisao","sala");
+                bool = GerenciadorCasa.EstadoDispositivo("televisao", "sala");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("televisaoligada.png"));
-                }
-                else {
+                } else {
                     img = ImageIO.read(new File("televisaodesligada.png"));
                 }
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -267,50 +250,46 @@ public class SimuladorCasa extends Agent {
 
             bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
             g.drawImage(img, 0, 600, Math.round(w), Math.round(h), null);
-            
-            
+
             //3.3 - som
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("som","sala");
+                bool = GerenciadorCasa.EstadoDispositivo("som", "sala");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("somligado.png"));
-                }
-                else {
+                } else {
                     img = ImageIO.read(new File("somdesligado.png"));
                 }
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
             prop = (float) 0.1;
             w = img.getWidth(null) * prop;
-             h = img.getHeight(null) * prop;
+            h = img.getHeight(null) * prop;
 
-             bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
+            bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
             g.drawImage(img, 500, 600, Math.round(w), Math.round(h), null);
-            
-            
+
             //4 - Varanda
             //4.2 - som
             try {
-                bool = GerenciadorCasa.EstadoDispositivo("som","varanda");
+                bool = GerenciadorCasa.EstadoDispositivo("som", "varanda");
                 if (bool.equals("ligado")) {
                     img = ImageIO.read(new File("somligado.png"));
-                }
-                else {
+                } else {
                     img = ImageIO.read(new File("somdesligado.png"));
                 }
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
             prop = (float) 0.1;
             w = img.getWidth(null) * prop;
-             h = img.getHeight(null) * prop;
+            h = img.getHeight(null) * prop;
 
-             bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
+            bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
             g.drawImage(img, 1000, 100, Math.round(w), Math.round(h), null);
-            
+
         }
 
     }

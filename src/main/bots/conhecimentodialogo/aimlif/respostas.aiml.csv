@@ -1,8 +1,8 @@
 0,DISPOSITIVO * LOCAL * ACAO *,*,*,o dispositivo <star index="1"/> do local <star index="2"/> foi <star index="3"/>,respostas.aiml
 0,PERGUNTAR DISPOSITIVO,*,*,qual dispositivo gostaria de ligar?,respostas.aiml
 0,INFORME O NOME DA ROTINA,*,*,Qual o nome da rotina que deseja criar?,respostas.aiml
-0,INFORME QUANTOS COMANDOS VOCê GOSTARIA DE ADICIONAR à ROTINA,*,*,Quantos comandos possui a rotina?,respostas.aiml
-0,A ROTINA COM NOME * FOI CRIADA COM * COMANDOS,*,*,Rotina <star index = "1"/> com <star index = "2"/> foi criada com sucesso!,respostas.aiml
+0,INFORME QUANTOS COMANDOS ADICIONAR,*,*,Quantos comandos possui a rotina?,respostas.aiml
+0,A ROTINA COM NOME * FOI CRIADA COM * COMANDOS,*,*,Rotina <star index = "1"/> com <star index = "2"/> comandos foi criada com sucesso!,respostas.aiml
 0,FOI LIGADO * EM *,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> foi acionado com sucesso!,respostas.aiml
 0,NAO FOI LIGADO * EM *,*,*,Nao foi possivel acionar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando.,respostas.aiml
 0,FOI DESLIGADO * EM *,*,*,Dispositivo <star index = "1"/> do local <star index = "2"/> foi desligado.,respostas.aiml
@@ -27,10 +27,12 @@
 0,LOCAL NAO ENTENDIDO. DISPOSITIVO * ENCONTRADO EM * CONFIRMAR TAREFA,*,*,O local nao foi compreendido. Porem o dispositivo <star index = "1"/> foi encontrado no local <star index = "2"/>. Deseja realizar a ação para o dispositivo encontrado? ,respostas.aiml
 0,LOCAL NAO ENTENDIDO MAS DISPOSITIVO * ENCONTRADO EM *,*,*,O local nao foi compreendido. Porem o dispositivo <star index = "1"/> foi encontrado nos locais <star index = "2"/>. Tente um novo comando.,respostas.aiml
 0,LOCAL NAO ENTENDIDO E DISPOSITIVO * NAO EXISTE,*,*,O local nao foi compreendido e o dispositivo <star index = "1"/> nao foi encontrado em nenhum outro local. Tente um novo comando.,respostas.aiml
-0,AçAO PARA TELEVISAO NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para a televisao do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
-0,AçAO PARA SOM NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para o som do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
+0,ACAO PARA TELEVISAO NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para a televisao do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
+0,ACAO PARA SOM NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para o som do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
 0,DESEJA LIGAR A * DO LOCAL *,*,*,Deseja ligar a <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
 0,DESEJA DESLIGAR A * DO LOCAL *,*,*,Deseja desligar a <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
-0,AçAO NAO ENTENDIDA E * EM * NAO ENCONTRADO,*,*,A tarefa nao foi entendida e o dispositivo <star index = "1"/> do local <star index = "2"/> nao foi encontrado no sistema. Tente um novo comando.,respostas.aiml
+0,ACAO NAO ENTENDIDA E * EM * NAO ENCONTRADO,*,*,A tarefa nao foi entendida e o dispositivo <star index = "1"/> do local <star index = "2"/> nao foi encontrado no sistema. Tente um novo comando.,respostas.aiml
 0,COMANDO NAO ENTENDIDO,*,*,O comando solicitado nao foi compreendido. Tente um novo comando.,respostas.aiml
 0,COMANDO NAO ENTENDIDO. FALTOU DISPOSITIVO,*,*,O comando solicitado nao foi compreendido. Tente um novo comando.,respostas.aiml
+0,NAO ENVIAR NADA,*,*,,respostas.aiml
+0,COMANDO NAO EXECUTADO,*,*,Comando nao executado,respostas.aiml

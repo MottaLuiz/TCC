@@ -78,7 +78,7 @@ public class Semantizador extends Agent {
                     Set<String> possiveisacoes = new HashSet<String>(Arrays.asList(new String[]{"ligar", "desligar", "aumentar", "diminuir"}));
                     Set<String> possiveislocais = new HashSet<String>(Arrays.asList(new String[]{"quarto", "sala", "cozinha", "varanda"}));
                     Set<String> possiveisdispositivos = new HashSet<String>(Arrays.asList(new String[]{"lampada", "televisao", "som"}));
-                    Set<String> possiveisconfirmacoes = new HashSet<String>(Arrays.asList(new String[]{"sim", "nao"}));
+                    Set<String> possiveisconfirmacoes = new HashSet<String>(Arrays.asList(new String[]{"sim", "não"}));
                     Set<String> possiveisnumerais = new HashSet<String>(Arrays.asList(new String[]{"um", "dois", "três", "quatro", "cinco"}));
                     //Cogroo
 
@@ -131,6 +131,7 @@ public class Semantizador extends Agent {
 
                     if ((modocriacao == 0) && (flag_numeral == 0)) {
                         mensagem = mensagem.replace("lampada", "lâmpada");
+                        mensagem = mensagem.replace("nao", "não");
                         document.setText(mensagem);
                         cogroo.analyze(document);
 
@@ -163,31 +164,31 @@ public class Semantizador extends Agent {
                                 for (SyntacticChunk structure : sentence.getSyntacticChunks()) {
                                     for (Token token : structure.getTokens()) {
                                         System.out.println(token);
-                                        System.out.println("LEXEME"+token.getLexeme());
-                                        System.out.println("LEMA"+Arrays.toString(token.getLemmas()));
+                                        System.out.println("LEXEME" + token.getLexeme());
+                                        System.out.println("LEMA" + Arrays.toString(token.getLemmas()));
                                         palavra = StringUtils.removeAll(StringUtils.removeAll(Arrays.toString(token.getLemmas()), "\\["), "\\]");
                                         palavra = getEq(palavra, resourcesPath);
                                         System.out.println("tokenlematizado=" + Arrays.toString(token.getLemmas()));
-                                        if ("[]".equals(Arrays.toString(token.getLemmas()))){
+                                        if ("[]".equals(Arrays.toString(token.getLemmas()))) {
                                             palavra = token.getLexeme();
                                             System.out.println("TESTE QUARTO tokenlematizado=" + palavra);
                                             System.out.println("tokenlematizado=" + palavra);
                                         }
                                         if ("P".equals(structure.getTag())) {
-                                            System.out.println("acao "+Integer.toString(cont) +":"+ Arrays.toString(token.getLemmas()));
+                                            System.out.println("acao " + Integer.toString(cont) + ":" + Arrays.toString(token.getLemmas()));
 
                                             if (("ligar".equals(palavra)) && (token.getLexeme().contains("des"))) {
                                                 palavra = "desligar";
                                             }
-                                            if (possiveisacoes.contains(palavra)){
+                                            if (possiveisacoes.contains(palavra)) {
                                                 acao[cont] = palavra;
                                                 cont = cont + 1;
                                             }
-                                            
+
                                             auxdisp = 0;
                                             auxlocais = 0;
                                         } else if ("ACC".equals(structure.getTag())) {
-                                            if (("n".equals(token.getPOSTag()))||("adj".equals(token.getPOSTag()))) {
+                                            if (("n".equals(token.getPOSTag())) || ("adj".equals(token.getPOSTag()))) {
                                                 if (possiveisdispositivos.contains(StringUtils.stripAccents(palavra))) {
                                                     dispositivos[cont - 1][auxdisp] = palavra;
                                                     contdisp[cont - 1] = auxdisp + 1;
@@ -259,17 +260,16 @@ public class Semantizador extends Agent {
                                 String palavra;
                                 for (Token token : sentence.getTokens()) {
                                     palavra = StringUtils.removeAll(StringUtils.removeAll(Arrays.toString(token.getLemmas()), "\\["), "\\]");
-                                                                            if ("[]".equals(Arrays.toString(token.getLemmas()))){
-                                            palavra = token.getLexeme();
-                                            System.out.println("tokenlematizado=" + palavra);
-                                        }
+                                    if ("[]".equals(Arrays.toString(token.getLemmas()))) {
+                                        palavra = token.getLexeme();
+                                        System.out.println("tokenlematizado=" + palavra);
+                                    }
                                     palavra = getEq(palavra, resourcesPath);
-                                    
 
                                     System.out.println("palavra = " + palavra + "POSTag = " + token.getPOSTag());
 
                                     if (("v-fin".equals(token.getPOSTag())) || ("v-inf".equals(token.getPOSTag()))) {
-                                        if (("ligar".equals(palavra)) && (token.getLexeme().contains("des")))  {
+                                        if (("ligar".equals(palavra)) && (token.getLexeme().contains("des"))) {
                                             palavra = "desligar";
                                         }
                                         acao = palavra;
@@ -351,7 +351,7 @@ public class Semantizador extends Agent {
                         Pares p = new Pares();
                         if (possiveisconfirmacoes.contains(confirmacao)) {
                             p.setIntencao("Informarconfirmacao");
-                            p.setArgs("confirmacao");
+                            p.setArgs(confirmacao);
                             pares.add(p);
                             enviarmsg(pares);/*
                         falta passar para frente se foi sim ou nao o resultado da confirmacao dada pelo usuário
@@ -405,11 +405,11 @@ public class Semantizador extends Agent {
             Logger.getLogger(Semantizador.class.getName()).log(Level.SEVERE, null, ex);
         }
         send(msge);
-                        try {
-                    Thread.sleep(1 * 1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

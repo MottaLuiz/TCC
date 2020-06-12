@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: rotinascriadas.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: junho 09, 2020 -->
+<!-- Last modified: Junho 11, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -38,5 +38,11 @@
 </category>
 <category><pattern>ULTIMA ROTINA</pattern>
 <template>DESLIGAR LAMPADA VARANDA E LIGAR LAMPADA QUARTO</template>
+</category>
+<category><pattern>ASSISTIR FILME NA SALA</pattern>
+<template> LIGAR SOM QUARTO E LIGAR LAMPADA COZINHA E LIGAR TELEVISAO QUARTO</template>
+</category>
+<category><pattern>ROTINA DE TESTES</pattern>
+<template> LIGAR LAMPADA QUARTO E LIGAR LAMPADA QUARTO</template>
 </category>
 </aiml>

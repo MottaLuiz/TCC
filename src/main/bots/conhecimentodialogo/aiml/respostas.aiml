@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: respostas.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: junho 09, 2020 -->
+<!-- Last modified: Junho 11, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -24,11 +24,11 @@
 <category><pattern>INFORME O NOME DA ROTINA</pattern>
 <template>Qual o nome da rotina que deseja criar?</template>
 </category>
-<category><pattern>INFORME QUANTOS COMANDOS VOCê GOSTARIA DE ADICIONAR à ROTINA</pattern>
+<category><pattern>INFORME QUANTOS COMANDOS ADICIONAR</pattern>
 <template>Quantos comandos possui a rotina?</template>
 </category>
 <category><pattern>A ROTINA COM NOME * FOI CRIADA COM * COMANDOS</pattern>
-<template>Rotina <star index = "1"/> com <star index = "2"/> foi criada com sucesso!</template>
+<template>Rotina <star index = "1"/> com <star index = "2"/> comandos foi criada com sucesso!</template>
 </category>
 <category><pattern>FOI LIGADO * EM *</pattern>
 <template>O dispositivo <star index = "1"/> do local <star index = "2"/> foi acionado com sucesso!</template>
@@ -102,10 +102,10 @@
 <category><pattern>LOCAL NAO ENTENDIDO E DISPOSITIVO * NAO EXISTE</pattern>
 <template>O local nao foi compreendido e o dispositivo <star index = "1"/> nao foi encontrado em nenhum outro local. Tente um novo comando.</template>
 </category>
-<category><pattern>AçAO PARA TELEVISAO NO LOCAL * NAO ENTENDIDA</pattern>
+<category><pattern>ACAO PARA TELEVISAO NO LOCAL * NAO ENTENDIDA</pattern>
 <template>A tarefa solicitada para a televisao do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.</template>
 </category>
-<category><pattern>AçAO PARA SOM NO LOCAL * NAO ENTENDIDA</pattern>
+<category><pattern>ACAO PARA SOM NO LOCAL * NAO ENTENDIDA</pattern>
 <template>A tarefa solicitada para o som do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.</template>
 </category>
 <category><pattern>DESEJA LIGAR A * DO LOCAL *</pattern>
@@ -114,7 +114,7 @@
 <category><pattern>DESEJA DESLIGAR A * DO LOCAL *</pattern>
 <template>Deseja desligar a <star index = "1"/> do local <star index = "2"/>?</template>
 </category>
-<category><pattern>AçAO NAO ENTENDIDA E * EM * NAO ENCONTRADO</pattern>
+<category><pattern>ACAO NAO ENTENDIDA E * EM * NAO ENCONTRADO</pattern>
 <template>A tarefa nao foi entendida e o dispositivo <star index = "1"/> do local <star index = "2"/> nao foi encontrado no sistema. Tente um novo comando.</template>
 </category>
 <category><pattern>COMANDO NAO ENTENDIDO</pattern>
@@ -122,5 +122,11 @@
 </category>
 <category><pattern>COMANDO NAO ENTENDIDO. FALTOU DISPOSITIVO</pattern>
 <template>O comando solicitado nao foi compreendido. Tente um novo comando.</template>
+</category>
+<category><pattern>NAO ENVIAR NADA</pattern>
+<template></template>
+</category>
+<category><pattern>COMANDO NAO EXECUTADO</pattern>
+<template>Comando nao executado</template>
 </category>
 </aiml>
