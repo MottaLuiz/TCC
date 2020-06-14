@@ -406,7 +406,7 @@ public class Semantizador extends Agent {
         }
         send(msge);
         try {
-            Thread.sleep(1 * 1000);
+            Thread.sleep(5 * 1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
         }

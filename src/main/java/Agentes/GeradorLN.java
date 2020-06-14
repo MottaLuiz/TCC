@@ -1,6 +1,4 @@
 // PRONTO - POVOAR AIML
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,6 +14,8 @@ import static jade.lang.acl.ACLMessage.INFORM;
 import org.alicebot.ab.Bot;
 import org.alicebot.ab.Chat;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.alicebot.ab.MagicBooleans;
 
 /**
@@ -34,15 +34,15 @@ public class GeradorLN extends Agent {
         MagicBooleans.trace_mode = TRACE_MODE;
         Bot bot = new Bot("conhecimentodialogo", resourcesPath);
         System.out.println("Gerador de linguagem natural incializado");
-        
+
         bot.writeAIMLFiles();
         bot.writeQuit();
         System.out.println("Gerador de linguagem natural incializado");
-       
+
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
-                if ((msgr != null)&&(msgr.getContent().toString() !="")) {
+                if ((msgr != null) && (msgr.getContent().toString() != "")) {
                     System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent().toString());
 
                     try {
@@ -63,6 +63,11 @@ public class GeradorLN extends Agent {
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(5 * 1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     // interrompe este comportamento ate que chegue uma nova mensagem
                 }

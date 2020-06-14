@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: rotinascriadas.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Junho 11, 2020 -->
+<!-- Last modified: Junho 14, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -44,5 +44,8 @@
 </category>
 <category><pattern>ROTINA DE TESTES</pattern>
 <template> LIGAR LAMPADA QUARTO E LIGAR LAMPADA QUARTO</template>
+</category>
+<category><pattern>JANTAR</pattern>
+<template> LIGAR LAMPADA COZINHA E LIGAR LAMPADA SALA E LIGAR TELEVISAO SALA</template>
 </category>
 </aiml>

@@ -104,11 +104,11 @@ public class GeradorVoz extends Agent {
                         ex.printStackTrace();
                     }
                 }
-                try {
-                    Thread.sleep(5 * 1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    Thread.sleep(4 * 1000);
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 
                 
                 ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
