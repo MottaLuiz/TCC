@@ -25,7 +25,6 @@ public class EscreverAIML {
         request = request.toUpperCase();
         request = StringUtils.stripAccents(request);
         response = StringUtils.stripAccents(response);
-        System.out.println("IMPRIME A RESPOSTA " + response);
 
         try {
             //muda aiml
@@ -45,7 +44,6 @@ public class EscreverAIML {
             resourcesPath2 = resourcesPath2 + "\\bots\\conhecimentodialogo\\aimlif\\rotinascriadas.aiml.csv";
             String texto2 = new Scanner(new File(resourcesPath2)).useDelimiter("\\A").next();
             texto2 = texto2 + "0," + request + ",*,*," + response + ",rotinascriadas.aiml";
-            //System.out.println(texto2);
             FileOutputStream fileOut2 = new FileOutputStream(resourcesPath2);
             fileOut2.write(texto2.getBytes());
         } catch (FileNotFoundException ex) {
@@ -75,7 +73,6 @@ public class EscreverAIML {
         String texto2 = new Scanner(new File(resourcesPath2)).useDelimiter("\\A").next();
 
         String[] palavras = texto2.split(",");
-        System.out.println("DADOS LIDOS DO ARQUIVO " + texto2);
         if (quantidade.contains("1")) {
             qtd = 1;
         } else if (quantidade.contains("2")) {
@@ -87,8 +84,6 @@ public class EscreverAIML {
             retorno[1] = "0";
             return retorno;
         }
-        System.out.println("VALOR DO QTD " + qtd);
-        System.out.println("TAMANHO DO PALAVRAS " + palavras.length);
         if (palavras.length < qtd * 3) {
             for (int i = palavras.length; i > 0; i--) {
                 if ((i % 3 == 0)&& (i != palavras.length)) {
@@ -99,7 +94,6 @@ public class EscreverAIML {
                 }
                 aux = aux+palavras[palavras.length - i];
             }
-            System.out.println("PARTE DA ROTINA " + aux);
             retorno[0] = aux;
             retorno[1] = Integer.toString((palavras.length) / 3);
             return retorno;
@@ -113,7 +107,6 @@ public class EscreverAIML {
                 }
                 aux = aux+palavras[palavras.length - i];
             }
-            System.out.println("DADOS QUE SERAO SALVOS NA ROTINA " + aux);
             retorno[0] = aux;
             retorno[1] = Integer.toString(qtd);
             return retorno;
@@ -124,7 +117,6 @@ public class EscreverAIML {
         File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         path = path.substring(0, path.length() - 2);
-        System.out.println(path);
         String resourcesPath = path + "\\src\\main";
         return resourcesPath;
     }

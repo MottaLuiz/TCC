@@ -38,7 +38,6 @@ public class ControladorDispositivos extends Agent {
     }
     protected void setup() {
 
-        System.out.println("Controlador de Dispositivos incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 

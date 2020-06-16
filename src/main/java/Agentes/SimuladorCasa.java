@@ -47,7 +47,6 @@ import java.util.Vector;
 public class SimuladorCasa extends Agent {
 
     static boolean simulaComm(String endereco, String acao) {
-        System.out.println("Menssagem enviada para dispisitivo: " + endereco + " ação: " + acao);
         return true;
     }
 
@@ -60,14 +59,12 @@ public class SimuladorCasa extends Agent {
     protected void setup() {
                 JFrame frame = new JFrame();
                 PaintPane pane = new PaintPane();
-        System.out.println("Simulador da Casa incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
 
 
                 if ((msgr != null)) {
-                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent());
                     //simula casa toda vez que recebe uma mensagem
                     frame.setVisible(false);
                     pane.setBackground(Color.white);
@@ -76,16 +73,6 @@ public class SimuladorCasa extends Agent {
                     frame.setVisible(true);
                     frame.add(pane);
 
-//                    //mostra por 10s       
-//                    try {
-//                        Thread.sleep(10000);
-//
-//                    } catch (InterruptedException ex) {
-//                        Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    frame.setVisible(false);
-//                    frame = null;
-                    // interrompe este comportamento ate que chegue uma nova mensagem
                 }
                 block();
 
@@ -100,12 +87,6 @@ public class SimuladorCasa extends Agent {
         @Override
         protected void paintComponent(Graphics g) {
 
-            //GerenciadorCasa gc = new GerenciadorCasa();
-            //  try {
-            ////     gc.init();
-            //  } catch (IOException ex) {
-            //     Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
-            // }
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
@@ -120,7 +101,6 @@ public class SimuladorCasa extends Agent {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 0, 960, 540);
                 }
-                System.out.println("estado é igual a : " + bool);
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -133,7 +113,6 @@ public class SimuladorCasa extends Agent {
                     g.setColor(Color.yellow);
                     g.fillRect(960, 540, 960, 540);
                 }
-                System.out.println("estado é igual a : " + bool);
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -146,7 +125,6 @@ public class SimuladorCasa extends Agent {
                     g.setColor(Color.yellow);
                     g.fillRect(0, 540, 960, 540);
                 }
-                System.out.println("estado é igual a : " + bool);
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -159,7 +137,6 @@ public class SimuladorCasa extends Agent {
                     g.setColor(Color.yellow);
                     g.fillRect(960, 0, 960, 540);
                 }
-                System.out.println("estado é igual a : " + bool);
             } catch (IOException ex) {
                 Logger.getLogger(SimuladorCasa.class.getName()).log(Level.SEVERE, null, ex);
             }

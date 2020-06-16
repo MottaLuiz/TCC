@@ -48,34 +48,10 @@ public class Gerenciador extends Agent {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Gerenciador incializado");
 
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
 
-//                try {
-//                    GerenciadorCasa.consultarTodosDispsitivos();
-//                    GerenciadorCasa.consultarTodosLocais();
-//                    Vector<String> dispositivos = GerenciadorCasa.consultarDispsNoLocal("sala");
-                // GerenciadorCasa.AlterarProp("som", "quarto","Estado", "desligado", "ligado");
-                // GerenciadorCasa.AlterarPropVolume("som", "quarto","aumentar");
-                // int i = GerenciadorCasa.ConsultarVolume("som", "quarto");
-                //   GerenciadorCasa.AlterarPropVolume("som", "quarto","diminuir");
-                //  int i1 = GerenciadorCasa.ConsultarVolume("som", "quarto");
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-                /*   try {
-                        GerenciadorCasa.consultarLocalporDisp(vetorframestarefa.get(vetorframestarefa.size() - 1).getLocal());
-                    } catch (IOException ex) {
-                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    try {
-                        GerenciadorCasa.consultarLocaisdeDisp(vetorframestarefa.get(vetorframestarefa.size() - 1).getDispositivo());
-                    } catch (IOException ex) {
-                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                    }*/
                 ACLMessage msgr = receive();
 
                 if (msgr != null) {
@@ -84,8 +60,6 @@ public class Gerenciador extends Agent {
                         Vector<Pares> pares = (Vector<Pares>) msgr.getContentObject();
                         //transforma vetor de pares em frame
                         for (int i = 0; i < pares.size(); i++) {
-                            System.out.println("teste gerenciador argumento: " + i + " : " + pares.get(i).getArgs() + "--- intencao: " + pares.get(i).getIntencao());
-                            System.out.println(pares.get(i).getIntencao());
                             if ("Informarcomando".equals(pares.get(i).getIntencao())) {
                                 frametarefa.setTarefa(pares.get(i).getArgs());
                             } else if ("Informaracao".equals(pares.get(i).getIntencao())) {
@@ -95,17 +69,14 @@ public class Gerenciador extends Agent {
                             } else if ("Informarlocal".equals(pares.get(i).getIntencao())) {
                                 frametarefa.setLocal(pares.get(i).getArgs());
                             } else if ("informarintencao".equals(pares.get(i).getIntencao())) {
-                                System.out.println("Inicio da criacao de rotina");
                                 resposta = "Informe o nome da rotina.";
                                 modocriacao = 1;
                             } else if (("Informarnome".equals(pares.get(i).getIntencao())) && (modocriacao == 1)) {
                                 nome_rotina = pares.get(i).getArgs();
-                                System.out.println("nome da rotina é " + nome_rotina);
                                 resposta = "Informe quantos comandos adicionar";
                                 modocriacao = 2;
                             } else if (("Informarnumeral".equals(pares.get(i).getIntencao())) && (modocriacao == 2)) {
                                 modocriacao = 0;
-                                System.out.println("tentando escrever a rotina " + nome_rotina);
                                 if ("ERRO CRIACAO DE ROTINA".equals(escreveAIML.LeComando(pares.get(i).getArgs())[0])) {
                                     resposta = "Erro na criacao de rotinas";
                                 } else {
@@ -115,16 +86,10 @@ public class Gerenciador extends Agent {
                                 }
                                 flag_numeral = 1;
                             } else if (("Informarconfirmacao".equals(pares.get(i).getIntencao())) && (vetorframestarefaconfirmacao.size() != 0)) {
-                                System.out.println("TESTANDO CONFIRMACAO");
                                 if ((vetorframestarefaconfirmacao.elementAt(0).getAcao() != null) && (vetorframestarefaconfirmacao.elementAt(0).getDispositivo() != null) && (vetorframestarefaconfirmacao.elementAt(0).getLocal() != null)) {
-                                    System.out.println("TESTANDO CONFIRMACAO2");
-                                    System.out.println("FRAMETAREFACONFIRMACAO");
-                                    System.out.println("ACAO: " + vetorframestarefaconfirmacao.elementAt(0).getAcao());
-                                    System.out.println("DISP: " + vetorframestarefaconfirmacao.elementAt(0).getDispositivo());
-                                    System.out.println("LOCAL: " + vetorframestarefaconfirmacao.elementAt(0).getLocal());
+
                                     flag_confirmacao = 1;
                                     if ("sim".equals(pares.get(i).getArgs())) {
-                                        System.out.println("TESTANDO CONFIRMACAO3");
 //                                        ----------------------------------------------------------
                                         if (vetorframestarefaconfirmacao.elementAt(0).getAcao().equals("ligar")) {
                                             try {
@@ -135,7 +100,6 @@ public class Gerenciador extends Agent {
                                                     resposta = "Foi ligado " + vetorframestarefaconfirmacao.elementAt(0).getDispositivo()
                                                             + " em " + vetorframestarefaconfirmacao.elementAt(0).getLocal();
                                                     /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
-//                                                historicotarefas.insere(vetorframestarefa.elementAt(0));
                                                     escreveAIML.GravaComando(vetorframestarefaconfirmacao.elementAt(0).getLocal(), vetorframestarefaconfirmacao.elementAt(0).getDispositivo(), vetorframestarefaconfirmacao.elementAt(0).getAcao());
 
                                                     vetorframestarefaconfirmacao.removeElementAt(0);
@@ -159,7 +123,6 @@ public class Gerenciador extends Agent {
                                                         resposta = "Foi desligado " + vetorframestarefaconfirmacao.elementAt(0).getDispositivo()
                                                                 + " em " + vetorframestarefaconfirmacao.elementAt(0).getLocal();
                                                         /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
-//                                                    historicotarefas.insere(vetorframestarefa.elementAt(0));
                                                         escreveAIML.GravaComando(vetorframestarefaconfirmacao.elementAt(0).getLocal(), vetorframestarefaconfirmacao.elementAt(0).getDispositivo(), vetorframestarefaconfirmacao.elementAt(0).getAcao());
 
                                                         vetorframestarefaconfirmacao.removeElementAt(0);
@@ -180,7 +143,7 @@ public class Gerenciador extends Agent {
                                                     try {
                                                         resposta = GerenciadorCasa.AlterarPropVolume(vetorframestarefaconfirmacao.elementAt(0).getDispositivo(),
                                                                 vetorframestarefaconfirmacao.elementAt(0).getLocal(), vetorframestarefaconfirmacao.elementAt(0).getAcao());
-//                                                    historicotarefas.insere(vetorframestarefa.elementAt(0));
+//                                                 
                                                         escreveAIML.GravaComando(vetorframestarefaconfirmacao.elementAt(0).getLocal(), vetorframestarefaconfirmacao.elementAt(0).getDispositivo(), vetorframestarefaconfirmacao.elementAt(0).getAcao());
 
                                                         vetorframestarefaconfirmacao.removeElementAt(0);
@@ -201,10 +164,6 @@ public class Gerenciador extends Agent {
                                 }
                             }
                         }
-                        System.out.println("teste frame tarefa " + frametarefa.getTarefa());
-                        System.out.println("teste frame Acao " + frametarefa.getAcao());
-                        System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
-                        System.out.println("teste frame local " + frametarefa.getLocal());
                         if (((frametarefa.getAcao() != null) || (frametarefa.getDispositivo() != null) || (frametarefa.getLocal() != null))) {
 
                             vetorframestarefa.add(frametarefa);
@@ -216,28 +175,7 @@ public class Gerenciador extends Agent {
                     } catch (IOException ex) {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    //imprime frame
-//                  frametarefa.setTarefa("Controlardispositivos");
-//                    frametarefa.setAcao("ligar");
-//                    frametarefa.setDispositivo("ventilador");
-//                    frametarefa.setLocal("sala");
-
-//                    System.out.println("teste frame tarefa" + frametarefa.getTarefa());
-//                    System.out.println("teste frame Acao" + frametarefa.getAcao());
-//                    System.out.println("teste frame dispositivo " + frametarefa.getDispositivo());
-//                    System.out.println("teste frame local " + frametarefa.getLocal());
-//                    //adiciona frame ao vetor de frames
-//                    vetorframestarefa.add(frametarefa);
-//                    GerenciadorCasa.consultarDispositivo(vetorframestarefa.elementAt(0).getLocal(),;
-//                            vetorframestarefa.elementAt(0).getDispositivo());
-//                    GerenciadorCasa.verificaValorPropDisp("lampada", "sala", "ligar");
-                    //para testes....
-//              frametarefa.setTarefa("Controlardispositivos");
-                    //              frametarefa.setAcao("ligar");
-                    //              frametarefa.setDispositivo("lampada");
-                    //              frametarefa.setLocal("garagem");
-                    //adiciona frame ao vetor de frames
-                    //               vetorframestarefa.add(frametarefa);
+                    
                     if ((modocriacao == 0) && (flag_numeral == 0) && (flag_confirmacao == 0)) {
                         if (vetorframestarefa.size() != 0) {
                             /*             Lógica de execução:
@@ -294,7 +232,6 @@ public class Gerenciador extends Agent {
                                                         resposta = "Foi desligado " + vetorframestarefa.elementAt(0).getDispositivo()
                                                                 + " em " + vetorframestarefa.elementAt(0).getLocal();
                                                         /*ADICIONAR A FUNCAO DE SALVAR HISTORICO*/
-//                                                    historicotarefas.insere(vetorframestarefa.elementAt(0));
                                                         escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
 
                                                         vetorframestarefa.removeElementAt(0);
@@ -315,7 +252,7 @@ public class Gerenciador extends Agent {
                                                     try {
                                                         resposta = GerenciadorCasa.AlterarPropVolume(vetorframestarefa.elementAt(0).getDispositivo(),
                                                                 vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getAcao());
-//                                                    historicotarefas.insere(vetorframestarefa.elementAt(0));
+//                                                
                                                         escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
 
                                                         vetorframestarefa.removeElementAt(0);
@@ -335,7 +272,6 @@ public class Gerenciador extends Agent {
                                             resposta = "Dispositivo " + vetorframestarefa.elementAt(0).getDispositivo()
                                                     + " nao existe no local " + vetorframestarefa.elementAt(0).getLocal();
                                             vetorframestarefa.removeElementAt(0);
-                                            System.out.println(resposta);
 
                                         }/* Local não existe -> caso frame falta local-> 
                                           Verificar se existe o dispositivo pedido em outros locais:                                                               
@@ -561,12 +497,10 @@ public class Gerenciador extends Agent {
                                                                 }
                                                             }
                                                         }
-                                                        System.out.println(resposta);
                                                         vetorframestarefa.removeElementAt(0);
                                                     } else {/*não existe -> retornar que o dispositvo pedido não existe em nenhum local,
                                                                 aguardar por novo comando.*/
                                                         resposta = "local nao entendido e dispositivo " + vetorframestarefa.elementAt(0).getDispositivo() + " nao existe";
-                                                        System.out.println(resposta);
                                                         vetorframestarefa.removeElementAt(0);
                                                     }
                                                 }
@@ -597,7 +531,6 @@ public class Gerenciador extends Agent {
                                                                 resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " a " + frametarefaconfirmacao.getDispositivo()
                                                                         + " do local " + frametarefaconfirmacao.getLocal();
                                                                 vetorframestarefaconfirmacao.add(frametarefaconfirmacao);
-                                                                System.out.println(resposta);
 //                                                                vetorframestarefa.removeElementAt(0);
                                                             }
                                                             if ("desligado".equals(GerenciadorCasa.EstadoDispositivo(vetorframestarefa.elementAt(0).getDispositivo(),
@@ -608,7 +541,6 @@ public class Gerenciador extends Agent {
                                                                 resposta = "Deseja " + frametarefaconfirmacao.getAcao() + " a " + frametarefaconfirmacao.getDispositivo()
                                                                         + " do local " + frametarefaconfirmacao.getLocal();
                                                                 vetorframestarefaconfirmacao.add(frametarefaconfirmacao);
-                                                                System.out.println(resposta);
 //                                                                vetorframestarefa.removeElementAt(0);
                                                             }
                                                         } catch (IOException ex) {
@@ -622,7 +554,6 @@ public class Gerenciador extends Agent {
                                                          aguardar por novo comando. */
                                                     resposta = "Acao nao entendida e " + vetorframestarefa.elementAt(0).getDispositivo()
                                                             + " em " + vetorframestarefa.elementAt(0).getLocal() + " nao encontrado";
-                                                    System.out.println(resposta);
                                                     vetorframestarefa.removeElementAt(0);
                                                 }
                                             } else {
@@ -631,7 +562,6 @@ public class Gerenciador extends Agent {
                                                         aguardar por novo comando.
                                                  */
                                                 resposta = "Comando nao entendido";
-                                                System.out.println(resposta);
                                                 vetorframestarefa.removeElementAt(0);
                                             }
                                         }
@@ -676,15 +606,8 @@ public class Gerenciador extends Agent {
                     flag_numeral = 0;
                     flag_confirmacao = 0;
                 }
-                //              try {
-                //                 gc.close();
-                //              } catch (IOException ex) {
-                //                  Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                //              }
-                //}
-                // else {
+
                 block();
-                //}
 
             }
         }

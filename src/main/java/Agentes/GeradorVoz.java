@@ -52,12 +52,10 @@ public class GeradorVoz extends Agent {
     static String filePath;
 
     protected void setup() {
-        System.out.println("Gerador de voz incializado");
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msg = receive();
                 if ((msg != null)&&msg.getContent()!="") {
-                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msg.getContent());
                     try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
                         // Set the text input to be synthesized
 
@@ -88,28 +86,19 @@ public class GeradorVoz extends Agent {
                         // Write the response to the output file.
                         try (OutputStream out = new FileOutputStream("output.mp3")) {
                             out.write(audioContents.toByteArray());
-                            System.out.println("Audio content written to file \"output.mp3\"");
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(GeradorVoz.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                     try {
-                        System.out.println("Descomentar linha a seguir para tocar o som direto");
 
                         play("output.mp3");
 
                     } catch (Exception ex) {
-                        System.out.println("Error with playing sound.");
                         ex.printStackTrace();
                     }
                 }
-//                try {
-//                    Thread.sleep(4 * 1000);
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(ReconhecedorVoz.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-                
                 
                 ACLMessage msge = new ACLMessage(ACLMessage.INFORM);
                 msge.setLanguage("Portugues");

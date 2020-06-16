@@ -30,20 +30,16 @@ public class GeradorLN extends Agent {
     protected void setup() {
 
         String resourcesPath = getResourcesPath();
-        System.out.println(resourcesPath);
         MagicBooleans.trace_mode = TRACE_MODE;
         Bot bot = new Bot("conhecimentodialogo", resourcesPath);
-        System.out.println("Gerador de linguagem natural incializado");
 
         bot.writeAIMLFiles();
         bot.writeQuit();
-        System.out.println("Gerador de linguagem natural incializado");
 
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
                 ACLMessage msgr = receive();
                 if ((msgr != null) && (msgr.getContent().toString() != "")) {
-                    System.out.println(" - " + myAgent.getLocalName() + "<- " + msgr.getContent().toString());
 
                     try {
 
@@ -53,7 +49,6 @@ public class GeradorLN extends Agent {
                         Chat chatSession = new Chat(bota);
 
                         String response = chatSession.multisentenceRespond(request);
-                        System.out.println(response);
                         ACLMessage msge = new ACLMessage(INFORM);
                         msge.setLanguage("Portugues");
                         msge.addReceiver(new AID("GeradorVoz", AID.ISLOCALNAME));
@@ -81,7 +76,7 @@ public class GeradorLN extends Agent {
         File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         path = path.substring(0, path.length() - 2);
-        System.out.println(path);
+//        System.out.println(path);
         String resourcesPath = path + "\\src\\main";
         return resourcesPath;
     }

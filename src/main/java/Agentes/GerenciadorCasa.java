@@ -63,9 +63,7 @@ public class GerenciadorCasa {
 
         while (res.hasNext()) {
             resultado = (res.next().get("estado")).toString();
-            System.out.println(resultado);
         }
-        System.out.println("O(A) " + dispositivo + " do(a) " + local + " está " + resultado);
 // Create a new query
         return resultado;
     }
@@ -122,10 +120,7 @@ public class GerenciadorCasa {
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
         ResultSetFormatter.out(System.out, res, query);
-        while (res.hasNext()) {
-            System.out.println(res.next().get("estado"));
-        }
-// Create a new query
+
 
         return true;
 
@@ -134,8 +129,6 @@ public class GerenciadorCasa {
     public static boolean consultarDispositivo(String local, String disp) {
 
         boolean res;
-        System.out.println("\n Consulta Dispisitivo: " + local + "\n");
-        System.out.println("\n Consulta Dispisitivo: " + disp + "\n");
 // Create a new query
         String queryString
                 = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
@@ -149,13 +142,7 @@ public class GerenciadorCasa {
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         res = qe.execAsk();
-        System.out.println("\n Consulta Dispisitivo: " + res + "\n");
 
-//while (results.hasNext()){
-//System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
-//}
-// Output query results 
-// Important - free up resources used running the query
         qe.close();
 
         return res;
@@ -194,7 +181,6 @@ public class GerenciadorCasa {
             locais.add(locaisaux.elementAt(i).substring(0, locaisaux.elementAt(i).length() - 3));
 
         }
-        System.out.println(locais);
 // Create a new query
 
         return locais;
@@ -235,7 +221,6 @@ public class GerenciadorCasa {
             disps.add(dispsaux.elementAt(i).substring(0, dispsaux.elementAt(i).length() - aux.length()));
 
         }
-        System.out.println(disps);
 // Create a new query
 
         return disps;
@@ -262,9 +247,7 @@ public class GerenciadorCasa {
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
         ResultSetFormatter.out(System.out, res, query);
-        while (res.hasNext()) {
-            System.out.println(res.next().get("disp"));
-        }
+
 
         return true;
     }
@@ -291,9 +274,7 @@ public class GerenciadorCasa {
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
         ResultSetFormatter.out(System.out, res, query);
-        while (res.hasNext()) {
-            System.out.println(res.next().get("disp"));
-        }
+
 // Create a new query
 
         return true;
@@ -320,9 +301,7 @@ public class GerenciadorCasa {
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet res = qe.execSelect();
         ResultSetFormatter.out(System.out, res, query);
-        while (res.hasNext()) {
-            System.out.println(res.next().get("local"));
-        }
+
 // Create a new query
 
         return true;
@@ -351,13 +330,8 @@ public class GerenciadorCasa {
         QueryExecution qe = QueryExecutionFactory.create(query, model);
 
         res = qe.execAsk();
-        System.out.println(res + disp + local);
 
-//while (results.hasNext()){
-//System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
-//}
-// Output query results 
-// Important - free up resources used running the query
+
         qe.close();
 
         return res;
@@ -380,7 +354,6 @@ public class GerenciadorCasa {
         UpdateRequest up = UpdateFactory.create(queryString);
         UpdateAction.execute(up, model);
         boolean resp = GerenciadorCasa.verificaValorPropDisp(disp, local, estadonovo);
-        System.out.println(resp + disp);
         return resp;
     }
 
@@ -400,13 +373,7 @@ public class GerenciadorCasa {
 // Execute the query and obtain results
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         res = qe.execAsk();
-        System.out.println("\n Consulta Local: " + res + "\n");
 
-//while (results.hasNext()){
-//System.out.println(results.next().get("object").asResource().listProperties().toList().toString());
-//}
-// Output query results 
-// Important - free up resources used running the query
         qe.close();
 
         return res;
@@ -483,9 +450,7 @@ public class GerenciadorCasa {
 
         while (res.hasNext()) {
             resultado = (res.next().getLiteral("volume").getInt());
-            System.out.println(resultado);
         }
-        System.out.println("O volume do(a)" + dispositivo + " do(a) " + local + " está em " + resultado);
 // Create a new query
         return resultado;
     }
@@ -494,12 +459,8 @@ public class GerenciadorCasa {
         File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         path = path.substring(0, path.length() - 2);
-        //System.out.println(path);
         String resourcesPath = path + "\\src\\main\\resources\\OntologiaCasa.owl";
         InputStream in = new FileInputStream(new File(resourcesPath));
-//InputStream in = new FileInputStream(new File("D:\\faculdade\\TCC\\TCC - versão final\\TCC\\src\\main\\resources\\OntologiaCasa.owl"));
-
-// Create an empty in-memory model and populate it from the graph
         model.read(in, null); // null base URI, since model URIs are absolute
         in.close();
     }
@@ -508,7 +469,6 @@ public class GerenciadorCasa {
         File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         path = path.substring(0, path.length() - 2);
-        //System.out.println(path);
         String resourcesPath = path + "\\src\\main\\resources\\OntologiaCasa.owl";
         StringWriter sw = new StringWriter();
         model.write(sw);
@@ -524,8 +484,6 @@ public class GerenciadorCasa {
             ioe.printStackTrace();
         }
 
-//InputStream in = new FileInputStream(new File("D:\\faculdade\\TCC\\TCC - versão final\\TCC\\src\\main\\resources\\OntologiaCasa.owl"));
-// Create an empty in-memory model and populate it from the graph
     }
 
 }

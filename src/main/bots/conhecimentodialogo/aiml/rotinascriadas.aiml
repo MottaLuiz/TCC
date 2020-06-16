@@ -21,4 +21,7 @@
 <category><pattern>ASSISTIR UM FILME</pattern>
 <template> DESLIGAR LAMPADA SALA E LIGAR TELEVISAO SALA E LIGAR SOM SALA</template>
 </category>
+<category><pattern>TESTANDO</pattern>
+<template> LIGAR SOM VARANDA E LIGAR SOM QUARTO</template>
+</category>
 </aiml>

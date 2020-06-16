@@ -1,2 +1,3 @@
 0,TESTREQUEST,*,*,testresponse,rotinascriadas.aiml
 0,ASSISTIR UM FILME,*,*, DESLIGAR LAMPADA SALA E LIGAR TELEVISAO SALA E LIGAR SOM SALA,rotinascriadas.aiml
+0,TESTANDO,*,*, LIGAR SOM VARANDA E LIGAR SOM QUARTO,rotinascriadas.aiml

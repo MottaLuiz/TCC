@@ -53,15 +53,11 @@ public class PilhaDialogo {
         } else {
             this.intencaoatual = this.intencoes.pop();
             this.argsatual = this.args.pop();
-            System.out.println(argsatual);
-            System.out.println(intencaoatual);
-            System.out.println("pop");
 
         }
     }
 
     public boolean vazia() {
-        System.out.println(this.intencoes.empty());
         return this.intencoes.empty()&& this.args.empty();
         
     }
