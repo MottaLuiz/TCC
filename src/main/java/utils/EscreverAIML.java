@@ -82,6 +82,10 @@ public class EscreverAIML {
             qtd = 2;
         } else if (quantidade.contains("3")) {
             qtd = 3;
+        } else {
+            retorno[0] = "ERRO CRIACAO DE ROTINA";
+            retorno[1] = "0";
+            return retorno;
         }
         System.out.println("VALOR DO QTD " + qtd);
         System.out.println("TAMANHO DO PALAVRAS " + palavras.length);

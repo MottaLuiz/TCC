@@ -106,8 +106,13 @@ public class Gerenciador extends Agent {
                             } else if (("Informarnumeral".equals(pares.get(i).getIntencao())) && (modocriacao == 2)) {
                                 modocriacao = 0;
                                 System.out.println("tentando escrever a rotina " + nome_rotina);
-                                escreveAIML.escreverAIML(nome_rotina, escreveAIML.LeComando(pares.get(i).getArgs())[0]);
-                                resposta = "A rotina com nome " + nome_rotina + " foi criada com " + escreveAIML.LeComando(pares.get(i).getArgs())[1] + " comandos";
+                                if ("ERRO CRIACAO DE ROTINA".equals(escreveAIML.LeComando(pares.get(i).getArgs())[0])) {
+                                    resposta = "Erro na criacao de rotinas";
+                                } else {
+                                    escreveAIML.escreverAIML(nome_rotina, escreveAIML.LeComando(pares.get(i).getArgs())[0]);
+
+                                    resposta = "A rotina com " + escreveAIML.LeComando(pares.get(i).getArgs())[1] + " comandos";
+                                }
                                 flag_numeral = 1;
                             } else if (("Informarconfirmacao".equals(pares.get(i).getIntencao())) && (vetorframestarefaconfirmacao.size() != 0)) {
                                 System.out.println("TESTANDO CONFIRMACAO");

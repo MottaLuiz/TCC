@@ -2,37 +2,38 @@
 0,PERGUNTAR DISPOSITIVO,*,*,qual dispositivo gostaria de ligar?,respostas.aiml
 0,INFORME O NOME DA ROTINA,*,*,Qual o nome da rotina que deseja criar?,respostas.aiml
 0,INFORME QUANTOS COMANDOS ADICIONAR,*,*,Quantos comandos possui a rotina?,respostas.aiml
-0,A ROTINA COM NOME * FOI CRIADA COM * COMANDOS,*,*,Rotina <star index = "1"/> com <star index = "2"/> comandos foi criada com sucesso!,respostas.aiml
-0,FOI LIGADO * EM *,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> foi acionado com sucesso!,respostas.aiml
-0,NAO FOI LIGADO * EM *,*,*,Nao foi possivel acionar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando.,respostas.aiml
-0,FOI DESLIGADO * EM *,*,*,Dispositivo <star index = "1"/> do local <star index = "2"/> foi desligado.,respostas.aiml
-0,NAO FOI DESLIGADO * EM *,*,*,Nao foi possivel  desligar o dispositivo <star index = "1"/> do local <star index = "2"/>. Tente outro comando,respostas.aiml
-0,* EM * VOLUME MAXIMO,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> esta no volume maximo. Tente outro comando,respostas.aiml
-0,* EM * VOLUME MINIMO,*,*,O dispositivo <star index = "1"/> do local <star index = "2"/> esta no volume minimo. Tente outro comando,respostas.aiml
-0,CONSEGUI AUMENTAR VOLUME PARA * EM *,*,*,O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi aumentado,respostas.aiml
-0,CONSEGUI DIMINUIR VOLUME PARA * EM *,*,*,O volume do dispositivo <star index = "1"/> do local <star index = "2"/> foi diminuido,respostas.aiml
-0,DISPOSITIVO DESLIGADO NAO FOI POSSIVEL AUMENTAR O VOLUME DO * EM *,*,*,Nao foi possivel aumentar o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo esta desligado. Tente outro comando.,respostas.aiml
-0,DISPOSITIVO DESLIGADO NAO FOI POSSIVEL DIMINUIR O VOLUME DO * EM *,*,*,Nao foi possivel diminuir o volume do dispositivo <star index = "1"/> do local <star index = "2"/> pois o dispositivo esta desligado. Tente outro comando.,respostas.aiml
-0,DISPOSITIVO * NAO EXISTE NO LOCAL *,*,*,Nao existe o dispositivo <star index = "1"/> no local <star index = "2"/>. Tente outro comando.,respostas.aiml
-0,DISPOSITIVO * EXISTE EM * CONFIRMAR TAREFA,*,*,O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado no local <star index = "2" />. Deseja realizar tarefa para o dipositivo encontrado?,respostas.aiml
-0,DISPOSITIVO * NAO ENCONTRADO NO LOCAL MAS ENCONTRADO EM *,*,*,O dispositivo <star index = "1"/> nao foi encontrado no local informado porem foi encontrado nos locais <star index = "2" />. Nao foi possivel realizar a tarefa. Tente um novo comando,respostas.aiml
-0,DISPOSITIVO * NAO EXISTE EM NENHUM LOCAL,*,*,O dispositivo <star index = "1"/> nao foi encontrado em nenhum local. Tente outro comando,respostas.aiml
-0,NAO EXISTE DISPOSITIVOS NO LOCAL *,*,*,Nao foi possivel entender qual dispositivo deseja acionar. Nenhum dispositivo encontrado no local <star index = "1"/>. Tente um novo comando.,respostas.aiml
-0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA LIGAR O * NO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja ligar O dispositivo <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
-0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA DESLIGAR O * NO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja desligar O dispositivo <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
-0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA AUMENTAR O VOLUME DO * DO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja aumetar o volume do dispositivo <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
-0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA DIMINUIR O VOLUME DO * DO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja diminuir o volume do dispositivo <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
-0,DISPOSITIVO NAO ENTENDIDO. NO LOCAL * ENCONTRADOS OS DISPOSITIVOS *,*,*, Nao foi possivel realizar o comando. Dispositivo informado nao foi compreendido. Porem no local <star index = "1"/> foram encontrados os dispositivos <star index = "2"/>. Tente um novo comando.,respostas.aiml
-0,DISPOSITIVO NAO ENTENDIDO E O LOCAL * INFORMADO NAO EXISTE,*,*,O dispositivo nao foi compreendido e o local <star index = "1"/> nao existe no sistema. Tente outro comando.,respostas.aiml
-0,LOCAL NAO ENTENDIDO. DISPOSITIVO * ENCONTRADO EM * CONFIRMAR TAREFA,*,*,O local nao foi compreendido. Porem o dispositivo <star index = "1"/> foi encontrado no local <star index = "2"/>. Deseja realizar a ação para o dispositivo encontrado? ,respostas.aiml
-0,LOCAL NAO ENTENDIDO MAS DISPOSITIVO * ENCONTRADO EM *,*,*,O local nao foi compreendido. Porem o dispositivo <star index = "1"/> foi encontrado nos locais <star index = "2"/>. Tente um novo comando.,respostas.aiml
-0,LOCAL NAO ENTENDIDO E DISPOSITIVO * NAO EXISTE,*,*,O local nao foi compreendido e o dispositivo <star index = "1"/> nao foi encontrado em nenhum outro local. Tente um novo comando.,respostas.aiml
-0,ACAO PARA TELEVISAO NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para a televisao do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
-0,ACAO PARA SOM NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para o som do local <star index = "1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
-0,DESEJA LIGAR A * DO LOCAL *,*,*,Deseja ligar a <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
-0,DESEJA DESLIGAR A * DO LOCAL *,*,*,Deseja desligar a <star index = "1"/> do local <star index = "2"/>?,respostas.aiml
-0,ACAO NAO ENTENDIDA E * EM * NAO ENCONTRADO,*,*,A tarefa nao foi entendida e o dispositivo <star index = "1"/> do local <star index = "2"/> nao foi encontrado no sistema. Tente um novo comando.,respostas.aiml
+0,A ROTINA COM * COMANDOS,*,*,Rotina com <star index="1"/> comandos foi criada com sucesso!,respostas.aiml
+0,FOI LIGADO * EM *,*,*,O dispositivo <star index="1"/> do local <star index="2"/> foi acionado com sucesso!,respostas.aiml
+0,NAO FOI LIGADO * EM *,*,*,Nao foi possivel acionar o dispositivo <star index="1"/> do local <star index="2"/>. Tente outro comando.,respostas.aiml
+0,FOI DESLIGADO * EM *,*,*,Dispositivo <star index="1"/> do local <star index="2"/> foi desligado.,respostas.aiml
+0,NAO FOI DESLIGADO * EM *,*,*,Nao foi possivel  desligar o dispositivo <star index="1"/> do local <star index="2"/>. Tente outro comando,respostas.aiml
+0,* EM * VOLUME MAXIMO,*,*,O dispositivo <star index="1"/> do local <star index="2"/> esta no volume maximo. Tente outro comando,respostas.aiml
+0,* EM * VOLUME MINIMO,*,*,O dispositivo <star index="1"/> do local <star index="2"/> esta no volume minimo. Tente outro comando,respostas.aiml
+0,CONSEGUI AUMENTAR VOLUME PARA * EM *,*,*,O volume do dispositivo <star index="1"/> do local <star index="2"/> foi aumentado,respostas.aiml
+0,CONSEGUI DIMINUIR VOLUME PARA * EM *,*,*,O volume do dispositivo <star index="1"/> do local <star index="2"/> foi diminuido,respostas.aiml
+0,DISPOSITIVO DESLIGADO NAO FOI POSSIVEL AUMENTAR O VOLUME DO * EM *,*,*,Nao foi possivel aumentar o volume do dispositivo <star index="1"/> do local <star index="2"/> pois o dispositivo esta desligado. Tente outro comando.,respostas.aiml
+0,DISPOSITIVO DESLIGADO NAO FOI POSSIVEL DIMINUIR O VOLUME DO * EM *,*,*,Nao foi possivel diminuir o volume do dispositivo <star index="1"/> do local <star index="2"/> pois o dispositivo esta desligado. Tente outro comando.,respostas.aiml
+0,DISPOSITIVO * NAO EXISTE NO LOCAL *,*,*,Nao existe o dispositivo <star index="1"/> no local <star index="2"/>. Tente outro comando.,respostas.aiml
+0,DISPOSITIVO * EXISTE EM * CONFIRMAR TAREFA,*,*,O dispositivo <star index="1"/> nao foi encontrado no local informado porem foi encontrado no local <star index="2"/>. Deseja realizar tarefa para o dipositivo encontrado?,respostas.aiml
+0,DISPOSITIVO * NAO ENCONTRADO NO LOCAL MAS ENCONTRADO EM *,*,*,O dispositivo <star index="1"/> nao foi encontrado no local informado porem foi encontrado nos locais <star index="2"/>. Nao foi possivel realizar a tarefa. Tente um novo comando,respostas.aiml
+0,DISPOSITIVO * NAO EXISTE EM NENHUM LOCAL,*,*,O dispositivo <star index="1"/> nao foi encontrado em nenhum local. Tente outro comando,respostas.aiml
+0,NAO EXISTE DISPOSITIVOS NO LOCAL *,*,*,Nao foi possivel entender qual dispositivo deseja acionar. Nenhum dispositivo encontrado no local <star index="1"/>. Tente um novo comando.,respostas.aiml
+0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA LIGAR O * NO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja ligar O dispositivo <star index="1"/> do local <star index="2"/>?,respostas.aiml
+0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA DESLIGAR O * NO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja desligar O dispositivo <star index="1"/> do local <star index="2"/>?,respostas.aiml
+0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA AUMENTAR O VOLUME DO * DO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja aumetar o volume do dispositivo <star index="1"/> do local <star index="2"/>?,respostas.aiml
+0,DISPOSITIVO NAO ENTENDIDO. MAS ENCONTRADO OUTRO. DESEJA DIMINUIR O VOLUME DO * DO LOCAL *,*,*,O dispositivo pedido nao foi compreendido. Mas outro foi encontrado. Deseja diminuir o volume do dispositivo <star index="1"/> do local <star index="2"/>?,respostas.aiml
+0,DISPOSITIVO NAO ENTENDIDO. NO LOCAL * ENCONTRADOS OS DISPOSITIVOS *,*,*,Nao foi possivel realizar o comando. Dispositivo informado nao foi compreendido. Porem no local <star index="1"/> foram encontrados os dispositivos <star index="2"/>. Tente um novo comando.,respostas.aiml
+0,DISPOSITIVO NAO ENTENDIDO E O LOCAL * INFORMADO NAO EXISTE,*,*,O dispositivo nao foi compreendido e o local <star index="1"/> nao existe no sistema. Tente outro comando.,respostas.aiml
+0,LOCAL NAO ENTENDIDO. DISPOSITIVO * ENCONTRADO EM * CONFIRMAR TAREFA,*,*,O local nao foi compreendido. Porem o dispositivo <star index="1"/> foi encontrado no local <star index="2"/>. Deseja realizar a a��o para o dispositivo encontrado?,respostas.aiml
+0,LOCAL NAO ENTENDIDO MAS DISPOSITIVO * ENCONTRADO EM *,*,*,O local nao foi compreendido. Porem o dispositivo <star index="1"/> foi encontrado nos locais <star index="2"/>. Tente um novo comando.,respostas.aiml
+0,LOCAL NAO ENTENDIDO E DISPOSITIVO * NAO EXISTE,*,*,O local nao foi compreendido e o dispositivo <star index="1"/> nao foi encontrado em nenhum outro local. Tente um novo comando.,respostas.aiml
+0,ACAO PARA TELEVISAO NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para a televisao do local <star index="1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
+0,ACAO PARA SOM NO LOCAL * NAO ENTENDIDA,*,*,A tarefa solicitada para o som do local <star index="1"/> nao foi entendida. Tente um novo comando deixando clara qual tarefa deseja realizar.,respostas.aiml
+0,DESEJA LIGAR A * DO LOCAL *,*,*,Deseja ligar a <star index="1"/> do local <star index="2"/>?,respostas.aiml
+0,DESEJA DESLIGAR A * DO LOCAL *,*,*,Deseja desligar a <star index="1"/> do local <star index="2"/>?,respostas.aiml
+0,ACAO NAO ENTENDIDA E * EM * NAO ENCONTRADO,*,*,A tarefa nao foi entendida e o dispositivo <star index="1"/> do local <star index="2"/> nao foi encontrado no sistema. Tente um novo comando.,respostas.aiml
 0,COMANDO NAO ENTENDIDO,*,*,O comando solicitado nao foi compreendido. Tente um novo comando.,respostas.aiml
 0,COMANDO NAO ENTENDIDO. FALTOU DISPOSITIVO,*,*,O comando solicitado nao foi compreendido. Tente um novo comando.,respostas.aiml
-0,NAO ENVIAR NADA,*,*,,respostas.aiml
+0,NAO ENVIAR NADA,*,*,<template/>,respostas.aiml
 0,COMANDO NAO EXECUTADO,*,*,Comando nao executado,respostas.aiml
+0,ERRO NA CRIACAO DE ROTINAS,*,*,Houve um erro para criar a rotina. Inicie o processo novamente.,respostas.aiml

@@ -79,7 +79,6 @@ public class Semantizador extends Agent {
                     Set<String> possiveislocais = new HashSet<String>(Arrays.asList(new String[]{"quarto", "sala", "cozinha", "varanda"}));
                     Set<String> possiveisdispositivos = new HashSet<String>(Arrays.asList(new String[]{"lampada", "televisao", "som"}));
                     Set<String> possiveisconfirmacoes = new HashSet<String>(Arrays.asList(new String[]{"sim", "não"}));
-                    Set<String> possiveisnumerais = new HashSet<String>(Arrays.asList(new String[]{"um", "dois", "três", "quatro", "cinco"}));
                     //Cogroo
 
                     //analise sintatica
