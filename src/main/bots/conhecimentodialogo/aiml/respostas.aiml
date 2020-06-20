@@ -132,4 +132,7 @@
 <category><pattern>ERRO NA CRIACAO DE ROTINAS</pattern>
 <template>Houve um erro para criar a rotina. Inicie o processo novamente.</template>
 </category>
+<category><pattern>lampada nao suporta funcao</pattern>
+<template>A lampada nao suporta a tarefa solicitada.</template>
+</category>
 </aiml>

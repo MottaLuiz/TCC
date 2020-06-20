@@ -48,7 +48,6 @@ public class Gerenciador extends Agent {
             Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
         addBehaviour(new CyclicBehaviour(this) {
             public void action() {
 
@@ -175,7 +174,7 @@ public class Gerenciador extends Agent {
                     } catch (IOException ex) {
                         Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+
                     if ((modocriacao == 0) && (flag_numeral == 0) && (flag_confirmacao == 0)) {
                         if (vetorframestarefa.size() != 0) {
                             /*             Lógica de execução:
@@ -249,17 +248,23 @@ public class Gerenciador extends Agent {
                                             } else {
                                                 if (vetorframestarefa.elementAt(0).getAcao().equals("aumentar")
                                                         || vetorframestarefa.elementAt(0).getAcao().equals("diminuir")) {
-                                                    try {
-                                                        resposta = GerenciadorCasa.AlterarPropVolume(vetorframestarefa.elementAt(0).getDispositivo(),
-                                                                vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getAcao());
-//                                                
-                                                        escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
-
+                                                    if (vetorframestarefa.elementAt(0).getDispositivo().equals("lampada")) {
+                                                        resposta = "lampada nao suporta funcao";
                                                         vetorframestarefa.removeElementAt(0);
-                                                    } catch (IOException ex) {
-                                                        Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
-                                                    }
+                                                    } else {
 
+                                                        try {
+                                                            resposta = GerenciadorCasa.AlterarPropVolume(vetorframestarefa.elementAt(0).getDispositivo(),
+                                                                    vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getAcao());
+//                                                
+                                                            escreveAIML.GravaComando(vetorframestarefa.elementAt(0).getLocal(), vetorframestarefa.elementAt(0).getDispositivo(), vetorframestarefa.elementAt(0).getAcao());
+
+                                                            vetorframestarefa.removeElementAt(0);
+                                                        } catch (IOException ex) {
+                                                            Logger.getLogger(Gerenciador.class.getName()).log(Level.SEVERE, null, ex);
+                                                        }
+
+                                                    }
                                                 }
                                             }
                                         }
