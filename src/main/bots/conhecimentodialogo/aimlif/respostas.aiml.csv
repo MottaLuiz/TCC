@@ -37,4 +37,4 @@
 0,NAO ENVIAR NADA,*,*,<template/>,respostas.aiml
 0,COMANDO NAO EXECUTADO,*,*,Comando nao executado,respostas.aiml
 0,ERRO NA CRIACAO DE ROTINAS,*,*,Houve um erro para criar a rotina. Inicie o processo novamente.,respostas.aiml
-0,lampada nao suporta funcao,*,*,A lampada nao suporta a tarefa solicitada.,respostas.aiml
+0,LAMPADA NAO SUPORTA FUNCAO,*,*,A lampada nao suporta a tarefa solicitada.,respostas.aiml

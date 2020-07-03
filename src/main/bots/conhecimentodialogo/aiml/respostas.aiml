@@ -2,7 +2,7 @@
 <aiml>
 <!-- File: respostas.aiml -->
 <!-- Author: unknown -->
-<!-- Last modified: Junho 16, 2020 -->
+<!-- Last modified: julho 03, 2020 -->
 <!--  -->
 <!-- This AIML file is part of the CONHECIMENTODIALOGO unknown chat bot knowledge base. -->
 <!--  -->
@@ -132,7 +132,7 @@
 <category><pattern>ERRO NA CRIACAO DE ROTINAS</pattern>
 <template>Houve um erro para criar a rotina. Inicie o processo novamente.</template>
 </category>
-<category><pattern>lampada nao suporta funcao</pattern>
+<category><pattern>LAMPADA NAO SUPORTA FUNCAO</pattern>
 <template>A lampada nao suporta a tarefa solicitada.</template>
 </category>
 </aiml>

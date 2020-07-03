@@ -206,7 +206,7 @@ public class SimuladorCasa extends Agent {
             h = img.getHeight(null) * prop;
 
             bi = new BufferedImage(Math.round(w), Math.round(h), BufferedImage.TYPE_INT_ARGB);
-            g.drawImage(img, 1500, 600, Math.round(w), Math.round(h), null);
+            g.drawImage(img, 1300, 600, Math.round(w), Math.round(h), null);
 
             //3 - Sala
             //3.2 - tv
